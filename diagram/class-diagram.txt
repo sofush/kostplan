@@ -1,0 +1,58 @@
+@startuml
+scale 1920*1080
+skinparam classAttributeIconSize 0
+enum Role {
+	USER
+	ADMIN
+	CHEF
+}
+class User {
+	- username: String
+	- password: String
+	- role: Role
+	- name: String
+	- days: List<Day>
+	- weight_goal: int
+	- male: boolean
+	- weight: int
+	- dob: LocalDate
+	- height: int
+	{method} + ... constructor/getter/setter
+	+ List<String> getAuthorities()
+}
+class Day {
+	- date: LocalDate
+	- breakfast: Recipe
+	- lunch: Recipe
+	- dinner: Recipe
+	{method} + ... constructor/getter/setter
+}
+class Week {
+	- date: LocalDate
+	- recipes: List<Recipe>
+	{method} + ... constructor/getter/setter
+}
+class Recipe {
+	- title: String
+	- description: String
+	- nutrition_info: String
+	- ingredients: List<Ingredient>
+	- instructions: String
+	- time: String
+	{method} + ... constructor/getter/setter
+	+ int sumCalories()
+}
+class Ingredient {
+	- name: String
+	- quantity: int
+	- kcal_per_unit: int
+	{method} + ... constructor/getter/setter
+	+ int calcTotalCalories()
+}
+
+User "1" --* "1" Role
+User "1" --* "0..m" Day
+Week "1" --* "21" Recipe
+Day "1" --* "3" Recipe
+Recipe "1" --* "1..m" Ingredient
+@enduml
