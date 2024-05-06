@@ -1,0 +1,11 @@
+@startuml
+scale 1920*1080
+actor Medlem
+Medlem -> System: Besøger hjemmeside
+Medlem <-- System: Viser login formular
+Medlem -> System: Indtaster loginoplysninger (brugernavn, password)
+Medlem <-- System: Viser ugentlige kostplan
+Medlem -> System: Trykker på en opskrift
+Medlem <-- System: Viser side med opskriften tilpasset efter brugers behov/vægtmål
+@enduml
+
