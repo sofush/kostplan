@@ -3,6 +3,7 @@ package com.example.kostplan.security;
 import com.example.kostplan.entity.User;
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +18,13 @@ public class DatabaseUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = this.service.getUserByUsername(username);
+		User user = null;
+		
+		try {
+			user = this.service.getUserByUsername(username);
+		} catch (DataAccessException e) {
+			// Let the program handle user as null below.
+		}
 
 		if (user == null)
 			throw new UsernameNotFoundException("User with the provided username could not be found.");
