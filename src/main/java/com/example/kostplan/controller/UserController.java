@@ -2,6 +2,8 @@ package com.example.kostplan.controller;
 
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,13 @@ public class UserController {
 	@GetMapping("/login")
 	public String login() {
 		return "login";
+	}
+
+	@GetMapping("/logout")
+	public String logout() {
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		ctx.setAuthentication(null);
+		return "redirect:/login?logout";
 	}
 
 	@GetMapping("/register")
