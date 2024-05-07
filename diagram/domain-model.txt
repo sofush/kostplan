@@ -19,11 +19,8 @@ class Dag {
 	frokost opskrift
 	aftensmad opskrift
 }
-class Uge {
-	dato
-	opskrifter
-}
 class Opskrift {
+	ugedato
 	titel
 	billede
 	beskrivelse
@@ -33,13 +30,12 @@ class Opskrift {
 	tidsforbrug
 }
 class Ingrediens {
-	navn
+	beskrivelse
 	kalorier
 }
 
 Rolle "1" -r-- "1" Bruger
 Bruger "1" -r-- "0..m" Dag
-Uge "1" --- "21" Opskrift
 Dag "1" --- "3" Opskrift
 Opskrift "1" --- "1..m" Ingrediens
 
