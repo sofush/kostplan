@@ -46,6 +46,10 @@
 			<p>
 				<input type="submit" value="Sign up"/>
 			</p>
+			<p>
+				<label>... or </label>
+				<a th:href="@{/login}">go back to sign in</a>
+			</p>
 		</form>
 	</div>
 	<div th:if="${error} == 'repeat-password'" class="section notification">
