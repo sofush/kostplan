@@ -1,0 +1,37 @@
+@startuml
+scale 1920*1080
+entity User {
+	{field} *username : VARCHAR(20)
+	password : TEXT
+	role : INTEGER
+	name : TEXT
+	weight_goal : INTEGER
+	male : BOOLEAN
+	weight : INTEGER
+	dob : DATE
+	height : INTEGER
+}
+entity Day {
+	*date : DATE
+	*{field} username : VARCHAR(20)
+	breakfast : INTEGER
+	lunch : INTEGER
+	dinner : INTEGER
+}
+entity Recipe {
+	*id : INTEGER
+	week : INTEGER
+	title : TEXT
+	description : TEXT
+	nutrition_info : TEXT
+	instructions : TEXT
+	time : TEXT
+}
+entity Ingredient {
+	*id : INTEGER
+	recipe : INTEGER
+	description : TEXT
+	calories : INTEGER
+}
+@enduml
+
