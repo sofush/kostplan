@@ -50,8 +50,8 @@ class UserController {
 	+ UserController(UserService service)
 	+ String login()
 	+ String registerUser()
-	+ String registerUserPost(String username, String password, String repeat_password, String name, Boolean male, Integer weight, LocalDate dob, Integer height)
-	+ String displayWeek(Principal principal, Model model, LocalDate date)
+	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
+	+ String displayWeek(String date, Principal principal, Model model)
 }
 class UserService {
 	- repository: UserRepository
