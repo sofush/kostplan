@@ -20,12 +20,6 @@
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" placeholder="Password"/>
 			</p>
-			<div th:if="${param.error != null}">
-				<p>
-					<h3 style="color: firebrick">Error</h3>
-					<label>Invalid username or password.</label>
-				</p>
-			</div>
 			<p>
 				<input type="submit" value="Sign in"/>
 			</p>
@@ -38,6 +32,10 @@
 	<div th:if="${param.logout}" class="section notification">
 		<img src="/svg/check.svg" alt="checkmark" style="height: 1em; margin-right: 10px"/>
 		You have been logged out.
+	</div>
+	<div th:if="${param.error}" class="section notification">
+		<img src="/svg/error.svg" alt="checkmark" style="height: 1em; margin-right: 10px"/>
+		Invalid username or password
 	</div>
 </body>
 </html>
