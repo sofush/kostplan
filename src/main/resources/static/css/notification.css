@@ -1,0 +1,20 @@
+.notification {
+	/* make the position absolute */
+	/* left and top properties will be relative to the parent element (most likely the body) */
+	position: absolute;
+	/* slide the notification into frame */
+	/* the notification retains its position before and after the animation, specified by the "both" value */
+	animation: slide-in 0.5s both;
+}
+@keyframes slide-in {
+	/* at 0%, the element is positioned out of frame */
+	0% {
+		left: 50%;
+		transform: translate(-50%, -150%);
+	}
+	/* at 100%, the element is positioned at the top center of the screen */
+	100% {
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
+}

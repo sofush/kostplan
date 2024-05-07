@@ -1,0 +1,33 @@
+input {
+	/* make input elements take up 100% of their available horizontal space */
+	width: 100%;
+}
+input {
+	/* add space around the content (the text input) */
+	padding: 10px 16px;
+	/* add space outside of the border */
+	margin: 8px 0px;
+	/* rounded corners */
+	border-radius: 2px;
+}
+textarea, input[type=text], input[type=password] {
+	/* configure border */
+	border: 1px solid gray;
+	/* create a box-shadow on the inside of the border */
+	box-shadow: inset 2px 2px 1px 1px rgba(32, 32, 32, 0.10);
+}
+textarea:focus, input[type=text]:focus, input[type=password]:focus {
+	/* create a shadow/gradient effect around the element */
+	box-shadow: 0 0 8px rgba(100, 175, 230, 0.6);
+	/* hide the outline */
+	outline: none;
+}
+input[type=submit] {
+	background-color: rgb(70, 190, 230);
+	font-weight: bold;
+	color: white;
+	border: none;
+}
+input[type=submit]:hover {
+	background-color: rgb(50, 170, 210);
+}

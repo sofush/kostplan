@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/center.css"/>
+	<link rel="stylesheet" href="/css/base.css"/>
+	<link rel="stylesheet" href="/css/input.css"/>
+	<link rel="stylesheet" href="/css/notification.css"/>
+</head>
+<body class="dotpattern">
+	<div class="center section">
+		<h2 style="text-align: center">Sign in</h2>
+		<form th:action="@{/login}" method="post">
+			<p>
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" placeholder="Username"/>
+			</p>
+			<p>
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Password"/>
+			</p>
+			<div th:if="${param.error != null}">
+				<p>
+					<h3 style="color: firebrick">Error</h3>
+					<label>Invalid username or password.</label>
+				</p>
+			</div>
+			<p>
+				<input type="submit" value="Sign in"/>
+			</p>
+			<p>
+				<label>... or </label>
+				<a th:href="@{/register}">register an account</a>
+			</p>
+		</form>
+	</div>
+	<div th:if="${param.logout}" class="section notification">
+		<img src="/svg/check.svg" alt="checkmark" style="height: 1em; margin-right: 10px"/>
+		You have been logged out.
+	</div>
+</body>
+</html>
