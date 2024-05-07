@@ -55,7 +55,8 @@ class UserController {
 }
 class UserService {
 	- repository: UserRepository
-	+ UserService(UserRepository repository)
+	- encoder: PasswordEncoder
+	+ UserService(UserRepository repository, PasswordEncoder encoder)
 	+ User getUserByUsername(String username)
 	+ void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)
 	+ void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
