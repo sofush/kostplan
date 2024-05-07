@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -45,7 +44,8 @@ public class UserController {
 	) {
 		boolean isMale = male != null && male.contentEquals("on");
 
-		// Add attributes in case of an exception so the user doesn't have to type it all over again.
+		// Add the various attributes to the model in case of an exception so the user doesn't
+		// have to fill it out all over again.
 		model.addAttribute("username", username);
 		model.addAttribute("password", password);
 		model.addAttribute("repeat_password", repeat_password);
@@ -60,27 +60,25 @@ public class UserController {
 			return "register";
 		}
 
-		int heightInt = -1;
+		int parsedHeight, parsedWeight;
 
 		try {
-			heightInt = Integer.parseInt(height);
+			parsedHeight = Integer.parseInt(height);
 		} catch (NumberFormatException e) {
 			model.addAttribute("error", "height");
 			return "register";
 		}
 
-		int weightInt = -1;
-
 		try {
-			weightInt = Integer.parseInt(weight);
+			parsedWeight = Integer.parseInt(weight);
 		} catch (NumberFormatException e) {
 			model.addAttribute("error", "weight");
 			return "register";
 		}
 
 		try {
-			LocalDate date = LocalDate.parse(dob);
 			// this.service.addUser(username, password, name, male, weight, dob, height);
+			LocalDate parsedDate = LocalDate.parse(dob);
 		} catch (DateTimeParseException e) {
 			model.addAttribute("error", "date");
 			return "register";
