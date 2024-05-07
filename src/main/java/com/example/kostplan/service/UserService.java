@@ -3,7 +3,7 @@ package com.example.kostplan.service;
 import com.example.kostplan.entity.User;
 import com.example.kostplan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +15,9 @@ public class UserService {
 		this.repository = repository;
 	}
 
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
-	public User getUserByUsername(String username) {
+	public User getUserByUsername(String username)
+		throws DataAccessException
+	{
 		return this.repository.getUserByUsername(username);
 	}
 }
