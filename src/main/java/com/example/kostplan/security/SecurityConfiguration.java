@@ -25,7 +25,9 @@ public class SecurityConfiguration {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		// Use a strength of 4 (the minimum accepted strength value) resulting in 2^4 rounds of the algorithm being run.
+		// This minimizes the CPU time resulting in a faster login process, but is less secure.
+		return new BCryptPasswordEncoder(4);
 	}
 
 	@Bean
