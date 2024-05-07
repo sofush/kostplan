@@ -16,7 +16,8 @@ public class User {
 	private String username;
 
 	/**
-	 * The user's hashed password.
+	 * A BCrypt hash. This string contains the version of Bcrypt which was used to encrypt,
+	 * the strength (number of rounds), the salt in cleartext, and finally the actual hash of the password + salt.
 	 */
 	private String password;
 
