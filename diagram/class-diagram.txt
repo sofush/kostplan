@@ -51,7 +51,7 @@ class UserController {
 	+ UserController(UserService service)
 	+ String login()
 	+ String registerUser()
-	+ String registerUserPost(String username, String password, String repeat_password, String name, int weight_goal, boolean male, int weight, LocalDate dob, int height)
+	+ String registerUserPost(String username, String password, String repeat_password, String name, Integer weight_goal, Boolean male, Integer weight, LocalDate dob, Integer height)
 	+ String displayWeek(Principal principal, Model model, LocalDate date)
 }
 class UserService {
