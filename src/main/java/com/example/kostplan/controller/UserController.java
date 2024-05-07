@@ -77,8 +77,8 @@ public class UserController {
 		}
 
 		try {
-			// this.service.addUser(username, password, name, male, weight, dob, height);
 			LocalDate parsedDate = LocalDate.parse(dob);
+			this.service.addUser(username, password, name, isMale, parsedWeight, parsedDate, parsedHeight);
 		} catch (DateTimeParseException e) {
 			model.addAttribute("error", "date");
 			return "register";

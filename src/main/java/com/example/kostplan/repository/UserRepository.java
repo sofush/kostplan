@@ -67,4 +67,25 @@ public class UserRepository {
 
 		return users.getFirst();
 	}
+
+	public void addUser(User user)
+		throws DataAccessException
+	{
+		String sql = """
+            INSERT INTO User(username, password, role, name, male, weight, dob, height)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+            """;
+
+		this.jdbc.update(
+			sql,
+			user.getUsername(),
+			user.getPassword(),
+			user.getRole().ordinal(),
+			user.getName(),
+			user.isMale(),
+			user.getWeight(),
+			user.getDob(),
+			user.getHeight()
+		);
+	}
 }
