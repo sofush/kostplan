@@ -12,7 +12,6 @@ class User {
 	- role: Role
 	- name: String
 	- days: List<Day>
-	- weight_goal: int
 	- male: boolean
 	- weight: int
 	- dob: LocalDate
@@ -51,14 +50,14 @@ class UserController {
 	+ UserController(UserService service)
 	+ String login()
 	+ String registerUser()
-	+ String registerUserPost(String username, String password, String repeat_password, String name, Integer weight_goal, Boolean male, Integer weight, LocalDate dob, Integer height)
+	+ String registerUserPost(String username, String password, String repeat_password, String name, Boolean male, Integer weight, LocalDate dob, Integer height)
 	+ String displayWeek(Principal principal, Model model, LocalDate date)
 }
 class UserService {
 	- repository: UserRepository
 	+ UserService(UserRepository repository)
 	+ User getUserByUsername(String username)
-	+ void addUser(String username, String password, String name, int weight_goal, boolean male, int weight, LocalDate dob, int height)
+	+ void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)
 	+ void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
 }
 class UserRepository {

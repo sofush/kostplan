@@ -26,10 +26,6 @@ public class User {
 	private String name;
 
 	/**
-	 * The user's weight goal in kilograms.
-	 */
-	private int weight_goal;
-	/**
 	 * The user's specified weight measurement in kilograms.
 	 */
 	private int weight;
@@ -44,13 +40,12 @@ public class User {
 	 */
 	private int height;
 
-	public User(String username, String password, String name, Role role, boolean male, int weight_goal, int weight, LocalDate dob, int height) {
+	public User(String username, String password, String name, Role role, boolean male, int weight, LocalDate dob, int height) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.role = role;
 		this.male = male;
-		this.weight_goal = weight_goal;
 		this.weight = weight;
 		this.dob = dob;
 		this.height = height;
@@ -94,14 +89,6 @@ public class User {
 
 	public void setMale(boolean male) {
 		this.male = male;
-	}
-
-	public int getWeightGoal() {
-		return weight_goal;
-	}
-
-	public void setWeightGoal(int weight_goal) {
-		this.weight_goal = weight_goal;
 	}
 
 	public int getWeight() {

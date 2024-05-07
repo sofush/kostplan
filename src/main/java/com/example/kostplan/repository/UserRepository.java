@@ -29,7 +29,6 @@ public class UserRepository {
 				password TEXT NOT NULL,
 				role INTEGER NOT NULL,
 				name TEXT,
-				weight_goal INTEGER NOT NULL,
 				male BOOLEAN NOT NULL,
 				weight INTEGER NOT NULL,
 				dob DATE NOT NULL,
@@ -43,7 +42,7 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String userQuery = """
-		SELECT username, password, role, name, weight_goal, male, weight, dob, height
+		SELECT username, password, role, name, male, weight, dob, height
 		FROM User
 		WHERE username = ?;
 		""";
@@ -56,7 +55,6 @@ public class UserRepository {
 				rs.getString("name"),
 				Role.values()[rs.getInt("role")],
 				rs.getBoolean("male"),
-				rs.getInt("weight_goal"),
 				rs.getInt("weight"),
 				rs.getDate("dob").toLocalDate(),
 				rs.getInt("height")
