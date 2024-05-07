@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
 <body class="dotpattern">
+	<div th:replace="~{fragments :: branding}"></div>
 	<div class="center section">
 		<h2 style="text-align: center">Sign in</h2>
 		<form th:action="@{/login}" method="post">
