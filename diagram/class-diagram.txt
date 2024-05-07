@@ -21,18 +21,17 @@ class User {
 	+ List<String> getAuthorities()
 }
 class Day {
+	- id: Integer
 	- date: LocalDate
+	- username: String
 	- breakfast: Recipe
 	- lunch: Recipe
 	- dinner: Recipe
 	{method} + ... constructor/getter/setter
 }
-class Week {
-	- date: LocalDate
-	- recipes: List<Recipe>
-	{method} + ... constructor/getter/setter
-}
 class Recipe {
+	- id: Integer
+	- week: int
 	- title: String
 	- description: String
 	- nutrition_info: String
@@ -43,16 +42,38 @@ class Recipe {
 	+ int sumCalories()
 }
 class Ingredient {
-	- name: String
-	- quantity: int
-	- kcal_per_unit: int
+	- description: String
+	- calories: int
 	{method} + ... constructor/getter/setter
-	+ int calcTotalCalories()
+}
+class UserController {
+	- service: UserService
+	+ UserController(UserService service)
+	+ String login()
+	+ String registerUser()
+	+ String registerUserPost(String username, String password, String repeat_password, String name, int weight_goal, boolean male, int weight, LocalDate dob, int height)
+	+ String displayWeek(Principal principal, Model model, LocalDate date)
+}
+class UserService {
+	- repository: UserRepository
+	+ UserService(UserRepository repository)
+	+ User getUserByUsername(String username)
+	+ void addUser(String username, String password, String name, int weight_goal, boolean male, int weight, LocalDate dob, int height)
+	+ void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
+}
+class UserRepository {
+	- jdbc: JdbcTemplate
+	+ UserRepository(JdbcTemplate jdbc)
+	+ User getUserByUsername(String username)
+	+ void addUser(User user)
+	+ void addDay(String username, Day day)
+	+ void updateDay(String username, Day day)
 }
 
+UserController --- UserService
+UserService --- UserRepository
 User "1" --* "1" Role
 User "1" --* "0..m" Day
-Week "1" --* "21" Recipe
 Day "1" --* "3" Recipe
 Recipe "1" --* "1..m" Ingredient
 @enduml
