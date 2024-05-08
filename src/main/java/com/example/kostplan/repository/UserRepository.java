@@ -36,6 +36,46 @@ public class UserRepository {
 				PRIMARY KEY (username)
 			);
 			""");
+
+		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS Recipe(
+				id INTEGER,
+				week INTEGER,
+				title TEXT,
+				description TEXT,
+				nutrition_info TEXT,
+				instructions TEXT,
+				time TEXT,
+				PRIMARY KEY (id)
+			);
+			""");
+
+		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS Ingredient(
+				id INTEGER,
+				recipe INTEGER,
+				name TEXT,
+				quantity INTEGER,
+				unit TEXT,
+				calories INTEGER,
+				PRIMARY KEY (id),
+				FOREIGN KEY (recipe) REFERENCES Recipe(id)
+			);
+			""");
+
+		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS Day(
+				date DATE,
+				username VARCHAR(20),
+				breakfast INTEGER,
+				lunch INTEGER,
+				dinner INTEGER,
+				PRIMARY KEY (date, username),
+				FOREIGN KEY (breakfast) REFERENCES Recipe(id),
+				FOREIGN KEY (lunch) REFERENCES Recipe(id),
+				FOREIGN KEY (dinner) REFERENCES Recipe(id)
+			);
+			""");
 	}
 
 	public User getUserByUsername(String username)
