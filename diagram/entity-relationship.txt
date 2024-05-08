@@ -29,7 +29,9 @@ entity Recipe {
 entity Ingredient {
 	*id : INTEGER
 	recipe : INTEGER
-	description : TEXT
+	name : TEXT
+	quantity : INTEGER
+	unit : TEXT
 	calories : INTEGER
 }
 @enduml

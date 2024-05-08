@@ -39,15 +39,20 @@ class Recipe {
 	+ int sumCalories()
 }
 class Ingredient {
-	- description: String
+	- id: int
+	- name: String
+	- quantity: int
+	- unit: String
 	- calories: int
 	{method} + ... constructor/getter/setter
+	+ int sumCalories()
 }
 class UserController {
 	- service: UserService
 	+ UserController(UserService service)
 	+ String login()
 	+ String logout()
+	+ String index(Model model)
 	+ String registerUser()
 	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
 	+ String displayWeek(String date, Principal principal, Model model)
