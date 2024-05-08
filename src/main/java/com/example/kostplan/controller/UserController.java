@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -20,6 +21,12 @@ public class UserController {
 	@Autowired
 	public UserController(UserService service) {
 		this.service = service;
+	}
+
+	@GetMapping("/")
+	public String index(Model model) {
+		model.addAttribute("days", List.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
+		return "calendar";
 	}
 
 	@GetMapping("/login")

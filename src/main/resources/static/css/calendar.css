@@ -1,0 +1,29 @@
+.table-container {
+	width: 90%;
+	min-height: 90%;
+	margin: 5%;
+	margin-top: 2%
+}
+table {
+	width: 100%;
+	table-layout: fixed;
+}
+th {
+	padding: 5px;
+	border-bottom: 2px solid black;
+}
+td {
+	padding: 15px;
+	height: 200px;
+}
+.add-recipe-card {
+	border-radius: 25% 10%;
+	background-color: #caf0f8;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	border-radius: 2px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Calendar</title>
+	<link rel="stylesheet" href="/css/center.css"/>
+	<link rel="stylesheet" href="/css/base.css"/>
+	<link rel="stylesheet" href="/css/calendar.css"/>
+</head>
+<body class="dotpattern">
+	<div class="section table-container">
+		<h2 style="text-align: center">Week {index}</h2>
+		<table>
+			<tr>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+				<th>Saturday</th>
+				<th>Sunday</th>
+			</tr>
+			<tr>
+				<td th:each="day : ${days}">
+					<div th:with="recipe = ${day.breakfast}" th:replace="~{fragments :: add-recipe-card}"></div>
+				</td>
+			</tr>
+			<tr>
+				<td th:each="day : ${days}">
+					<div th:with="recipe = ${day.lunch}" th:replace="~{fragments :: add-recipe-card}"></div>
+				</td>
+			</tr>
+			<tr>
+				<td th:each="day : ${days}">
+					<div th:with="recipe = ${day.dinner}" th:replace="~{fragments :: add-recipe-card}"></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
