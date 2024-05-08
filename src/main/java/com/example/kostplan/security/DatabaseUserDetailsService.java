@@ -2,7 +2,6 @@ package com.example.kostplan.security;
 
 import com.example.kostplan.entity.User;
 import com.example.kostplan.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
