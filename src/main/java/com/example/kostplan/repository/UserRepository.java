@@ -39,7 +39,7 @@ public class UserRepository {
 
 		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS Recipe(
-				id INTEGER,
+				id INTEGER AUTO_INCREMENT,
 				week INTEGER,
 				title TEXT,
 				description TEXT,
@@ -52,7 +52,7 @@ public class UserRepository {
 
 		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS Ingredient(
-				id INTEGER,
+				id INTEGER AUTO_INCREMENT,
 				recipe INTEGER,
 				name TEXT,
 				quantity INTEGER,
