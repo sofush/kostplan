@@ -56,29 +56,36 @@ class UserController {
 	+ String index(Model model)
 	+ String registerUser()
 	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
-	+ String displayWeek(String date, Principal principal, Model model)
-	+ String pickRecipe(Model model, String date, String meal)
-	+ String pickRecipePost(String date, String meal, Integer recipeId)
+	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
+	+ String pickRecipe(String weekday, String meal, Model model)
+	+ String assignRecipeToDay(String weekday, String meal, Integer recipeId, Model model)
 }
 class UserService {
 	- repository: UserRepository
 	- encoder: PasswordEncoder
 	+ UserService(UserRepository repository, PasswordEncoder encoder)
-	+ User getUserByUsername(String username)
 	+ void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)
+	+ User findUserByUsername(String username)
+	+ void addDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
 	+ void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
-	+ List<Ingredient> getIngredientsForRecipe(int recipeId)
-	+ List<Recipe> getRecipesForWeek(int weekIndex)
+	+ Day findDay(String username, LocalDate date)
+	+ List<Day> findDaysOfWeek(String username, int weekIndex)
+	+ Recipe findRecipeById(int id)
+	+ List<Recipe> findRecipesForWeek(int weekIndex)
+	+ List<LocalDate> calculateDatesOfNthWeek(int weekIndex)
+	+ int calculateCurrentWeekIndex()
 }
 class UserRepository {
 	- jdbc: JdbcTemplate
 	+ UserRepository(JdbcTemplate jdbc)
-	+ User getUserByUsername(String username)
 	+ void addUser(User user)
-	+ void addDay(String username, Day day)
-	+ void updateDay(String username, Day day)
-	+ List<Ingredient> getIngredientsForRecipe(int recipeId)
-	+ List<Recipe> getRecipesForWeek(int weekIndex)
+	+ User findUserByUsername(String username)
+	+ void addDay(Day day)
+	+ void updateDay(Day day)
+	+ Day findDay(String username, LocalDate date)
+	+ Recipe findRecipeById(int id)
+	+ List<Ingredient> findIngredientsForRecipe(int id)
+	+ List<Recipe> findRecipesForWeek(int weekIndex)
 }
 
 UserController --- UserService
