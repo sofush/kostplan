@@ -57,6 +57,8 @@ class UserController {
 	+ String registerUser()
 	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
 	+ String displayWeek(String date, Principal principal, Model model)
+	+ String pickRecipe(Model model, String date, String meal)
+	+ String pickRecipePost(String date, String meal, Integer recipeId)
 }
 class UserService {
 	- repository: UserRepository
