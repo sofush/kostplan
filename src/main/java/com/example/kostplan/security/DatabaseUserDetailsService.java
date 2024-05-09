@@ -22,7 +22,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
 		User user = null;
 		
 		try {
-			user = this.service.getUserByUsername(username);
+			user = this.service.findUserByUsername(username);
 		} catch (DataAccessException e) {
 			// Let the program handle user as null below.
 		}

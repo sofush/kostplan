@@ -21,10 +21,10 @@ public class UserService {
 		this.encoder = encoder;
 	}
 
-	public User getUserByUsername(String username)
+	public User findUserByUsername(String username)
 		throws DataAccessException
 	{
-		return this.repository.getUserByUsername(username);
+		return this.repository.findUserByUsername(username);
 	}
 
 	public void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)

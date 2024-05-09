@@ -78,7 +78,7 @@ public class UserRepository {
 			""");
 	}
 
-	public User getUserByUsername(String username)
+	public User findUserByUsername(String username)
 		throws DataAccessException
 	{
 		String userQuery = """
