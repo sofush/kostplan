@@ -69,6 +69,18 @@
 		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
 		Could not parse the value of the weight input field as an integer.
 	</div>
+	<div th:if="${error} == 'username'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		Username must be between 3-20 characters long.
+	</div>
+	<div th:if="${error} == 'password'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		Password must be at least 3 characters long.
+	</div>
+	<div th:if="${error} == 'dob'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		Date of birth must not be in the future.
+	</div>
 	<div th:if="${error} == 'unknown'" class="section notification">
 		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
 		An error occurred.

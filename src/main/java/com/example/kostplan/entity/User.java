@@ -57,7 +57,13 @@ public class User {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username)
+		throws IllegalArgumentException
+	{
+		if (username == null || username.length() < 3 || username.length() > 20) {
+			throw new IllegalArgumentException("Username must be between 3-20 characters long.");
+		}
+
 		this.username = username;
 	}
 
@@ -65,7 +71,13 @@ public class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+		throws IllegalArgumentException
+	{
+		if (password == null || password.length() < 3) {
+			throw new IllegalArgumentException("Password must be at least 3 characters long.");
+		}
+
 		this.password = password;
 	}
 
@@ -105,7 +117,13 @@ public class User {
 		return dob;
 	}
 
-	public void setDob(LocalDate dob) {
+	public void setDob(LocalDate dob)
+		throws IllegalArgumentException
+	{
+		if (dob.isAfter(LocalDate.now())) {
+			throw new IllegalArgumentException("Date of birth must not be in the future.");
+		}
+
 		this.dob = dob;
 	}
 

@@ -98,6 +98,18 @@ public class UserController {
 		} catch (DateTimeParseException e) {
 			model.addAttribute("error", "date");
 			return "register";
+		} catch (IllegalArgumentException e) {
+			if (e.getMessage().toLowerCase().contains("username")) {
+				model.addAttribute("error", "username");
+			} else if (e.getMessage().toLowerCase().contains("password")) {
+				model.addAttribute("error", "password");
+			} else if (e.getMessage().toLowerCase().contains("birth")) {
+				model.addAttribute("error", "dob");
+			} else {
+				model.addAttribute("error", "unknown");
+			}
+
+			return "register";
 		} catch (Exception e) {
 			model.addAttribute("error", "unknown");
 			return "register";
