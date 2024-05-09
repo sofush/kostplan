@@ -86,11 +86,11 @@ public class Recipe {
 		this.description = description;
 	}
 
-	public String getNutrition_info() {
+	public String getNutritionInfo() {
 		return nutrition_info;
 	}
 
-	public void setNutrition_info(String nutrition_info) {
+	public void setNutritionInfo(String nutrition_info) {
 		this.nutrition_info = nutrition_info;
 	}
 
