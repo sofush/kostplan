@@ -128,4 +128,88 @@ public class UserRepository {
 			user.getHeight()
 		);
 	}
+
+	public Recipe findRecipeById(int id)
+		throws DataAccessException
+	{
+		String recipeQuery = """
+            SELECT id, week, title, description, nutrition_info, instructions, time
+            FROM Recipe
+            WHERE id = ?;
+            """;
+
+		List<Recipe> recipes = this.jdbc.query(
+			recipeQuery,
+			(rs, rowNum) -> new Recipe(
+				rs.getInt("id"),
+				rs.getInt("week"),
+				rs.getString("title"),
+				rs.getString("description"),
+				rs.getString("nutrition_info"),
+				null,
+				rs.getString("instructions"),
+				rs.getString("time")
+			),
+			id
+		);
+
+		if (recipes.isEmpty())
+			return null;
+
+		Recipe recipe = recipes.getFirst();
+		List<Ingredient> ingredients = this.findIngredientsForRecipe(recipe.getId());
+		recipe.setIngredients(ingredients);
+
+		return recipe;
+	}
+
+	private List<Ingredient> findIngredientsForRecipe(int recipeId)
+		throws DataAccessException
+	{
+		String ingredientQuery = """
+            SELECT id, recipe, name, quantity, unit, calories
+            FROM Ingredient
+            WHERE recipe = ?;
+            """;
+
+		return this.jdbc.query(
+			ingredientQuery,
+			(rs, rowNum) -> new Ingredient(
+				rs.getInt("id"),
+				rs.getString("name"),
+				rs.getInt("quantity"),
+				rs.getString("unit"),
+				rs.getInt("calories")
+			),
+			recipeId
+		);
+	}
+
+	public Day findDay(String username, LocalDate date)
+		throws DataAccessException
+	{
+		String sql = """
+            SELECT date, username, breakfast, lunch, dinner
+            FROM Day
+            WHERE date = ? and username = ?;
+            """;
+
+		List<Day> days = this.jdbc.query(
+			sql,
+			(rs, rowNum) -> new Day(
+				rs.getDate("date").toLocalDate(),
+				rs.getString("username"),
+				this.findRecipeById(rs.getInt("breakfast")),
+				this.findRecipeById(rs.getInt("lunch")),
+				this.findRecipeById(rs.getInt("dinner"))
+			),
+			date,
+			username
+		);
+
+		if (days.isEmpty())
+			return null;
+
+		return days.getFirst();
+	}
 }

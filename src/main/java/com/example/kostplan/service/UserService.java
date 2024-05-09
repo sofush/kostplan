@@ -1,5 +1,6 @@
 package com.example.kostplan.service;
 
+import com.example.kostplan.entity.Day;
 import com.example.kostplan.entity.Role;
 import com.example.kostplan.entity.User;
 import com.example.kostplan.repository.UserRepository;
@@ -9,9 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 public class UserService {
+	private static final LocalDate WEEK_ORIGIN = LocalDate.of(2024, Month.MAY, 6);
 	private final UserRepository repository;
 	private final PasswordEncoder encoder;
 
@@ -57,5 +63,52 @@ public class UserService {
 		);
 
 		this.repository.addUser(user);
+	}
+
+	/**
+	 * Retrieves a user's list of Day objects for a specified week from persistent storage.
+	 * @param username A user's username.
+	 * @param weekIndex The week to filter for.
+	 * @return An ordered list of seven Day objects (monday through sunday).
+	 */
+	public List<Day> findDaysOfWeek(String username, int weekIndex) {
+		return this.calculateDatesOfNthWeek(weekIndex).stream()
+			.map((date) -> {
+				Day day = new Day(date, username, null, null, null);
+
+				try {
+					Day dayResult = this.repository.findDay(username, date);
+
+					if (dayResult != null)
+						day = dayResult;
+				} catch (Exception e) {
+					// Let the program handle null value below.
+				}
+
+				return day;
+			})
+			.toList();
+	}
+
+	/**
+	 * Calculate the of dates a week given a week index, where the week index is the number of weeks since a fixed
+	 * time origin (May 6th, 2024).
+	 * @param weekIndex The week to filter for.
+	 * @return An ordered list of dates of the requested week (monday through sunday).
+	 */
+	public List<LocalDate> calculateDatesOfNthWeek(int weekIndex) {
+		LocalDate monday = UserService.WEEK_ORIGIN.plusWeeks(weekIndex);
+
+		return IntStream.range(0, 7)
+			.mapToObj(monday::plusDays)
+			.toList();
+	}
+
+	/**
+	 * Calculates the number of weeks that have passed since a fixed time origin (May 6th, 2024).
+	 * @return The number of weeks that have passed since May 6th, 2024.
+	 */
+	public int calculateCurrentWeekIndex() {
+		return (int)ChronoUnit.WEEKS.between(UserService.WEEK_ORIGIN, LocalDate.now());
 	}
 }

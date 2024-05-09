@@ -13,10 +13,15 @@
 			<label>kostplan til hverdagen</label>
 		</p>
 	</label>
-	<a th:href="@{/}" th:fragment="add-recipe-card" class="add-recipe-card">
-		<div style="font-size: 30px; color: #0077b6">
-			+
+	<div th:fragment="add-recipe-card">
+		<a th:if="${day != null}" th:href="@{|/pick/${day.date.getDayOfWeek().toString().toLowerCase()}/${meal}|}" class="add-recipe-card">
+			<div style="font-size: 30px; color: #0077b6">
+				+
+			</div>
+		</a>
+		<div th:if="${day == null}">
+			<div th:text="${meal}"></div>
 		</div>
-	</a>
+	</div>
 </body>
 </html>

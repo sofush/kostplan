@@ -1,15 +1,15 @@
 package com.example.kostplan.controller;
 
+import com.example.kostplan.entity.Day;
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -21,12 +21,6 @@ public class UserController {
 	@Autowired
 	public UserController(UserService service) {
 		this.service = service;
-	}
-
-	@GetMapping("/")
-	public String index(Model model) {
-		model.addAttribute("days", List.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
-		return "calendar";
 	}
 
 	@GetMapping("/login")
@@ -116,5 +110,21 @@ public class UserController {
 		}
 
 		return "redirect:/login?registered";
+	}
+
+	@GetMapping("/week")
+	public String displayWeek(
+		@RequestParam(required = false, name = "index") Integer weekIndex,
+		Principal principal,
+		Model model
+	) {
+		if (weekIndex == null) {
+			weekIndex = this.service.calculateCurrentWeekIndex();
+		}
+
+		List<Day> daysOfWeek = this.service.findDaysOfWeek(principal.getName(), weekIndex);
+		model.addAttribute("weekIndex", weekIndex);
+		model.addAttribute("days", daysOfWeek);
+		return "calendar";
 	}
 }
