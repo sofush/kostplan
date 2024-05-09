@@ -1,6 +1,7 @@
 package com.example.kostplan.service;
 
 import com.example.kostplan.entity.Day;
+import com.example.kostplan.entity.Recipe;
 import com.example.kostplan.entity.Role;
 import com.example.kostplan.entity.User;
 import com.example.kostplan.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -63,6 +65,43 @@ public class UserService {
 		);
 
 		this.repository.addUser(user);
+	}
+
+	public void addDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
+		throws DataAccessException
+	{
+		Day day = new Day(date, username, breakfast, lunch, dinner);
+		this.repository.addDay(day);
+	}
+
+	public void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
+		throws DataAccessException
+	{
+		this.repository.updateDay(new Day(
+			date,
+			username,
+			breakfast,
+			lunch,
+			dinner
+		));
+	}
+
+	public Day findDay(String username, LocalDate localDate)
+		throws DataAccessException
+	{
+		return this.repository.findDay(username, localDate);
+	}
+
+	public Recipe findRecipeById(Integer recipeId)
+		throws DataAccessException
+	{
+		return this.repository.findRecipeById(recipeId);
+	}
+
+	public List<Recipe> findRecipesForWeek(int weekIndex)
+		throws DataAccessException
+	{
+		return this.repository.findRecipesForWeek(weekIndex);
 	}
 
 	/**

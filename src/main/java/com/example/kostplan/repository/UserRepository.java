@@ -1,12 +1,12 @@
 package com.example.kostplan.repository;
 
-import com.example.kostplan.entity.Role;
-import com.example.kostplan.entity.User;
+import com.example.kostplan.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -163,6 +163,38 @@ public class UserRepository {
 		return recipe;
 	}
 
+	public List<Recipe> findRecipesForWeek(int weekIndex)
+		throws DataAccessException
+	{
+		String recipeQuery = """
+            SELECT id, week, title, description, nutrition_info, instructions, time
+            FROM Recipe
+            WHERE week = ?;
+            """;
+
+		List<Recipe> recipes = this.jdbc.query(
+			recipeQuery,
+			(rs, rowNum) -> new Recipe(
+				rs.getInt("id"),
+				rs.getInt("week"),
+				rs.getString("title"),
+				rs.getString("description"),
+				rs.getString("nutrition_info"),
+				null,
+				rs.getString("instructions"),
+				rs.getString("time")
+			),
+			weekIndex
+		);
+
+		for (Recipe recipe : recipes) {
+			List<Ingredient> ingredients = this.findIngredientsForRecipe(recipe.getId());
+			recipe.setIngredients(ingredients);
+		}
+
+		return recipes;
+	}
+
 	private List<Ingredient> findIngredientsForRecipe(int recipeId)
 		throws DataAccessException
 	{
@@ -182,6 +214,59 @@ public class UserRepository {
 				rs.getInt("calories")
 			),
 			recipeId
+		);
+	}
+
+	public void addDay(Day day)
+		throws DataAccessException
+	{
+		String sql = """
+            INSERT INTO Day(date, username, breakfast, lunch, dinner)
+            VALUES (?, ?, ?, ?, ?);
+            """;
+
+		Integer breakfastId = null;
+		Integer lunchId = null;
+		Integer dinnerId = null;
+
+		if (day.getBreakfast() != null) breakfastId = day.getBreakfast().getId();
+		if (day.getLunch() != null) lunchId = day.getLunch().getId();
+		if (day.getDinner() != null) dinnerId = day.getDinner().getId();
+
+		this.jdbc.update(
+			sql,
+			day.getDate(),
+			day.getUsername(),
+			breakfastId,
+			lunchId,
+			dinnerId
+		);
+	}
+
+	public void updateDay(Day day)
+		throws DataAccessException
+	{
+		String sql = """
+            UPDATE Day
+            SET breakfast = ?, lunch = ?, dinner = ?
+            WHERE date = ? and username = ?;
+            """;
+
+		Integer breakfastId = null;
+		Integer lunchId = null;
+		Integer dinnerId = null;
+
+		if (day.getBreakfast() != null) breakfastId = day.getBreakfast().getId();
+		if (day.getLunch() != null) lunchId = day.getLunch().getId();
+		if (day.getDinner() != null) dinnerId = day.getDinner().getId();
+
+		this.jdbc.update(
+			sql,
+			breakfastId,
+			lunchId,
+			dinnerId,
+			day.getDate(),
+			day.getUsername()
 		);
 	}
 

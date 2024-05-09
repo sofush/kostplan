@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Pick a recipe</title>
+	<link rel="stylesheet" href="/css/base.css"/>
+</head>
+<body>
+	<h1 th:text="'Pick a recipe for ' + ${weekday} + '\'s ' + ${meal}"></h1>
+	<ul>
+		<li th:each="recipe : ${recipes}">
+			<a th:text="${recipe.title}" th:href="@{|/assign/${weekday}/${meal}/${recipe.id}|}"></a>
+		</li>
+	</ul>
+	<div th:if="${error} == 'day-of-week'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		Day of week is invalid.
+	</div>
+	<div th:if="${error} == 'database'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		Database error.
+	</div>
+	<div th:if="${error} == 'invalid-recipe'" class="section notification">
+		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		The specified recipe ID is invalid.
+	</div>
+</body>
+</html>
