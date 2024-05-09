@@ -36,6 +36,7 @@ public class SecurityConfiguration {
 				.requestMatchers("/svg/**").permitAll()
 				.requestMatchers("/css/**").permitAll()
 				.requestMatchers("/register").permitAll()
+				.requestMatchers("/login").permitAll()
 				.anyRequest().hasRole("USER")
 			)
 			.formLogin((conf) -> conf
