@@ -8,6 +8,18 @@
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
 <body class="dotpattern">
+	<div th:if="${param.logout}" class="section notification">
+		<img src="/svg/check.svg" alt="checkmark"/>
+		You have been logged out.
+	</div>
+	<div th:if="${param.registered}" class="section notification">
+		<img src="/svg/check.svg" alt="checkmark"/>
+		Your account has been registered.
+	</div>
+	<div th:if="${param.error}" class="section notification">
+		<img src="/svg/error.svg" alt="error"/>
+		Invalid username or password
+	</div>
 	<div th:replace="~{fragments :: branding}"></div>
 	<div class="center section">
 		<h2 style="text-align: center">Sign in</h2>
@@ -28,18 +40,6 @@
 				<a th:href="@{/register}">register an account</a>
 			</p>
 		</form>
-	</div>
-	<div th:if="${param.logout}" class="section notification">
-		<img src="/svg/check.svg" alt="checkmark"/>
-		You have been logged out.
-	</div>
-	<div th:if="${param.registered}" class="section notification">
-		<img src="/svg/check.svg" alt="checkmark"/>
-		Your account has been registered.
-	</div>
-	<div th:if="${param.error}" class="section notification">
-		<img src="/svg/error.svg" alt="error"/>
-		Invalid username or password
 	</div>
 </body>
 </html>

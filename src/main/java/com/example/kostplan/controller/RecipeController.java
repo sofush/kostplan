@@ -77,8 +77,7 @@ public class RecipeController {
 			.findFirst();
 
 		if (date.isEmpty()) {
-			model.addAttribute("error", "day-of-week");
-			return "redirect:/pick/" + weekday + "/" + meal;
+			return "redirect:/pick/" + weekday + "/" + meal + "?error=day-of-week";
 		}
 
 		Day day;
@@ -100,13 +99,11 @@ public class RecipeController {
 				day = this.service.findDay(principal.getName(), date.get());
 			}
 		} catch (DataAccessException e) {
-			model.addAttribute("error", "database");
-			return "redirect:/pick/" + weekday + "/" + meal;
+			return "redirect:/pick/" + weekday + "/" + meal + "?error=database";
 		}
 
 		if (recipe == null) {
-			model.addAttribute("error", "invalid-recipe");
-			return "redirect:/pick/" + weekday + "/" + meal;
+			return "redirect:/pick/" + weekday + "/" + meal + "?error=invalid-recipe";
 		}
 
 		switch (meal) {

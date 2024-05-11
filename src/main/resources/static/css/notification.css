@@ -1,4 +1,5 @@
 .notification {
+	z-index: 100;
 	/* make the position absolute */
 	/* left and top properties will be relative to the parent element (most likely the body) */
 	position: absolute;
