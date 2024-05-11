@@ -2,8 +2,10 @@ package com.example.kostplan.controller;
 
 import com.example.kostplan.entity.Day;
 import com.example.kostplan.entity.Recipe;
+import com.example.kostplan.entity.User;
 import com.example.kostplan.service.UserService;
 import com.example.kostplan.util.DateUtil;
+import com.example.kostplan.util.HealthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,5 +123,65 @@ public class RecipeController {
 			day.getDinner()
 		);
 		return "redirect:/week";
+	}
+
+	@GetMapping("/recipe/{weekday}/{meal}")
+	public String showRecipe(
+		@PathVariable("weekday") String weekday,
+		@PathVariable("meal") String meal,
+		Principal principal,
+		Model model
+	) {
+		int weekIndex = DateUtil.calculateCurrentWeekIndex();
+		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
+			.stream()
+			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(weekday))
+			.findFirst();
+
+		if (date.isEmpty()) {
+			return "redirect:/week?error=day-of-week";
+		}
+
+		Day day = this.service.findDay(principal.getName(), date.get());
+
+		if (day == null) {
+			return "redirect:/week?error=no-meal-assigned";
+		}
+
+		Recipe recipe;
+		List<Recipe> otherRecipes = new ArrayList<>();
+
+		switch (meal.toLowerCase()) {
+			case "breakfast" -> {
+				recipe = day.getBreakfast();
+				otherRecipes.add(day.getLunch());
+				otherRecipes.add(day.getDinner());
+			}
+			case "lunch" -> {
+				recipe = day.getLunch();
+				otherRecipes.add(day.getBreakfast());
+				otherRecipes.add(day.getDinner());
+			}
+			case "dinner" -> {
+				recipe = day.getDinner();
+				otherRecipes.add(day.getBreakfast());
+				otherRecipes.add(day.getLunch());
+			}
+			default -> {
+				return "redirect:/week?error=invalid-meal";
+			}
+		}
+
+		if (recipe == null) {
+			return "redirect:/week?error=no-meal-assigned";
+		}
+
+		User user = this.service.findUserByUsername(principal.getName());
+		double calorieGoal = user.calculateBMR();
+		HealthUtil.scaleRecipe(calorieGoal, recipe, otherRecipes);
+
+		model.addAttribute("calorieGoal", calorieGoal);
+		model.addAttribute("recipe", recipe);
+		return "recipe";
 	}
 }

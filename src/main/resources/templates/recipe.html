@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="'Recipe for ' + ${recipe.title}"></title>
+	<link rel="stylesheet" href="/css/base.css"/>
+	<link rel="stylesheet" href="/css/recipe.css"/>
+</head>
+<body>
+	<h1 th:text="${recipe.title}"></h1>
+	<p>
+	<label>[image]</label>
+	</p>
+	<div class="toc">
+		<h2>Table of contents</h2>
+		<ul>
+			<li><a href="#time">Time</a></li>
+			<li><a href="#description">Description</a></li>
+			<li><a href="#calories">Calories</a></li>
+			<li><a href="#nutrition">Nutrition</a></li>
+			<li><a href="#ingredients">Ingredients</a></li>
+			<li><a href="#instructions">Instructions</a></li>
+		</ul>
+	</div>
+	<div>
+		<h2 id="time">Time</h2>
+		<div th:text="${recipe.time}"></div>
+		<h2 id="description">Description</h2>
+		<div th:text="${recipe.description}"></div>
+		<h2 id="calories">Calories</h2>
+		<div th:text="'Calories: ' + ${#numbers.formatDecimal(recipe.sumCalories(), 1, 0)}"></div>
+		<div th:text="'Your daily calorie goal: ' + ${#numbers.formatDecimal(calorieGoal, 1, 0)}"></div>
+		<div th:text="'Percentage of goal: ' + ${#numbers.formatDecimal(recipe.sumCalories() / calorieGoal * 100, 1, 1)} + '%'"></div>
+		<h2 id="nutrition">Nutrition</h2>
+		<div th:text="${recipe.getNutritionInfo()}"></div>
+		<h2 id="ingredients">Ingredients</h2>
+		<ul>
+			<li th:each="ingredient : ${recipe.ingredients}">
+				<div th:text="${ingredient.toString()}"></div>
+			</li>
+		</ul>
+		<h2 id="instructions">Instructions</h2>
+		<div th:text="${recipe.instructions}"></div>
+	</div>
+</body>
+</html>

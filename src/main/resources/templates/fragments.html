@@ -21,7 +21,7 @@
 				</div>
 			</a>
 		</div>
-		<a th:fragment="recipe-card" th:if="${recipe != null}" class="link" th:href="@{|/recipe/${recipe.getId()}|}">
+		<a th:fragment="recipe-card" th:if="${recipe != null}" class="link" th:href="@{|/recipe/${weekday.toString().toLowerCase()}/${meal}|}">
 			<div class="recipe-card">
 				<label th:text="${recipe.title}" class="title"></label>
 				<p>
