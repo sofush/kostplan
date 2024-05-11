@@ -17,7 +17,7 @@ class User {
 	- height: int
 	{method} + ... constructor/getter/setter
 	+ List<String> getAuthorities()
-	+ int calculateBMR()
+	+ double calculateBMR()
 }
 class Day {
 	- date: LocalDate
@@ -37,16 +37,16 @@ class Recipe {
 	- instructions: String
 	- time: String
 	{method} + ... constructor/getter/setter
-	+ int sumCalories()
+	+ double sumCalories()
 }
 class Ingredient {
 	- id: int
 	- name: String
-	- quantity: int
+	- quantity: double
 	- unit: String
-	- calories: int
+	- calories: double
 	{method} + ... constructor/getter/setter
-	+ int sumCalories()
+	+ double sumCalories()
 }
 class UserController {
 	- service: UserService
@@ -63,7 +63,7 @@ class RecipeController {
 	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
 	+ String pickRecipe(String weekday, String meal, Model model)
 	+ String assignRecipeToDay(String weekday, String meal, Integer recipeId, Model model)
-	+ String showRecipe(String weekday, String meal, Model model)
+	+ String showRecipe(String weekday, String meal, Principal principal, Model model)
 }
 class UserService {
 	- repository: UserRepository
@@ -77,8 +77,6 @@ class UserService {
 	+ List<Day> findDaysOfWeek(String username, int weekIndex)
 	+ Recipe findRecipeById(int id)
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
-	+ List<LocalDate> calculateDatesOfNthWeek(int weekIndex)
-	+ int calculateCurrentWeekIndex()
 }
 class UserRepository {
 	- jdbc: JdbcTemplate
@@ -92,11 +90,26 @@ class UserRepository {
 	+ List<Ingredient> findIngredientsForRecipe(int id)
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
 }
+class HealthUtil {
+	- HealthUtil()
+	+ double calculateBMR()
+	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
+}
+class DateUtil {
+	- WEEK_ORIGIN: LocalDate
+	- DateUtil()
+	+ List<LocalDate> calculateDatesOfNthWeek(int weekIndex)
+	+ int calculateCurrentWeekIndex()
+}
 
 UserController --- UserService
 RecipeController --- UserService
 UserService --- UserRepository
+UserService --- DateUtil
+RecipeController --- DateUtil
+User --- HealthUtil
 User "1" --* "1" Role
 Day "1" --* "3" Recipe
 Recipe "1" --* "1..m" Ingredient
+RecipeController --- HealthUtil
 @enduml
