@@ -104,7 +104,8 @@ public class UserService {
 	}
 
 	/**
-	 * Retrieves a user's list of Day objects for a specified week from persistent storage.
+	 * Retrieves a user's list of Day objects for a specified week from persistent storage. If the Day object does not
+	 * exist in persistent storage, the element will instead be replaced by an empty Day instance.
 	 * @param username A user's username.
 	 * @param weekIndex The week to filter for.
 	 * @return An ordered list of seven Day objects (monday through sunday).
@@ -120,7 +121,7 @@ public class UserService {
 					if (dayResult != null)
 						day = dayResult;
 				} catch (Exception e) {
-					// Let the program handle null value below.
+					// Let the program return an empty Day instance below.
 				}
 
 				return day;
