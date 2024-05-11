@@ -3,6 +3,7 @@ package com.example.kostplan.controller;
 import com.example.kostplan.entity.Day;
 import com.example.kostplan.entity.Recipe;
 import com.example.kostplan.service.UserService;
+import com.example.kostplan.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class RecipeController {
 		Model model
 	) {
 		if (weekIndex == null) {
-			weekIndex = this.service.calculateCurrentWeekIndex();
+			weekIndex = DateUtil.calculateCurrentWeekIndex();
 		}
 
 		List<Day> daysOfWeek = this.service.findDaysOfWeek(principal.getName(), weekIndex);
@@ -47,7 +48,7 @@ public class RecipeController {
 		@PathVariable("meal") String meal,
 		Model model
 	) {
-		int weekIndex = this.service.calculateCurrentWeekIndex();
+		int weekIndex = DateUtil.calculateCurrentWeekIndex();
 
 		try {
 			List<Recipe> recipes = this.service.findRecipesForWeek(weekIndex);
@@ -69,8 +70,8 @@ public class RecipeController {
 		Principal principal,
 		Model model
 	) {
-		int weekIndex = this.service.calculateCurrentWeekIndex();
-		Optional<LocalDate> date = this.service.calculateDatesOfNthWeek(weekIndex)
+		int weekIndex = DateUtil.calculateCurrentWeekIndex();
+		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
 			.stream()
 			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(weekday))
 			.findFirst();

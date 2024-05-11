@@ -5,6 +5,7 @@ import com.example.kostplan.entity.Recipe;
 import com.example.kostplan.entity.Role;
 import com.example.kostplan.entity.User;
 import com.example.kostplan.repository.UserRepository;
+import com.example.kostplan.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,14 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Service
 public class UserService {
-	private static final LocalDate WEEK_ORIGIN = LocalDate.of(2024, Month.MAY, 6);
 	private final UserRepository repository;
 	private final PasswordEncoder encoder;
 
@@ -116,7 +113,7 @@ public class UserService {
 	 */
 	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
 	public List<Day> findDaysOfWeek(String username, int weekIndex) {
-		return this.calculateDatesOfNthWeek(weekIndex).stream()
+		return DateUtil.calculateDatesOfNthWeek(weekIndex).stream()
 			.map((date) -> {
 				Day day = new Day(date, username, null, null, null);
 
@@ -132,27 +129,5 @@ public class UserService {
 				return day;
 			})
 			.toList();
-	}
-
-	/**
-	 * Calculate the of dates a week given a week index, where the week index is the number of weeks since a fixed
-	 * time origin (May 6th, 2024).
-	 * @param weekIndex The week to filter for.
-	 * @return An ordered list of dates of the requested week (monday through sunday).
-	 */
-	public List<LocalDate> calculateDatesOfNthWeek(int weekIndex) {
-		LocalDate monday = UserService.WEEK_ORIGIN.plusWeeks(weekIndex);
-
-		return IntStream.range(0, 7)
-			.mapToObj(monday::plusDays)
-			.toList();
-	}
-
-	/**
-	 * Calculates the number of weeks that have passed since a fixed time origin (May 6th, 2024).
-	 * @return The number of weeks that have passed since May 6th, 2024.
-	 */
-	public int calculateCurrentWeekIndex() {
-		return (int)ChronoUnit.WEEKS.between(UserService.WEEK_ORIGIN, LocalDate.now());
 	}
 }
