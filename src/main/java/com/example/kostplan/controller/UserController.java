@@ -1,21 +1,15 @@
 package com.example.kostplan.controller;
 
-import com.example.kostplan.entity.Day;
-import com.example.kostplan.entity.Recipe;
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
