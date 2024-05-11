@@ -16,13 +16,38 @@ td {
 	padding: 15px;
 	height: 200px;
 }
-.add-recipe-card {
+.add-recipe-button {
+	width: 100%;
 	border-radius: 25% 10%;
 	background-color: #caf0f8;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	text-decoration: none;
 	border-radius: 25% 10%;
 	aspect-ratio: 1 / 1;
+}
+.link {
+	text-decoration: none;
+	cursor: pointer;
+}
+.recipe-card {
+	height: 300px;
+	background-color: #77B851;
+	text-align: center;
+	border-radius: 5px;
+	padding: 10px;
+}
+.title {
+	text-align: center;
+	font-weight: bold;
+	text-wrap: balance;
+	overflow-wrap: break-word;
+	font-size: 20px;
+}
+.time {
+	color: #E2F7C9;
+	font-weight: bold;
+	text-wrap: balance;
+	overflow-wrap: break-word;
+	font-size: 15px;
 }

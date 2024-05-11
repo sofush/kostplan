@@ -13,15 +13,23 @@
 			<label>kostplan til hverdagen</label>
 		</p>
 	</label>
-	<div th:fragment="add-recipe-card">
-		<a th:if="${day != null}" th:href="@{|/pick/${day.date.getDayOfWeek().toString().toLowerCase()}/${meal}|}" class="add-recipe-card">
-			<div style="font-size: 30px; color: #0077b6">
-				+
+	<div th:fragment="add-recipe-button" style="height: 300px">
+		<div th:if="${recipe == null}" style="display: flex; justify-content: center; align-items: center; height: 300px">
+			<a th:href="@{|/pick/${weekday.toString().toLowerCase()}/${meal}|}" class="add-recipe-button link">
+				<div style="font-size: 30px; color: #0077b6; text-decoration: none">
+					+
+				</div>
+			</a>
+		</div>
+		<a th:fragment="recipe-card" th:if="${recipe != null}" class="link" th:href="@{|/recipe/${recipe.getId()}|}">
+			<div class="recipe-card">
+				<label th:text="${recipe.title}" class="title"></label>
+				<p>
+					<label>[image]</label>
+				</p>
+				<label class="time" th:text="'Time: ' + ${recipe.time}"></label>
 			</div>
 		</a>
-		<div th:if="${day == null}">
-			<div th:text="${meal}"></div>
-		</div>
 	</div>
 </body>
 </html>
