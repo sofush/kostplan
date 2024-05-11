@@ -7,6 +7,7 @@ import com.example.kostplan.entity.User;
 import com.example.kostplan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,7 @@ public class UserService {
 		this.repository.addUser(user);
 	}
 
+	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
 	public void addDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
 		throws DataAccessException
 	{
@@ -73,6 +75,7 @@ public class UserService {
 		this.repository.addDay(day);
 	}
 
+	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
 	public void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
 		throws DataAccessException
 	{
@@ -85,6 +88,7 @@ public class UserService {
 		));
 	}
 
+	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
 	public Day findDay(String username, LocalDate localDate)
 		throws DataAccessException
 	{
@@ -110,6 +114,7 @@ public class UserService {
 	 * @param weekIndex The week to filter for.
 	 * @return An ordered list of seven Day objects (monday through sunday).
 	 */
+	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
 	public List<Day> findDaysOfWeek(String username, int weekIndex) {
 		return this.calculateDatesOfNthWeek(weekIndex).stream()
 			.map((date) -> {
