@@ -118,13 +118,13 @@ public class Recipe {
 		this.time = time;
 	}
 
-	public int sumCalories() {
+	public double sumCalories() {
 		if (this.ingredients == null)
-			return 0;
+			return 0.0;
 
 		return this.ingredients.stream()
 			.map(Ingredient::sumCalories)
-			.reduce(Integer::sum)
-			.orElse(0);
+			.reduce(Double::sum)
+			.orElse(0.0);
 	}
 }

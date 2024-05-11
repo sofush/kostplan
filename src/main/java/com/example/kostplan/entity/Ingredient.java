@@ -14,7 +14,7 @@ public class Ingredient {
 	/**
 	 * A quantity.
 	 */
-	private int quantity;
+	private double quantity;
 
 	/**
 	 * The unit used to measure this ingredient such as grams or litres.
@@ -27,7 +27,7 @@ public class Ingredient {
 	 */
 	private int calories;
 
-	public Ingredient(int id, String name, int quantity, String unit, int calories) {
+	public Ingredient(int id, String name, double quantity, String unit, int calories) {
 		this.id = id;
 		this.name = name;
 		this.quantity = quantity;
@@ -51,11 +51,11 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -75,7 +75,7 @@ public class Ingredient {
 		this.calories = calories;
 	}
 
-	public int sumCalories() {
+	public double sumCalories() {
 		return this.quantity * this.calories;
 	}
 }

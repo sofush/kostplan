@@ -55,7 +55,7 @@ public class UserRepository {
 				id INTEGER AUTO_INCREMENT,
 				recipe INTEGER,
 				name TEXT,
-				quantity INTEGER,
+				quantity DOUBLE,
 				unit TEXT,
 				calories INTEGER,
 				PRIMARY KEY (id),
@@ -209,7 +209,7 @@ public class UserRepository {
 			(rs, rowNum) -> new Ingredient(
 				rs.getInt("id"),
 				rs.getString("name"),
-				rs.getInt("quantity"),
+				rs.getDouble("quantity"),
 				rs.getString("unit"),
 				rs.getInt("calories")
 			),
