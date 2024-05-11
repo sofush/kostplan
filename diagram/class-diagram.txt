@@ -53,12 +53,17 @@ class UserController {
 	+ UserController(UserService service)
 	+ String login()
 	+ String logout()
-	+ String index(Model model)
 	+ String registerUser()
 	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
 	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
+}
+class RecipeController {
+	- service: UserService
+	+ RecipeController(UserService service)
+	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
 	+ String pickRecipe(String weekday, String meal, Model model)
 	+ String assignRecipeToDay(String weekday, String meal, Integer recipeId, Model model)
+	+ String showRecipe(String weekday, String meal, Model model)
 }
 class UserService {
 	- repository: UserRepository
@@ -89,6 +94,7 @@ class UserRepository {
 }
 
 UserController --- UserService
+RecipeController --- UserService
 UserService --- UserRepository
 User "1" --* "1" Role
 Day "1" --* "3" Recipe
