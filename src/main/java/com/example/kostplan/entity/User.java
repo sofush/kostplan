@@ -1,5 +1,7 @@
 package com.example.kostplan.entity;
 
+import com.example.kostplan.util.HealthUtil;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -153,18 +155,11 @@ public class User {
 	 * @return the user's BMR in kilocalories.
 	 */
 	public int calculateBMR() {
-		double weightFactor = this.isMale() ? 13.752 : 9.563;
-		double heightFactor = this.isMale() ? 5 : 1.85;
-		double ageFactor = this.isMale() ? 6.755 : 4.676;
-		double constantTerm = this.isMale() ? 66.473 : 655.096;
-
-		long ageInYears = ChronoUnit.YEARS.between(LocalDate.now(), this.getDob());
-
-		double bmr = (weightFactor * this.getWeight())
-			+ (heightFactor * this.getHeight())
-			- (ageFactor * ageInYears)
-			+ constantTerm;
-
-		return (int)bmr;
+		return HealthUtil.calculateBMR(
+			this.isMale(),
+			this.getWeight(),
+			this.getHeight(),
+			this.getDob()
+		);
 	}
 }
