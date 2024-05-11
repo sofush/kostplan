@@ -6,6 +6,10 @@
 	/* the notification retains its position before and after the animation, specified by the "both" value */
 	animation: slide-in 0.5s both;
 }
+.notification > img {
+	height: 1em;
+	margin-right: 10px;
+}
 @keyframes slide-in {
 	/* at 0%, the element is positioned out of frame */
 	0% {

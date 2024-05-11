@@ -54,35 +54,35 @@
 		</form>
 	</div>
 	<div th:if="${error} == 'repeat-password'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Password and repeat password do not match.
 	</div>
 	<div th:if="${error} == 'date'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Could not parse the value of the date input field.
 	</div>
 	<div th:if="${error} == 'height'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Could not parse the value of the height input field as an integer.
 	</div>
 	<div th:if="${error} == 'weight'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Could not parse the value of the weight input field as an integer.
 	</div>
 	<div th:if="${error} == 'username'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Username must be between 3-20 characters long.
 	</div>
 	<div th:if="${error} == 'password'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Password must be at least 3 characters long.
 	</div>
 	<div th:if="${error} == 'dob'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Date of birth must not be in the future.
 	</div>
 	<div th:if="${error} == 'unknown'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		An error occurred.
 	</div>
 </body>

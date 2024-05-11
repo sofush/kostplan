@@ -13,15 +13,15 @@
 		</li>
 	</ul>
 	<div th:if="${error} == 'day-of-week'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Day of week is invalid.
 	</div>
 	<div th:if="${error} == 'database'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		Database error.
 	</div>
 	<div th:if="${error} == 'invalid-recipe'" class="section notification">
-		<img src="/svg/error.svg" alt="error" style="height: 1em; margin-right: 10px"/>
+		<img src="/svg/error.svg" alt="error"/>
 		The specified recipe ID is invalid.
 	</div>
 </body>
