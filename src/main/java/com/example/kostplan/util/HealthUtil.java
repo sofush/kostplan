@@ -1,7 +1,13 @@
 package com.example.kostplan.util;
 
+import com.example.kostplan.entity.Ingredient;
+import com.example.kostplan.entity.Recipe;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Objects;
+
 public class HealthUtil {
 	private HealthUtil() {}
 
@@ -23,5 +29,32 @@ public class HealthUtil {
 			+ constantTerm;
 
 		return (int)bmr;
+	}
+
+	/**
+	 * Scales a recipe up or down to meet a fixed calorie goal by modifying the recipe's ingredient list (specifically
+	 * the ingredient's quantity value). This takes into account a list of other meals a person has/will eat that day,
+	 * as to scale all meals proportionally.
+	 * @param calorieGoal The person's calorie goal.
+	 * @param recipe The recipe to scale up or down.
+	 */
+	public static void scaleRecipe(int calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
+		throws IllegalArgumentException
+	{
+		if (recipe == null || scheduledMeals == null) {
+			throw new IllegalArgumentException("Arguments must not be null.");
+		}
+
+		double totalCalories = recipe.sumCalories() + scheduledMeals.stream()
+			.filter(Objects::nonNull)
+			.map(Recipe::sumCalories)
+			.reduce(Double::sum)
+			.orElse(0.0);
+		double scaleFactor = (double) calorieGoal / totalCalories;
+
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			double newQuantity = ingredient.getQuantity() * scaleFactor;
+			ingredient.setQuantity(newQuantity);
+		}
 	}
 }
