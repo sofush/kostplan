@@ -57,7 +57,7 @@ public class UserRepository {
 				name TEXT,
 				quantity DOUBLE,
 				unit TEXT,
-				calories INTEGER,
+				calories DOUBLE,
 				PRIMARY KEY (id),
 				FOREIGN KEY (recipe) REFERENCES Recipe(id)
 			);

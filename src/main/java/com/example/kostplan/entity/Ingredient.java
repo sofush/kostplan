@@ -1,5 +1,7 @@
 package com.example.kostplan.entity;
 
+import java.text.DecimalFormat;
+
 public class Ingredient {
 	/**
 	 * A unique identifier assigned by the database.
@@ -23,11 +25,11 @@ public class Ingredient {
 	private String unit;
 
 	/**
-	 * The number of calories in this ingredient per unit.
+	 * The number of kilocalories in this ingredient per unit.
 	 */
-	private int calories;
+	private double calories;
 
-	public Ingredient(int id, String name, double quantity, String unit, int calories) {
+	public Ingredient(int id, String name, double quantity, String unit, double calories) {
 		this.id = id;
 		this.name = name;
 		this.quantity = quantity;
@@ -67,15 +69,25 @@ public class Ingredient {
 		this.unit = unit;
 	}
 
-	public int getCalories() {
+	public double getCalories() {
 		return calories;
 	}
 
-	public void setCalories(int calories) {
+	public void setCalories(double calories) {
 		this.calories = calories;
 	}
 
 	public double sumCalories() {
 		return this.quantity * this.calories;
+	}
+
+	@Override
+	public String toString() {
+		DecimalFormat formatter = new DecimalFormat("#.##");
+		return formatter.format(this.getQuantity()) +
+			' ' +
+			this.getUnit() +
+			' ' +
+			this.getName();
 	}
 }
