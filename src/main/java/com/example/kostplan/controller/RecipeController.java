@@ -176,7 +176,12 @@ public class RecipeController {
 		}
 
 		User user = this.service.findUserByUsername(principal.getName());
-		double calorieGoal = user.calculateBMR();
+		double calorieGoal = HealthUtil.calculateBMR(
+			user.isMale(),
+			user.getWeight(),
+			user.getHeight(),
+			user.getDob()
+		);
 		HealthUtil.scaleRecipe(calorieGoal, recipe, otherRecipes);
 
 		model.addAttribute("calorieGoal", calorieGoal);

@@ -149,17 +149,4 @@ public class User {
 			default -> { return List.of(); }
 		}
 	}
-
-	/**
-	 * Calculates the BMR (Basal Metabolic Rate) of this user, using the Harris-Benedict equation.
-	 * @return the user's BMR in kilocalories.
-	 */
-	public double calculateBMR() {
-		return HealthUtil.calculateBMR(
-			this.isMale(),
-			this.getWeight(),
-			this.getHeight(),
-			this.getDob()
-		);
-	}
 }
