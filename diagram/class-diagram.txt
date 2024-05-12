@@ -121,7 +121,7 @@ entities ..> Day
 entities ..> Recipe
 entities ..> Ingredient
 Role " 1 " *-- " 1 " User
-Day " 1 " *-- " 3 " Recipe
+Day " 1 " *-- " 0..3 " Recipe
 Recipe " 1 " *-- " 1..m " Ingredient
 RecipeController ..> entities
 UserService ..> entities
