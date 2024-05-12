@@ -30,13 +30,15 @@ class Opskrift {
 	tidsforbrug
 }
 class Ingrediens {
-	beskrivelse
+	navn
+	mængde
+	enhed
 	kalorier
 }
 
 Rolle "1" -r-- "1" Bruger
 Bruger "1" -r-- "0..m" Dag
-Dag "1" --- "3" Opskrift
+Dag "0..m" --- "3" Opskrift
 Opskrift "1" --- "1..m" Ingrediens
 
 @enduml
