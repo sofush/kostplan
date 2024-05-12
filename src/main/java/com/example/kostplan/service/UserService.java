@@ -32,7 +32,15 @@ public class UserService {
 		return this.repository.findUserByUsername(username);
 	}
 
-	public void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)
+	public void addUser(
+		String username,
+		String password,
+		String name,
+		boolean male,
+		int weight,
+		LocalDate dob,
+		int height
+	)
 		throws DataAccessException, IllegalArgumentException
 	{
 		if (username == null || username.length() < 3 || username.length() > 20) {
@@ -65,17 +73,41 @@ public class UserService {
 	}
 
 	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
-	public void addDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
+	public void addDay(
+		String username,
+		LocalDate date,
+		Integer breakfastId,
+		Integer lunchId,
+		Integer dinnerId
+	)
 		throws DataAccessException
 	{
+		Recipe breakfast = null, lunch = null, dinner = null;
+
+		if (breakfastId != null) breakfast = this.findRecipeById(breakfastId);
+		if (lunchId != null) lunch = this.findRecipeById(lunchId);
+		if (dinnerId != null) dinner = this.findRecipeById(dinnerId);
+
 		Day day = new Day(date, username, breakfast, lunch, dinner);
 		this.repository.addDay(day);
 	}
 
 	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
-	public void updateDay(String username, LocalDate date, Recipe breakfast, Recipe lunch, Recipe dinner)
+	public void updateDay(
+		String username,
+		LocalDate date,
+		Integer breakfastId,
+		Integer lunchId,
+		Integer dinnerId
+	)
 		throws DataAccessException
 	{
+		Recipe breakfast = null, lunch = null, dinner = null;
+
+		if (breakfastId != null) breakfast = this.findRecipeById(breakfastId);
+		if (lunchId != null) lunch = this.findRecipeById(lunchId);
+		if (dinnerId != null) dinner = this.findRecipeById(dinnerId);
+
 		this.repository.updateDay(new Day(
 			date,
 			username,

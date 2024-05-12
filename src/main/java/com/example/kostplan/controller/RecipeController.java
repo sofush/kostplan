@@ -70,8 +70,7 @@ public class RecipeController {
 		@PathVariable("weekday") String weekday,
 		@PathVariable("meal") String meal,
 		@PathVariable("id") Integer recipeId,
-		Principal principal,
-		Model model
+		Principal principal
 	) {
 		int weekIndex = DateUtil.calculateCurrentWeekIndex();
 		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
@@ -118,9 +117,9 @@ public class RecipeController {
 		this.service.updateDay(
 			day.getUsername(),
 			day.getDate(),
-			day.getBreakfast(),
-			day.getLunch(),
-			day.getDinner()
+			day.getBreakfast() == null ? null : day.getBreakfast().getId(),
+			day.getLunch() == null ? null : day.getLunch().getId(),
+			day.getDinner() == null ? null : day.getDinner().getId()
 		);
 		return "redirect:/week";
 	}
