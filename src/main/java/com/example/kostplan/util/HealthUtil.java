@@ -23,12 +23,10 @@ public class HealthUtil {
 
 		long ageInYears = ChronoUnit.YEARS.between(LocalDate.now(), dob);
 
-		double bmr = (weightFactor * weight)
+		return (weightFactor * weight)
 			+ (heightFactor * height)
 			- (ageFactor * ageInYears)
 			+ constantTerm;
-
-		return bmr;
 	}
 
 	/**
