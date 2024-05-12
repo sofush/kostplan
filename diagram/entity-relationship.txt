@@ -13,9 +13,9 @@ entity User {
 entity Day {
 	*date : DATE
 	*{field} username : VARCHAR(20)
-	breakfast : INTEGER
-	lunch : INTEGER
-	dinner : INTEGER
+	breakfast : INTEGER <<FK>>
+	lunch : INTEGER <<FK>>
+	dinner : INTEGER <<FK>>
 }
 entity Recipe {
 	*id : INTEGER
@@ -28,11 +28,14 @@ entity Recipe {
 }
 entity Ingredient {
 	*id : INTEGER
-	recipe : INTEGER
+	recipe : INTEGER <<FK>>
 	name : TEXT
-	quantity : INTEGER
+	quantity : DOUBLE
 	unit : TEXT
-	calories : INTEGER
+	calories : DOUBLE
 }
+User ||..o{ Day
+Day ||..o{ Recipe
+Recipe ||..|{ Ingredient
 @enduml
 
