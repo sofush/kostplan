@@ -211,7 +211,7 @@ public class UserRepository {
 				rs.getString("name"),
 				rs.getDouble("quantity"),
 				rs.getString("unit"),
-				rs.getInt("calories")
+				rs.getDouble("calories")
 			),
 			recipeId
 		);
