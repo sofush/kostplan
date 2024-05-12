@@ -102,21 +102,30 @@ class DateUtil {
 	+ int calculateCurrentWeekIndex()
 }
 
+circle " " as entities
+
 ' Controller, Service, Repository
 UserController o-- UserService
 UserService o-- UserRepository
 RecipeController o-- UserService
 
 ' Util
-RecipeController --- DateUtil
-RecipeController --- HealthUtil
-UserService -r-- DateUtil
-HealthUtil -r-- User
+RecipeController ..> DateUtil
+RecipeController ..> HealthUtil
+UserService .r.> DateUtil
 
 ' Entities
-User " 1" *-- " 1" Role
-Day " 1" *-- " 3" Recipe
-Recipe " 1" *-- " 1..m" Ingredient
+entities ..> User
+entities ..> Role
+entities ..> Day
+entities ..> Recipe
+entities ..> Ingredient
+Role " 1 " *-- " 1 " User
+Day " 1 " *-- " 3 " Recipe
+Recipe " 1 " *-- " 1..m " Ingredient
+RecipeController ..> entities
+UserService ..> entities
+UserRepository ..> entities
 
 ' Improved placement
 User -r[hidden]-- Recipe
