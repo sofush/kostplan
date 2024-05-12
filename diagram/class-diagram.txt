@@ -56,7 +56,6 @@ class UserController {
 	+ String logout()
 	+ String registerUser()
 	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
-	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
 }
 class RecipeController {
 	- service: UserService
