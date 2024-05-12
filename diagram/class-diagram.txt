@@ -92,7 +92,7 @@ class UserRepository {
 }
 class HealthUtil {
 	- HealthUtil()
-	+ double calculateBMR()
+	+ double calculateBMR(boolean male, int weight, int height, LocalDate dob)
 	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 }
 class DateUtil {
