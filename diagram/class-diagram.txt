@@ -47,6 +47,7 @@ class Ingredient {
 	- calories: double
 	{method} + ... constructor/getter/setter
 	+ double sumCalories()
+	+ String toString()
 }
 class UserController {
 	- service: UserService
