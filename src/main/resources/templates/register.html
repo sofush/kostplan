@@ -50,31 +50,31 @@
 			</p>
 			<p>
 				<label for="password">Password</label>
-				<input type="password" id="password" name="password" placeholder="Password" th:value="*{password}"/>
+				<input type="password" id="password" th:name="password" placeholder="Password" th:value="*{password}"/>
 			</p>
 			<p>
 				<label for="repeat-password">Repeat password</label>
-				<input type="password" id="repeat-password" name="repeat-password" placeholder="Password (repeat)" th:value="*{repeat_password}"/>
+				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Password (repeat)" th:value="*{repeat_password}"/>
 			</p>
 			<p>
 				<label for="name">Full name (optional)</label>
-				<input type="text" id="name" name="name" placeholder="Full name" th:value="*{name}"/>
+				<input type="text" id="name" th:name="name" placeholder="Full name" th:value="*{name}"/>
 			</p>
 			<p>
 				<label for="dob">Date of birth</label>
-				<input type="date" id="dob" name="dob" th:value="*{dob}"/>
+				<input type="date" id="dob" th:name="dob" th:value="*{dob}"/>
 			</p>
 			<p>
 				<label for="height">Height (cm)</label>
-				<input type="number" id="height" name="height" value="180" th:value="*{height}"/>
+				<input type="number" id="height" th:name="height" value="180" th:value="*{height}"/>
 			</p>
 			<p>
 				<label for="weight">Weight (kg)</label>
-				<input type="number" id="weight" name="weight" value="75" th:value="*{weight}"/>
+				<input type="number" id="weight" th:name="weight" value="75" th:value="*{weight}"/>
 			</p>
 			<p>
 				<label for="male">Male</label>
-				<input type="checkbox" id="male" name="male" th:value="*{male}"/>
+				<input type="checkbox" id="male" th:name="male" th:checked="*{male}"/>
 			</p>
 			<p>
 				<input type="submit" value="Sign up"/>
