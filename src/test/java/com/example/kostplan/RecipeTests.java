@@ -62,8 +62,8 @@ class RecipeTests {
 			List.of(recipeA, recipeB)
 		);
 
-		// This should have a value of ~33.3 (imprecision due to floating-point arithmetic) so the total calories across all
-		// meals/recipes when scaled will be ~100 (the calorie goal).
+		// This should have a value of ~33.3 (imprecision due to floating-point arithmetic) so the total
+		// calories across all meals/recipes when scaled will be ~100 (the calorie goal).
 		final double caloriesAfter = recipeToModify.sumCalories();
 		Assertions.assertThat(caloriesAfter).isBetween(32.0, 34.0);
 	}
