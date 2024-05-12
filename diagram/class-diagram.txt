@@ -103,9 +103,9 @@ class DateUtil {
 }
 
 ' Controller, Service, Repository
-UserController --- UserService
-RecipeController --- UserService
-UserService --- UserRepository
+UserController o-- UserService
+UserService o-- UserRepository
+RecipeController o-- UserService
 
 ' Util
 RecipeController --- DateUtil
