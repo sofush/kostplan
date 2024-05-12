@@ -40,7 +40,8 @@ public class RecipeController {
 		}
 
 		List<Day> daysOfWeek = this.service.findDaysOfWeek(principal.getName(), weekIndex);
-		model.addAttribute("weekIndex", weekIndex);
+		model.addAttribute("fromDate", daysOfWeek.get(0).getDate());
+		model.addAttribute("toDate", daysOfWeek.get(6).getDate());
 		model.addAttribute("days", daysOfWeek);
 		return "calendar";
 	}
