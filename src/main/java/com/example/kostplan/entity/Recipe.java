@@ -43,7 +43,16 @@ public class Recipe {
 	 */
 	private String time;
 
-	public Recipe(int id, int week, String title, String description, String nutrition_info, List<Ingredient> ingredients, String instructions, String time) {
+	public Recipe(
+		Integer id,
+		int week,
+		String title,
+		String description,
+		String nutrition_info,
+		List<Ingredient> ingredients,
+		String instructions,
+		String time
+	) {
 		this.id = id;
 		this.week = week;
 		this.title = title;
