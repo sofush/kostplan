@@ -102,14 +102,22 @@ class DateUtil {
 	+ int calculateCurrentWeekIndex()
 }
 
+' Controller, Service, Repository
 UserController --- UserService
 RecipeController --- UserService
 UserService --- UserRepository
-UserService --- DateUtil
+
+' Util
 RecipeController --- DateUtil
-User --- HealthUtil
+RecipeController --- HealthUtil
+UserService -r-- DateUtil
+HealthUtil -r-- User
+
+' Entities
 User " 1" *-- " 1" Role
 Day " 1" *-- " 3" Recipe
 Recipe " 1" *-- " 1..m" Ingredient
-RecipeController --- HealthUtil
+
+' Improved placement
+User -r[hidden]-- Recipe
 @enduml
