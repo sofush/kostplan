@@ -27,8 +27,12 @@
 			Det angivne måltid er ugyldigt.
 		</div>
 	</div>
-	<div class="section table-container">
-		<h2 style="text-align: center" th:text="${fromDate} + ' til ' + ${toDate}"></h2>
+	<div class="section table-container" style="background-color: #f7fff7">
+		<h1 style="text-align: center">
+			<img src="/svg/leaf.svg" style="height: 36px; width: 36px">
+			Din ugekalender
+		</h1>
+		<h2 style="text-align: center; color: grey" th:text="${fromDate} + ' til ' + ${toDate}"></h2>
 		<table>
 			<tr>
 				<th>Mandag</th>

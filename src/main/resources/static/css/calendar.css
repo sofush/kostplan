@@ -16,15 +16,42 @@ td {
 	padding: 15px;
 }
 .add-recipe-button {
-    width: 100%;
+	background-color: white;
+	width: 100%;
 	height: 240px;
-    border-radius: 5px;
-	box-shadow: 0 0 12px #caf0f8;
-    background-color: white;
+	border-radius: 5px;
+	box-shadow: inset -1px -1px 3px 3px lightgrey;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-size: 30px;
+	transition: box-shadow 0.05s ease-in-out;
+}
+.add-recipe-button label {
+	color: slategrey;
+	font-weight: semibold;
+}
+.add-recipe-button:hover {
+	box-shadow: inset -1px -1px 1px 3px grey;
+}
+.add-recipe-button:hover label {
+	display: none;
+}
+.add-recipe-button:hover:after {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+	content: "TILDEL EN OPSKRIFT";
+	animation: 0.4s border-bottom-anim both;
+}
+@keyframes border-bottom-anim {
+	0% {
+		border-bottom: 2px solid transparent;
+	}
+	100% {
+		border-bottom: 2px solid black;
+	}
 }
 .link {
 	text-decoration: none;
@@ -32,13 +59,14 @@ td {
 }
 .recipe-card {
 	height: 240px;
-	box-shadow: 0 0 12px #77b851;
-	background-color: #77b851;
+	box-shadow: 0 0 20px #77b851;
+	background-color: #95cd75;
 	text-align: center;
 	border-radius: 5px;
 	padding: 10px;
 }
 .title {
+	color: black;
 	text-align: center;
 	font-weight: bold;
 	text-wrap: balance;
