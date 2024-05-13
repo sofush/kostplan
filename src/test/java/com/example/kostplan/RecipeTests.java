@@ -37,7 +37,8 @@ class RecipeTests {
 		Recipe recipeA = createRecipeTemplate();
 		Recipe recipeB = createRecipeTemplate();
 
-		// Modify the recipes' ingredient lists to each sum to 100, making the total 300 calories.
+		// Modify the recipes' ingredient lists to each sum to 100, making
+		// the total 300 calories.
 		recipeToModify.setIngredients(List.of(
 			createSimpleIngredient(4, 10),
 			createSimpleIngredient(1, 30),
@@ -52,7 +53,8 @@ class RecipeTests {
 			createSimpleIngredient(5, 5)
 		));
 
-		// This should have a value of ~100 (imprecision due to floating-point arithmetic).
+		// This should have a value of ~100 (imprecision due to floating-point
+		// arithmetic).
 		final double caloriesBefore = recipeToModify.sumCalories();
 		Assertions.assertThat(caloriesBefore).isBetween(99.0, 101.0);
 
@@ -62,8 +64,9 @@ class RecipeTests {
 			List.of(recipeA, recipeB)
 		);
 
-		// This should have a value of ~33.3 (imprecision due to floating-point arithmetic) so the total
-		// calories across all meals/recipes when scaled will be ~100 (the calorie goal).
+		// This should have a value of ~33.3 (imprecision due to floating-point
+		// arithmetic) so the total calories across all meals/recipes when
+		// scaled will be ~100 (the calorie goal).
 		final double caloriesAfter = recipeToModify.sumCalories();
 		Assertions.assertThat(caloriesAfter).isBetween(32.0, 34.0);
 	}
