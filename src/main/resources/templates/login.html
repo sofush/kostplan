@@ -10,34 +10,34 @@
 <body class="dotpattern">
 	<div th:if="${param.logout}" class="section notification">
 		<img src="/svg/check.svg" alt="checkmark"/>
-		You have been logged out.
+		Du er nu logget ud.
 	</div>
 	<div th:if="${param.registered}" class="section notification">
 		<img src="/svg/check.svg" alt="checkmark"/>
-		Your account has been registered.
+		Din konto er blevet registreret.
 	</div>
 	<div th:if="${param.error}" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Invalid username or password
+		Ugyldigt brugernavn eller kodeord.
 	</div>
 	<div th:replace="~{fragments :: branding}"></div>
 	<div class="center section">
-		<h2 style="text-align: center">Sign in</h2>
+		<h2 style="text-align: center">Log ind</h2>
 		<form th:action="@{/login}" method="post">
 			<p>
-				<label for="username">Username</label>
-				<input type="text" id="username" name="username" placeholder="Username"/>
+				<label for="username">Brugernavn</label>
+				<input type="text" id="username" name="username" placeholder="Brugernavn"/>
 			</p>
 			<p>
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" placeholder="Password"/>
+				<label for="password">Kodeord</label>
+				<input type="password" id="password" name="password" placeholder="Kodeord"/>
 			</p>
 			<p>
-				<input type="submit" value="Sign in"/>
+				<input type="submit" value="Log ind"/>
 			</p>
 			<p>
-				<label>... or </label>
-				<a th:href="@{/register}">register an account</a>
+				<label>... eller </label>
+				<a th:href="@{/register}">registrer en ny konto</a>
 			</p>
 		</form>
 	</div>

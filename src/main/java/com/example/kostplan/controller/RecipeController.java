@@ -61,8 +61,36 @@ public class RecipeController {
 			return "redirect:/week?error=database";
 		}
 
+		String translatedMeal;
+
+		switch (meal.toLowerCase()) {
+			case "breakfast" -> translatedMeal = "morgenmad";
+			case "lunch" -> translatedMeal = "frokost";
+			case "dinner" -> translatedMeal = "aftensmad";
+			default -> {
+				return "redirect:/week?error=invalid-meal";
+			}
+		}
+
+		String translatedWeekday;
+
+		switch (weekday.toLowerCase()) {
+			case "monday" -> translatedWeekday = "mandag";
+			case "tuesday" -> translatedWeekday = "tirsdag";
+			case "wednesday" -> translatedWeekday = "onsdag";
+			case "thursday" -> translatedWeekday = "torsdag";
+			case "friday" -> translatedWeekday = "fredag";
+			case "saturday" -> translatedWeekday = "lørdag";
+			case "sunday" -> translatedWeekday = "søndag";
+			default -> {
+				return "redirect:/week?error=day-of-week";
+			}
+		}
+
 		model.addAttribute("weekday", weekday);
 		model.addAttribute("meal", meal);
+		model.addAttribute("translatedMeal", translatedMeal);
+		model.addAttribute("translatedWeekday", translatedWeekday);
 		return "pick-a-recipe";
 	}
 

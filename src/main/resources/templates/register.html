@@ -10,78 +10,78 @@
 <body class="dotpattern">
 	<div th:if="${error} == 'repeat-password'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Password and repeat password do not match.
+		Password og gentaget password stemmer ikke overens.
 	</div>
 	<div th:if="${error} == 'date'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Could not parse the value of the date input field.
+		Værdien angivet i dato input feltet skal være en gyldig dato.
 	</div>
 	<div th:if="${error} == 'height'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Could not parse the value of the height input field as an integer.
+		Værdien angivet i højde input feltet skal være et heltal.
 	</div>
 	<div th:if="${error} == 'weight'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Could not parse the value of the weight input field as an integer.
+		Værdien angivet i vægt input feltet skal være et heltal.
 	</div>
 	<div th:if="${error} == 'username'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Username must be between 3-20 characters long.
+		Brugernavn skal være mellem 3-20 tegn langt.
 	</div>
 	<div th:if="${error} == 'password'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Password must be at least 3 characters long.
+		Password skal være minimum 3 tegn langt.
 	</div>
 	<div th:if="${error} == 'dob'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		Date of birth must not be in the future.
+		Værdien angivet i dato input feltet skal være i datiden.
 	</div>
 	<div th:if="${error} == 'unknown'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
-		An error occurred.
+		En ukendt fejl opstod.
 	</div>
 	<div th:replace="~{fragments :: branding}"></div>
 	<div class="center section">
-		<h2 style="text-align: center">Register an account</h2>
+		<h2 style="text-align: center">Registrer en konto</h2>
 		<form th:action="@{/register}" method="post">
 			<p>
-				<label for="username">Username</label>
-				<input type="text" id="username" th:name="username" placeholder="Username" th:value="*{username}"/>
+				<label for="username">Brugernavn</label>
+				<input type="text" id="username" th:name="username" placeholder="Brugernavn" th:value="*{username}"/>
 			</p>
 			<p>
-				<label for="password">Password</label>
-				<input type="password" id="password" th:name="password" placeholder="Password" th:value="*{password}"/>
+				<label for="password">Kodeord</label>
+				<input type="password" id="password" th:name="password" placeholder="Kodeord" th:value="*{password}"/>
 			</p>
 			<p>
-				<label for="repeat-password">Repeat password</label>
-				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Password (repeat)" th:value="*{repeat_password}"/>
+				<label for="repeat-password">Gentaget kodeord</label>
+				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Kodeord (gentaget)" th:value="*{repeat_password}"/>
 			</p>
 			<p>
-				<label for="name">Full name (optional)</label>
-				<input type="text" id="name" th:name="name" placeholder="Full name" th:value="*{name}"/>
+				<label for="name">Fulde navn (valgfrit)</label>
+				<input type="text" id="name" th:name="name" placeholder="Fulde navn" th:value="*{name}"/>
 			</p>
 			<p>
-				<label for="dob">Date of birth</label>
+				<label for="dob">Fødselsdato</label>
 				<input type="date" id="dob" th:name="dob" th:value="*{dob}"/>
 			</p>
 			<p>
-				<label for="height">Height (cm)</label>
-				<input type="number" id="height" th:name="height" value="180" th:value="*{height}"/>
+				<label for="height">Højde (cm)</label>
+				<input type="number" id="height" th:name="height" th:value="*{height}"/>
 			</p>
 			<p>
 				<label for="weight">Weight (kg)</label>
-				<input type="number" id="weight" th:name="weight" value="75" th:value="*{weight}"/>
+				<input type="number" id="weight" th:name="weight" th:value="*{weight}"/>
 			</p>
 			<p>
-				<label for="male">Male</label>
+				<label for="male">Mand</label>
 				<input type="checkbox" id="male" th:name="male" th:checked="*{male}"/>
 			</p>
 			<p>
-				<input type="submit" value="Sign up"/>
+				<input type="submit" value="Registrer"/>
 			</p>
 			<p>
-				<label>... or </label>
-				<a th:href="@{/login}">go back to sign in</a>
+				<label>... eller </label>
+				<a th:href="@{/login}">gå tilbage til log ind</a>
 			</p>
 		</form>
 	</div>
