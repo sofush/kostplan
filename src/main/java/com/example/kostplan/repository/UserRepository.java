@@ -27,6 +27,8 @@ public class UserRepository {
 			CREATE TABLE IF NOT EXISTS User(
 				username VARCHAR(20),
 				password TEXT NOT NULL,
+				email_address TEXT NOT NULL,
+				phone_number TEXT NOT NULL,
 				role INTEGER NOT NULL,
 				name TEXT,
 				male BOOLEAN NOT NULL,
@@ -82,7 +84,7 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String userQuery = """
-		SELECT username, password, role, name, male, weight, dob, height
+		SELECT username, password, email_address, phone_number, role, male, weight, dob, height
 		FROM User
 		WHERE username = ?;
 		""";
@@ -92,7 +94,8 @@ public class UserRepository {
 			(rs, rowNum) -> new User(
 				rs.getString("username"),
 				rs.getString("password"),
-				rs.getString("name"),
+				rs.getString("email_address"),
+				rs.getString("phone_number"),
 				Role.values()[rs.getInt("role")],
 				rs.getBoolean("male"),
 				rs.getInt("weight"),
@@ -112,16 +115,17 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String sql = """
-            INSERT INTO User(username, password, role, name, male, weight, dob, height)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO User(username, password, email_address, phone_number, role, male, weight, dob, height)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
 		this.jdbc.update(
 			sql,
 			user.getUsername(),
 			user.getPassword(),
+			user.getEmailAddress(),
+			user.getPhoneNumber(),
 			user.getRole().ordinal(),
-			user.getName(),
 			user.isMale(),
 			user.getWeight(),
 			user.getDob(),

@@ -35,7 +35,8 @@ public class UserService {
 	public void addUser(
 		String username,
 		String password,
-		String name,
+		String emailAddress,
+		String phoneNumber,
 		boolean male,
 		int weight,
 		LocalDate dob,
@@ -55,13 +56,22 @@ public class UserService {
 			throw new IllegalArgumentException("Date of birth must not be in the future.");
 		}
 
+		if (emailAddress == null || emailAddress.isEmpty()) {
+			throw new IllegalArgumentException("Email address must have a value.");
+		}
+
+		if (phoneNumber == null || phoneNumber.isEmpty()) {
+			throw new IllegalArgumentException("Phone number must have a value.");
+		}
+
 		// Encode the password using the PasswordEncoder bean.
 		String encodedPassword = this.encoder.encode(password);
 
 		User user = new User(
 			username,
 			encodedPassword,
-			name,
+			emailAddress,
+			phoneNumber,
 			Role.USER,
 			male,
 			weight,

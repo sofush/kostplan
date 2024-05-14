@@ -41,8 +41,9 @@ public class UserController {
 	public String registerUserPost(
 		@ModelAttribute("username") String username,
 		@ModelAttribute("password") String password,
-		@ModelAttribute("repeat-password") String repeat_password,
-		@ModelAttribute("name") String name,
+		@ModelAttribute("repeat-password") String repeatPassword,
+		@ModelAttribute("email-address") String emailAddress,
+		@ModelAttribute("phone-number") String phoneNumber,
 		@ModelAttribute("male") String male,
 		@ModelAttribute("weight") String weight,
 		@ModelAttribute("dob") String dob,
@@ -55,14 +56,15 @@ public class UserController {
 		// have to fill it out all over again.
 		model.addAttribute("username", username);
 		model.addAttribute("password", password);
-		model.addAttribute("repeat_password", repeat_password);
-		model.addAttribute("name", name);
+		model.addAttribute("repeatPassword", repeatPassword);
+		model.addAttribute("emailAddress", emailAddress);
+		model.addAttribute("phoneNumber", phoneNumber);
 		model.addAttribute("dob", dob);
 		model.addAttribute("weight", weight);
 		model.addAttribute("height", height);
 		model.addAttribute("male", isMale);
 
-		if (!password.contentEquals(repeat_password)) {
+		if (!password.contentEquals(repeatPassword)) {
 			model.addAttribute("error", "repeat-password");
 			return "register";
 		}
@@ -85,7 +87,16 @@ public class UserController {
 
 		try {
 			LocalDate parsedDate = LocalDate.parse(dob);
-			this.service.addUser(username, password, name, isMale, parsedWeight, parsedDate, parsedHeight);
+			this.service.addUser(
+				username,
+				password,
+				emailAddress,
+				phoneNumber,
+				isMale,
+				parsedWeight,
+				parsedDate,
+				parsedHeight
+			);
 		} catch (DateTimeParseException e) {
 			model.addAttribute("error", "date");
 			return "register";
@@ -96,6 +107,10 @@ public class UserController {
 				model.addAttribute("error", "password");
 			} else if (e.getMessage().toLowerCase().contains("birth")) {
 				model.addAttribute("error", "dob");
+			} else if (e.getMessage().toLowerCase().contains("email")) {
+				model.addAttribute("error", "email");
+			} else if (e.getMessage().toLowerCase().contains("phone")) {
+				model.addAttribute("error", "phone");
 			} else {
 				model.addAttribute("error", "unknown");
 			}

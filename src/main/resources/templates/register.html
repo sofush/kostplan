@@ -40,6 +40,14 @@
 		<img src="/svg/error.svg" alt="error"/>
 		En ukendt fejl opstod.
 	</div>
+	<div th:if="${error} == 'email'" class="section notification">
+		<img src="/svg/error.svg" alt="error"/>
+		E-mail addresse input feltet skal udfyldes.
+	</div>
+	<div th:if="${error} == 'phone'" class="section notification">
+		<img src="/svg/error.svg" alt="error"/>
+		Telefonnummer input feltet skal udfyldes.
+	</div>
 	<div th:replace="~{fragments :: branding}"></div>
 	<div class="center section">
 		<h2 style="text-align: center">Registrer en konto</h2>
@@ -54,11 +62,15 @@
 			</p>
 			<p>
 				<label for="repeat-password">Gentaget kodeord</label>
-				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Kodeord (gentaget)" th:value="*{repeat_password}"/>
+				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Kodeord (gentaget)" th:value="*{repeatPassword}"/>
 			</p>
 			<p>
-				<label for="name">Fulde navn (valgfrit)</label>
-				<input type="text" id="name" th:name="name" placeholder="Fulde navn" th:value="*{name}"/>
+				<label for="email-address">E-mail adresse</label>
+				<input type="text" id="email-address" th:name="email-address" placeholder="E-mail adresse" th:value="*{emailAddress}"/>
+			</p>
+			<p>
+				<label for="phone-number">Telefonnummer</label>
+				<input type="text" id="phone-number" th:name="phone-number" placeholder="Telefonnummer" th:value="*{phoneNumber}"/>
 			</p>
 			<p>
 				<label for="dob">Fødselsdato</label>

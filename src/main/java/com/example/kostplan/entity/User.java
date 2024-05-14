@@ -25,9 +25,14 @@ public class User {
 	private String password;
 
 	/**
-	 * The user's real name.
+	 * The user's email address.
 	 */
-	private String name;
+	private String email_address;
+
+	/**
+	 * The user's phone number.
+	 */
+	private String phone_number;
 
 	/**
 	 * The user's specified weight measurement in kilograms.
@@ -44,10 +49,11 @@ public class User {
 	 */
 	private int height;
 
-	public User(String username, String password, String name, Role role, boolean male, int weight, LocalDate dob, int height) {
+	public User(String username, String password, String emailAddress, String phoneNumber, Role role, boolean male, int weight, LocalDate dob, int height) {
 		this.username = username;
 		this.password = password;
-		this.name = name;
+		this.email_address = emailAddress;
+		this.phone_number = phoneNumber;
 		this.role = role;
 		this.male = male;
 		this.weight = weight;
@@ -83,12 +89,20 @@ public class User {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getEmailAddress() {
+		return email_address;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEmailAddress(String email_address) {
+		this.email_address = email_address;
+	}
+
+	public String getPhoneNumber() {
+		return phone_number;
+	}
+
+	public void setPhoneNumber(String phone_number) {
+		this.phone_number = phone_number;
 	}
 
 	public Role getRole() {
