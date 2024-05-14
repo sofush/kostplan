@@ -1,9 +1,6 @@
 package com.example.kostplan.entity;
 
-import com.example.kostplan.util.HealthUtil;
-
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
