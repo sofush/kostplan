@@ -85,8 +85,11 @@
 				<input type="number" id="weight" th:name="weight" th:value="*{weight}"/>
 			</p>
 			<p>
-				<label for="male">Mand</label>
-				<input type="checkbox" id="male" th:name="male" th:checked="*{male}"/>
+				<label for="gender">Køn</label>
+				<select id="gender" th:name="gender">
+					<option th:value="'male'" th:text="'Mand'" th:selected="${gender == 'male'}"></option>
+					<option th:value="'female'" th:text="'Kvinde'" th:selected="${gender == 'female'}"></option>
+				</select>
 			</p>
 			<p>
 				<input type="submit" value="Registrer"/>

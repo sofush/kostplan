@@ -44,13 +44,13 @@ public class UserController {
 		@ModelAttribute("repeat-password") String repeatPassword,
 		@ModelAttribute("email-address") String emailAddress,
 		@ModelAttribute("phone-number") String phoneNumber,
-		@ModelAttribute("male") String male,
+		@ModelAttribute("gender") String gender,
 		@ModelAttribute("weight") String weight,
 		@ModelAttribute("dob") String dob,
 		@ModelAttribute("height") String height,
 		Model model
 	) {
-		boolean isMale = male != null && male.contentEquals("on");
+		boolean isMale = gender != null && gender.contentEquals("male");
 
 		// Add the various attributes to the model in case of an exception so the user doesn't
 		// have to fill it out all over again.
@@ -62,7 +62,7 @@ public class UserController {
 		model.addAttribute("dob", dob);
 		model.addAttribute("weight", weight);
 		model.addAttribute("height", height);
-		model.addAttribute("male", isMale);
+		model.addAttribute("gender", gender);
 
 		if (!password.contentEquals(repeatPassword)) {
 			model.addAttribute("error", "repeat-password");
