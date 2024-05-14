@@ -10,9 +10,6 @@ import java.util.List;
  * Information about a user including account details and physical properties.
  */
 public class User {
-	private Role role;
-	private boolean male;
-
 	/**
 	 * The user's username which must be unique.
 	 */
@@ -33,6 +30,16 @@ public class User {
 	 * The user's phone number.
 	 */
 	private String phone_number;
+
+	/**
+	 * The user's role in the system (normal user, admin, chef, etc.)
+	 */
+	private Role role;
+
+	/**
+	 * Whether the user is male.
+	 */
+	private boolean male;
 
 	/**
 	 * The user's specified weight measurement in kilograms.
