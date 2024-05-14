@@ -3,6 +3,8 @@ scale 1920*1080
 entity User {
 	{field} *username : VARCHAR(20)
 	password : TEXT
+	email_address : TEXT
+	phone_number : TEXT
 	role : INTEGER
 	name : TEXT
 	male : BOOLEAN

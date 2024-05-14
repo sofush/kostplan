@@ -10,7 +10,8 @@ class User {
 	- username: String
 	- password: String
 	- role: Role
-	- name: String
+	- email_address: String
+	- phone_number: String
 	- male: boolean
 	- weight: int
 	- dob: LocalDate
@@ -55,7 +56,7 @@ class UserController {
 	+ String login()
 	+ String logout()
 	+ String registerUser()
-	+ String registerUserPost(String username, String password, String repeat_password, String name, String male, String weight, String dob, String height, Model model)
+	+ String registerUserPost(String username, String password, String repeatPassword, String emailAddress, String phoneNumber, String male, String weight, String dob, String height, Model model)
 }
 class RecipeController {
 	- service: UserService
@@ -69,7 +70,7 @@ class UserService {
 	- repository: UserRepository
 	- encoder: PasswordEncoder
 	+ UserService(UserRepository repository, PasswordEncoder encoder)
-	+ void addUser(String username, String password, String name, boolean male, int weight, LocalDate dob, int height)
+	+ void addUser(String username, String password, String emailAddress, String phoneNumber, boolean male, int weight, LocalDate dob, int height)
 	+ User findUserByUsername(String username)
 	+ void addDay(String username, LocalDate date, Integer breakfastId, Integer lunchId, Integer dinnerId)
 	+ void updateDay(String username, LocalDate date, Integer breakfastId, Integer lunchId, Integer dinnerId)

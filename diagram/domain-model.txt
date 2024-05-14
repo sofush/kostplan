@@ -1,11 +1,13 @@
 @startuml
 scale 1920*1080
 class Rolle {}
+class Vægtmål {}
 class Bruger {
 	brugernavn
 	kodeord
 	rolle
-	navn
+	email
+	telefonnummer
 	dage
 	vægtmål
 	køn
@@ -14,6 +16,7 @@ class Bruger {
 	højde
 }
 class Dag {
+	brugernavn
 	dato
 	morgenmad opskrift
 	frokost opskrift
@@ -36,9 +39,11 @@ class Ingrediens {
 	kalorier
 }
 
-Rolle "1" -r-- "1" Bruger
+Rolle " 1 " -r-- " 1  " Bruger
+Vægtmål "1" -r-- "1" Bruger
+Rolle -down[hidden]- Vægtmål
 Bruger "1" -r-- "0..m" Dag
-Dag "0..m" --- "3" Opskrift
+Dag "0..1" --- "0..3" Opskrift
 Opskrift "1" --- "1..m" Ingrediens
 
 @enduml
