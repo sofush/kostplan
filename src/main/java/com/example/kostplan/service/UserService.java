@@ -1,9 +1,6 @@
 package com.example.kostplan.service;
 
-import com.example.kostplan.entity.Day;
-import com.example.kostplan.entity.Recipe;
-import com.example.kostplan.entity.Role;
-import com.example.kostplan.entity.User;
+import com.example.kostplan.entity.*;
 import com.example.kostplan.repository.UserRepository;
 import com.example.kostplan.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,8 @@ public class UserService {
 		String password,
 		String emailAddress,
 		String phoneNumber,
+		WeightGoal weightGoal,
+		ActivityLevel activityLevel,
 		boolean male,
 		int weight,
 		LocalDate dob,
@@ -64,6 +63,14 @@ public class UserService {
 			throw new IllegalArgumentException("Phone number must have a value.");
 		}
 
+		if (weightGoal == null) {
+			throw new IllegalArgumentException("Weight goal must have a value.");
+		}
+
+		if (activityLevel == null) {
+			throw new IllegalArgumentException("Activity level must have a value.");
+		}
+
 		// Encode the password using the PasswordEncoder bean.
 		String encodedPassword = this.encoder.encode(password);
 
@@ -73,6 +80,8 @@ public class UserService {
 			emailAddress,
 			phoneNumber,
 			Role.USER,
+			weightGoal,
+			activityLevel,
 			male,
 			weight,
 			dob,

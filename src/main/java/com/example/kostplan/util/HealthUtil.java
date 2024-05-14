@@ -1,7 +1,9 @@
 package com.example.kostplan.util;
 
+import com.example.kostplan.entity.ActivityLevel;
 import com.example.kostplan.entity.Ingredient;
 import com.example.kostplan.entity.Recipe;
+import com.example.kostplan.entity.WeightGoal;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -12,21 +14,53 @@ public class HealthUtil {
 	private HealthUtil() {}
 
 	/**
-	 * Calculates the BMR (Basal Metabolic Rate) using the Harris-Benedict equation.
-	 * @return the BMR in kilocalories.
+	 * Calculates a calorie goal based on a weight goal, a physical activity level and BMR (Basal Metabolic Rate,
+	 * using the Harris-Benedict equation).
+	 * @return A calorie goal.
 	 */
-	public static double calculateBMR(boolean male, int weight, int height, LocalDate dob) {
-		double weightFactor = male ? 13.752 : 9.563;
-		double heightFactor = male ? 5 : 1.85;
-		double ageFactor = male ? 6.755 : 4.676;
-		double constantTerm = male ? 66.473 : 655.096;
+	public static double calculateCalorieGoal(
+		WeightGoal weightGoal,
+		ActivityLevel activityLevel,
+		boolean male,
+		int weight,
+		int height,
+		LocalDate dob
+	) {
+		final double weightFactor = 10.0;
+		final double heightFactor = 6.25;
+		final double ageFactor = 5.0;
+		final double constantTerm = male ? 5.0 : -161.0;
 
-		long ageInYears = ChronoUnit.YEARS.between(LocalDate.now(), dob);
-
-		return (weightFactor * weight)
+		long ageInYears = ChronoUnit.YEARS.between(dob, LocalDate.now());
+		double bmr = (weightFactor * weight)
 			+ (heightFactor * height)
 			- (ageFactor * ageInYears)
 			+ constantTerm;
+
+		long weightGoalTerm = 0;
+
+		if (weightGoal != null) {
+			switch (weightGoal) {
+				case EQUILIBRIUM -> {}
+				case GAIN -> weightGoalTerm = 500;
+				case LOSS -> weightGoalTerm = -500;
+				case MUSCLE -> weightGoalTerm = 300;
+			}
+		}
+
+		double activityLevelFactor = 1.2;
+
+		if (activityLevel != null) {
+			switch (activityLevel) {
+				case INACTIVE -> {}
+				case LOW -> activityLevelFactor = 1.5;
+				case MODERATE -> activityLevelFactor = 1.7;
+				case HIGH -> activityLevelFactor = 1.9;
+				case VERY_HIGH -> activityLevelFactor = 2.4;
+			}
+		}
+
+		return (bmr * activityLevelFactor) + weightGoalTerm;
 	}
 
 	/**

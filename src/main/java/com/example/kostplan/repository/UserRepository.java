@@ -30,7 +30,8 @@ public class UserRepository {
 				email_address TEXT NOT NULL,
 				phone_number TEXT NOT NULL,
 				role INTEGER NOT NULL,
-				goal INTEGER NOT NULL,
+				weight_goal INTEGER NOT NULL,
+				activity_level INTEGER NOT NULL,
 				name TEXT,
 				male BOOLEAN NOT NULL,
 				weight INTEGER NOT NULL,
@@ -84,7 +85,7 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String userQuery = """
-		SELECT username, password, email_address, phone_number, role, male, weight, dob, height
+		SELECT username, password, email_address, phone_number, role, weight_goal, activity_level, male, weight, dob, height
 		FROM User
 		WHERE username = ?;
 		""";
@@ -97,6 +98,8 @@ public class UserRepository {
 				rs.getString("email_address"),
 				rs.getString("phone_number"),
 				Role.values()[rs.getInt("role")],
+				WeightGoal.values()[rs.getInt("weight_goal")],
+				ActivityLevel.values()[rs.getInt("weight_goal")],
 				rs.getBoolean("male"),
 				rs.getInt("weight"),
 				rs.getDate("dob").toLocalDate(),
@@ -115,8 +118,8 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String sql = """
-            INSERT INTO User(username, password, email_address, phone_number, role, male, weight, dob, height)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO User(username, password, email_address, phone_number, role, weight_goal, activity_level, male, weight, dob, height)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
 		this.jdbc.update(
@@ -126,6 +129,8 @@ public class UserRepository {
 			user.getEmailAddress(),
 			user.getPhoneNumber(),
 			user.getRole().ordinal(),
+			user.getWeightGoal().ordinal(),
+			user.getActivityLevel().ordinal(),
 			user.isMale(),
 			user.getWeight(),
 			user.getDob(),

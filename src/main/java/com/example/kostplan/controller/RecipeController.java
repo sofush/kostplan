@@ -205,7 +205,9 @@ public class RecipeController {
 		}
 
 		User user = this.service.findUserByUsername(principal.getName());
-		double calorieGoal = HealthUtil.calculateBMR(
+		double calorieGoal = HealthUtil.calculateCalorieGoal(
+			user.getWeightGoal(),
+			user.getActivityLevel(),
 			user.isMale(),
 			user.getWeight(),
 			user.getHeight(),

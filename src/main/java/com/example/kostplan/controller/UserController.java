@@ -1,5 +1,7 @@
 package com.example.kostplan.controller;
 
+import com.example.kostplan.entity.ActivityLevel;
+import com.example.kostplan.entity.WeightGoal;
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
@@ -44,6 +46,8 @@ public class UserController {
 		@ModelAttribute("repeat-password") String repeatPassword,
 		@ModelAttribute("email-address") String emailAddress,
 		@ModelAttribute("phone-number") String phoneNumber,
+		@ModelAttribute("weight-goal") String weightGoal,
+		@ModelAttribute("activity-level") String activityLevel,
 		@ModelAttribute("gender") String gender,
 		@ModelAttribute("weight") String weight,
 		@ModelAttribute("dob") String dob,
@@ -59,6 +63,8 @@ public class UserController {
 		model.addAttribute("repeatPassword", repeatPassword);
 		model.addAttribute("emailAddress", emailAddress);
 		model.addAttribute("phoneNumber", phoneNumber);
+		model.addAttribute("activityLevel", activityLevel);
+		model.addAttribute("weightGoal", weightGoal);
 		model.addAttribute("dob", dob);
 		model.addAttribute("weight", weight);
 		model.addAttribute("height", height);
@@ -85,6 +91,24 @@ public class UserController {
 			return "register";
 		}
 
+		WeightGoal parsedWeightGoal = null;
+		ActivityLevel parsedActivityLevel = null;
+
+		switch (weightGoal) {
+			case "gain" -> parsedWeightGoal = WeightGoal.GAIN;
+			case "loss" -> parsedWeightGoal = WeightGoal.LOSS;
+			case "equilibrium" -> parsedWeightGoal = WeightGoal.EQUILIBRIUM;
+			case "muscle" -> parsedWeightGoal = WeightGoal.MUSCLE;
+		}
+
+		switch (activityLevel) {
+			case "inactive" -> parsedActivityLevel = ActivityLevel.INACTIVE;
+			case "low" -> parsedActivityLevel = ActivityLevel.LOW;
+			case "moderate" -> parsedActivityLevel = ActivityLevel.MODERATE;
+			case "high" -> parsedActivityLevel = ActivityLevel.HIGH;
+			case "very high" -> parsedActivityLevel = ActivityLevel.VERY_HIGH;
+		}
+
 		try {
 			LocalDate parsedDate = LocalDate.parse(dob);
 			this.service.addUser(
@@ -92,6 +116,8 @@ public class UserController {
 				password,
 				emailAddress,
 				phoneNumber,
+				parsedWeightGoal,
+				parsedActivityLevel,
 				isMale,
 				parsedWeight,
 				parsedDate,
@@ -111,6 +137,10 @@ public class UserController {
 				model.addAttribute("error", "email");
 			} else if (e.getMessage().toLowerCase().contains("phone")) {
 				model.addAttribute("error", "phone");
+			} else if (e.getMessage().toLowerCase().contains("activity")) {
+				model.addAttribute("error", "activity-level");
+			} else if (e.getMessage().toLowerCase().contains("weight goal")) {
+				model.addAttribute("error", "weight-goal");
 			} else {
 				model.addAttribute("error", "unknown");
 			}

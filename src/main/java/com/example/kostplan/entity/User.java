@@ -34,6 +34,16 @@ public class User {
 	private Role role;
 
 	/**
+	 * The user's weight goal.
+	 */
+	private WeightGoal weightGoal;
+
+	/**
+	 * The user's physical activity level.
+	 */
+	private ActivityLevel activityLevel;
+
+	/**
 	 * Whether the user is male.
 	 */
 	private boolean male;
@@ -53,12 +63,25 @@ public class User {
 	 */
 	private int height;
 
-	public User(String username, String password, String emailAddress, String phoneNumber, Role role, boolean male, int weight, LocalDate dob, int height) {
+	public User(String username,
+				String password,
+				String emailAddress,
+				String phoneNumber,
+				Role role,
+				WeightGoal weightGoal,
+				ActivityLevel activityLevel,
+				boolean male,
+				int weight,
+				LocalDate dob,
+				int height
+	) {
 		this.username = username;
 		this.password = password;
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
 		this.role = role;
+		this.weightGoal = weightGoal;
+		this.activityLevel = activityLevel;
 		this.male = male;
 		this.weight = weight;
 		this.dob = dob;
@@ -115,6 +138,22 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public WeightGoal getWeightGoal() {
+		return weightGoal;
+	}
+
+	public void setWeightGoal(WeightGoal weightGoal) {
+		this.weightGoal = weightGoal;
+	}
+
+	public ActivityLevel getActivityLevel() {
+		return activityLevel;
+	}
+
+	public void setActivityLevel(ActivityLevel activityLevel) {
+		this.activityLevel = activityLevel;
 	}
 
 	public boolean isMale() {

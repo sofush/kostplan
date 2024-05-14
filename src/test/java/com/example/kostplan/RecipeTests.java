@@ -1,12 +1,15 @@
 package com.example.kostplan;
 
+import com.example.kostplan.entity.ActivityLevel;
 import com.example.kostplan.entity.Ingredient;
 import com.example.kostplan.entity.Recipe;
+import com.example.kostplan.entity.WeightGoal;
 import com.example.kostplan.util.HealthUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +71,20 @@ class RecipeTests {
 		// scaled will be ~100 (the calorie goal).
 		final double caloriesAfter = recipeToModify.sumCalories();
 		Assertions.assertThat(caloriesAfter).isBetween(32.0, 34.0);
+	}
+
+
+	@Test
+	public void testCalculateCalorieGoal() {
+		double calorieGoal = HealthUtil.calculateCalorieGoal(
+			WeightGoal.LOSS,
+			ActivityLevel.MODERATE,
+			false,
+			84,
+			174,
+			LocalDate.now().minusYears(42)
+		);
+
+		Assertions.assertThat(calorieGoal).isBetween(2146.0, 2147.0);
 	}
 }
