@@ -9,9 +9,9 @@ enum Role {
 class User {
 	- username: String
 	- password: String
+	- emailAddress: String
+	- phoneNumber: String
 	- role: Role
-	- email_address: String
-	- phone_number: String
 	- male: boolean
 	- weight: int
 	- dob: LocalDate

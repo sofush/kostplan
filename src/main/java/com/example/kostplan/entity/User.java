@@ -21,12 +21,12 @@ public class User {
 	/**
 	 * The user's email address.
 	 */
-	private String email_address;
+	private String emailAddress;
 
 	/**
 	 * The user's phone number.
 	 */
-	private String phone_number;
+	private String phoneNumber;
 
 	/**
 	 * The user's role in the system (normal user, admin, chef, etc.)
@@ -56,8 +56,8 @@ public class User {
 	public User(String username, String password, String emailAddress, String phoneNumber, Role role, boolean male, int weight, LocalDate dob, int height) {
 		this.username = username;
 		this.password = password;
-		this.email_address = emailAddress;
-		this.phone_number = phoneNumber;
+		this.emailAddress = emailAddress;
+		this.phoneNumber = phoneNumber;
 		this.role = role;
 		this.male = male;
 		this.weight = weight;
@@ -94,19 +94,19 @@ public class User {
 	}
 
 	public String getEmailAddress() {
-		return email_address;
+		return emailAddress;
 	}
 
-	public void setEmailAddress(String email_address) {
-		this.email_address = email_address;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public String getPhoneNumber() {
-		return phone_number;
+		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phone_number) {
-		this.phone_number = phone_number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Role getRole() {
