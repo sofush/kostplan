@@ -52,7 +52,7 @@ public class UserService {
 			throw new IllegalArgumentException("Password must be at least 3 characters long.");
 		}
 
-		if (dob.isAfter(LocalDate.now())) {
+		if (dob == null || dob.isAfter(LocalDate.now())) {
 			throw new IllegalArgumentException("Date of birth must not be in the future.");
 		}
 
