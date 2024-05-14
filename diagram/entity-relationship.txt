@@ -24,7 +24,6 @@ entity Recipe {
 	week : INTEGER
 	title : TEXT
 	description : TEXT
-	nutrition_info : TEXT
 	instructions : TEXT
 	time : TEXT
 }

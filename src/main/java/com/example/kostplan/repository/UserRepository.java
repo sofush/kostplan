@@ -30,6 +30,7 @@ public class UserRepository {
 				email_address TEXT NOT NULL,
 				phone_number TEXT NOT NULL,
 				role INTEGER NOT NULL,
+				goal INTEGER NOT NULL,
 				name TEXT,
 				male BOOLEAN NOT NULL,
 				weight INTEGER NOT NULL,
@@ -45,7 +46,6 @@ public class UserRepository {
 				week INTEGER,
 				title TEXT,
 				description TEXT,
-				nutrition_info TEXT,
 				instructions TEXT,
 				time TEXT,
 				PRIMARY KEY (id)
@@ -137,7 +137,7 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String recipeQuery = """
-            SELECT id, week, title, description, nutrition_info, instructions, time
+            SELECT id, week, title, description, instructions, time
             FROM Recipe
             WHERE id = ?;
             """;
@@ -149,7 +149,6 @@ public class UserRepository {
 				rs.getInt("week"),
 				rs.getString("title"),
 				rs.getString("description"),
-				rs.getString("nutrition_info"),
 				null,
 				rs.getString("instructions"),
 				rs.getString("time")
@@ -171,7 +170,7 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String recipeQuery = """
-            SELECT id, week, title, description, nutrition_info, instructions, time
+            SELECT id, week, title, description, instructions, time
             FROM Recipe
             WHERE week = ?;
             """;
@@ -183,7 +182,6 @@ public class UserRepository {
 				rs.getInt("week"),
 				rs.getString("title"),
 				rs.getString("description"),
-				rs.getString("nutrition_info"),
 				null,
 				rs.getString("instructions"),
 				rs.getString("time")

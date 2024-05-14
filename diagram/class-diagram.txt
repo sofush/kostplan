@@ -33,7 +33,6 @@ class Recipe {
 	- week: int
 	- title: String
 	- description: String
-	- nutrition_info: String
 	- ingredients: List<Ingredient>
 	- instructions: String
 	- time: String

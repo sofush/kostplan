@@ -22,7 +22,6 @@ class RecipeTests {
 			-1,
 			"title",
 			"description",
-			"nutrition",
 			List.of(),
 			"instructions",
 			"time"

@@ -24,11 +24,6 @@ public class Recipe {
 	private String description;
 
 	/**
-	 * Nutritional facts.
-	 */
-	private String nutrition_info;
-
-	/**
 	 * The list of ingredients that are needed to cook this recipe/dish.
 	 */
 	private List<Ingredient> ingredients;
@@ -48,7 +43,6 @@ public class Recipe {
 		int week,
 		String title,
 		String description,
-		String nutrition_info,
 		List<Ingredient> ingredients,
 		String instructions,
 		String time
@@ -57,7 +51,6 @@ public class Recipe {
 		this.week = week;
 		this.title = title;
 		this.description = description;
-		this.nutrition_info = nutrition_info;
 		this.ingredients = ingredients;
 		this.instructions = instructions;
 		this.time = time;
@@ -93,14 +86,6 @@ public class Recipe {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getNutritionInfo() {
-		return nutrition_info;
-	}
-
-	public void setNutritionInfo(String nutrition_info) {
-		this.nutrition_info = nutrition_info;
 	}
 
 	public List<Ingredient> getIngredients() {
