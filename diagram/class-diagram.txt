@@ -11,13 +11,21 @@ enum WeightGoal {
 	LOSS
 	EQUILIBRIUM
 }
+enum ActivityLevel {
+	INACTIVE
+	LOW
+	MODERATE
+	HIGH
+	VERY_HIGH
+}
 class User {
 	- username: String
 	- password: String
 	- emailAddress: String
 	- phoneNumber: String
 	- role: Role
-	- goal: WeightGoal
+	- weightGoal: WeightGoal
+	- activityLevel: ActivityLevel
 	- male: boolean
 	- weight: int
 	- dob: LocalDate
@@ -61,7 +69,7 @@ class UserController {
 	+ String login()
 	+ String logout()
 	+ String registerUser()
-	+ String registerUserPost(String username, String password, String repeatPassword, String emailAddress, String phoneNumber, String weightGoal, String male, String weight, String dob, String height, Model model)
+	+ String registerUserPost(String username, String password, String repeatPassword, String emailAddress, String phoneNumber, String weightGoal, String activityLevel, String male, String weight, String dob, String height, Model model)
 }
 class RecipeController {
 	- service: UserService
@@ -75,7 +83,7 @@ class UserService {
 	- repository: UserRepository
 	- encoder: PasswordEncoder
 	+ UserService(UserRepository repository, PasswordEncoder encoder)
-	+ void addUser(String username, String password, String emailAddress, String phoneNumber, String weightGoal, boolean male, int weight, LocalDate dob, int height)
+	+ void addUser(String username, String password, String emailAddress, String phoneNumber, String weightGoal, String activityLevel, boolean male, int weight, LocalDate dob, int height)
 	+ User findUserByUsername(String username)
 	+ void addDay(String username, LocalDate date, Integer breakfastId, Integer lunchId, Integer dinnerId)
 	+ void updateDay(String username, LocalDate date, Integer breakfastId, Integer lunchId, Integer dinnerId)
@@ -98,7 +106,7 @@ class UserRepository {
 }
 class HealthUtil {
 	- HealthUtil()
-	+ double calculateBMR(boolean male, int weight, int height, LocalDate dob)
+	+ double calculateCalorieGoal(WeightGoal weightGoal, ActivityLevel activityLevel, boolean male, int weight, int height, LocalDate dob)
 	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 }
 class DateUtil {
@@ -124,11 +132,13 @@ UserService .r.> DateUtil
 entities ..> User
 entities ..> Role
 entities ..> WeightGoal
+entities ..> ActivityLevel
 entities ..> Day
 entities ..> Recipe
 entities ..> Ingredient
 Role " 1 " *-- " 1 " User
 WeightGoal " 1 " *-- " 1 " User
+ActivityLevel " 1 " *-- " 1 " User
 Day " 1 " *-- " 0..3 " Recipe
 Recipe " 1 " *-- " 1..m " Ingredient
 RecipeController ..> entities

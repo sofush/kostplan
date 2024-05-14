@@ -5,6 +5,8 @@ entity User {
 	password : TEXT
 	email_address : TEXT
 	phone_number : TEXT
+	activity_level : INTEGER
+	weight_goal : INTEGER
 	role : INTEGER
 	name : TEXT
 	male : BOOLEAN

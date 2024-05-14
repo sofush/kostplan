@@ -2,14 +2,16 @@
 scale 1920*1080
 class Rolle {}
 class Vægtmål {}
+class Aktivitetsniveau {}
 class Bruger {
 	brugernavn
 	kodeord
-	rolle
 	email
 	telefonnummer
 	dage
+	rolle
 	vægtmål
+	aktivitetsniveau
 	køn
 	vægt
 	fødselsdato
@@ -40,11 +42,13 @@ class Ingrediens {
 }
 
 Rolle " 1 " -r-- " 1  " Bruger
-Vægtmål "1" -r-- "1" Bruger
+Vægtmål " 1 " -r-- " 1  " Bruger
+Aktivitetsniveau "1" -r-- "1" Bruger
 Rolle -down[hidden]- Vægtmål
+Vægtmål -down[hidden]- Aktivitetsniveau
 Bruger "1" -r-- "0..m" Dag
 Dag "0..1" --- "0..3" Opskrift
-Opskrift "1" --- "1..m" Ingrediens
+Opskrift "1" -l-- "1..m" Ingrediens
 
 @enduml
 
