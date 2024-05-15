@@ -20,6 +20,6 @@
 	/* at 100%, the element is positioned at the top center of the screen */
 	100% {
 		left: 50%;
-		transform: translate(-50%, 0);
+		transform: translate(-50%, 10%);
 	}
 }
