@@ -23,11 +23,11 @@ textarea:focus, input[type=text]:focus, input[type=password]:focus, input[type=n
 	outline: none;
 }
 input[type=submit] {
-	background-color: rgb(70, 190, 230);
+	background-color: rgb(145, 205, 127);
 	font-weight: bold;
 	color: white;
 	border: none;
 }
 input[type=submit]:hover {
-	background-color: rgb(50, 170, 210);
+	background-color: rgb(125, 185, 107);
 }
