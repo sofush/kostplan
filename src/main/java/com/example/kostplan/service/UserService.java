@@ -144,12 +144,14 @@ public class UserService {
 		return this.repository.findDay(username, localDate);
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	public Recipe findRecipeById(Integer recipeId)
 		throws DataAccessException
 	{
 		return this.repository.findRecipeById(recipeId);
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	public List<Recipe> findRecipesForWeek(int weekIndex)
 		throws DataAccessException
 	{
@@ -184,12 +186,14 @@ public class UserService {
 	}
 
 
+	@PreAuthorize("isAuthenticated()")
 	public byte[] findRecipeImage(int recipeId)
 		throws DataAccessException
 	{
 		return this.repository.findRecipeImage(recipeId);
 	}
 
+	@PreAuthorize("hasRole('ADMIN') || hasRole('CHEF')")
 	public void addRecipeImage(int recipeId, byte[] imageBytes)
 		throws DataAccessException
 	{

@@ -37,6 +37,7 @@ public class SecurityConfiguration {
 				.requestMatchers("/css/**").permitAll()
 				.requestMatchers("/register").permitAll()
 				.requestMatchers("/login").permitAll()
+				.requestMatchers("/upload").hasAnyRole("ADMIN", "CHEF")
 				.anyRequest().hasRole("USER")
 			)
 			.formLogin((conf) -> conf
