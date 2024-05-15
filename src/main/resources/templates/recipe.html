@@ -5,39 +5,43 @@
 	<title th:text="${recipe.title} + ' - Minkostplan'"></title>
 	<link rel="stylesheet" href="/css/base.css"/>
 	<link rel="stylesheet" href="/css/recipe.css"/>
+	<link rel="stylesheet" href="/css/form.css"/>
 </head>
-<body>
-	<h1 th:text="${recipe.title}"></h1>
-	<p>
-		<img th:src="@{|/img/recipe/${recipe.id}|}" alt="" style="width: 300px; height: auto; border-radius: 5%"/>
-	</p>
-	<div class="toc">
-		<h2>Indholdsfortegnelse</h2>
-		<ul>
-			<li><a href="#time">Tidsforbrug</a></li>
-			<li><a href="#description">Beskrivelse</a></li>
-			<li><a href="#nutrition">Ernæringsindhold</a></li>
-			<li><a href="#ingredients">Ingredienser</a></li>
-			<li><a href="#instructions">Instruktioner</a></li>
-		</ul>
-	</div>
-	<div>
-		<h2 id="time">Tidsforbrug</h2>
-		<div th:text="${recipe.time}"></div>
-		<h2 id="description">Beskrivelse</h2>
-		<div th:text="${recipe.description}"></div>
-		<h2 id="nutrition">Ernæringsindhold</h2>
-		<div th:text="'Antal kalorier: ' + ${#numbers.formatDecimal(recipe.sumCalories(), 1, 0)}"></div>
-		<div th:text="'Dit daglige kaloriemål: ' + ${#numbers.formatDecimal(calorieGoal, 1, 0)}"></div>
-		<div th:text="'Udgørende procentdel af mål: ' + ${#numbers.formatDecimal(recipe.sumCalories() / calorieGoal * 100, 1, 1)} + '%'"></div>
-		<h2 id="ingredients">Ingredienser</h2>
-		<ul>
-			<li th:each="ingredient : ${recipe.ingredients}">
-				<div th:text="${ingredient.toString()}"></div>
-			</li>
-		</ul>
-		<h2 id="instructions">Instruktioner</h2>
-		<div th:text="${recipe.instructions}"></div>
+<body class="dotpattern">
+	<div class="hcenter section" style="background-color: #f7fff7; max-width: 900px; margin: 16px">
+		<a th:href="@{/week}">< Gå tilbage til din ugekalender</a>
+		<h1 th:text="${recipe.title}"></h1>
+		<p>
+			<img th:src="@{|/img/recipe/${recipe.id}|}" alt="" style="width: 300px; height: auto; border-radius: 5%"/>
+		</p>
+		<div class="toc">
+			<h2>Indholdsfortegnelse</h2>
+			<ul>
+				<li><a href="#time">Tidsforbrug</a></li>
+				<li><a href="#description">Beskrivelse</a></li>
+				<li><a href="#nutrition">Ernæringsindhold</a></li>
+				<li><a href="#ingredients">Ingredienser</a></li>
+				<li><a href="#instructions">Instruktioner</a></li>
+			</ul>
+		</div>
+		<div>
+			<h2 id="time">Tidsforbrug</h2>
+			<div th:text="${recipe.time}"></div>
+			<h2 id="description">Beskrivelse</h2>
+			<div th:text="${recipe.description}"></div>
+			<h2 id="nutrition">Ernæringsindhold</h2>
+			<div th:text="'Antal kalorier: ' + ${#numbers.formatDecimal(recipe.sumCalories(), 1, 0)}"></div>
+			<div th:text="'Dit daglige kaloriemål: ' + ${#numbers.formatDecimal(calorieGoal, 1, 0)}"></div>
+			<div th:text="'Udgørende procentdel af mål: ' + ${#numbers.formatDecimal(recipe.sumCalories() / calorieGoal * 100, 1, 1)} + '%'"></div>
+			<h2 id="ingredients">Ingredienser</h2>
+			<ul>
+				<li th:each="ingredient : ${recipe.ingredients}">
+					<div th:text="${ingredient.toString()}"></div>
+				</li>
+			</ul>
+			<h2 id="instructions">Instruktioner</h2>
+			<div th:text="${recipe.instructions}"></div>
+		</div>
 	</div>
 </body>
 </html>
