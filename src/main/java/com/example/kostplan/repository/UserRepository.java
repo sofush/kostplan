@@ -85,10 +85,10 @@ public class UserRepository {
 		throws DataAccessException
 	{
 		String userQuery = """
-		SELECT username, password, email_address, phone_number, role, weight_goal, activity_level, male, weight, dob, height
-		FROM User
-		WHERE username = ?;
-		""";
+			SELECT username, password, email_address, phone_number, role, weight_goal, activity_level, male, weight, dob, height
+			FROM User
+			WHERE username = ?;
+			""";
 
 		List<User> users = this.jdbc.query(
 			userQuery,
