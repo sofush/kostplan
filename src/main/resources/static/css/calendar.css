@@ -15,7 +15,7 @@ td {
 .add-recipe-button {
 	background-color: white;
 	width: 100%;
-	height: 240px;
+	height: 270px;
 	border-radius: 5px;
 	box-shadow: inset -1px -1px 3px 3px lightgrey;
 	display: flex;
@@ -55,13 +55,24 @@ td {
 	cursor: pointer;
 }
 .recipe-card {
-	height: 240px;
+	height: 270px;
 	box-shadow: 0 0 20px #77b851;
 	background-color: #95cd75;
 	text-align: center;
 	border-radius: 5px;
 	padding: 10px;
 	overflow: hidden;
+}
+.recipe-card:hover {
+	animation: 0.3s background-anim both;
+}
+@keyframes background-anim {
+	0% {
+		background-color: #95cd75;
+	}
+	100% {
+		background-color: #85bd65;
+	}
 }
 .title {
 	color: black;
