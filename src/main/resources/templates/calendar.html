@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
 <body class="dotpattern">
-	<div th:if="${param.error != null}">
+	<div th:if="${param.error}">
 		<div th:if="${param.error[0]} == 'database'" class="section notification">
 			<img src="/svg/error.svg" alt="error"/>
 			Database fejl.
