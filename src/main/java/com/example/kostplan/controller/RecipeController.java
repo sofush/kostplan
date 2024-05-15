@@ -8,16 +8,20 @@ import com.example.kostplan.util.DateUtil;
 import com.example.kostplan.util.HealthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -218,5 +222,58 @@ public class RecipeController {
 		model.addAttribute("calorieGoal", calorieGoal);
 		model.addAttribute("recipe", recipe);
 		return "recipe";
+	}
+
+	@GetMapping("/upload")
+	public String uploadRecipeImage() {
+		return "upload";
+	}
+
+	@PostMapping("/upload")
+	public String uploadRecipeImagePost(
+		@RequestParam("file") MultipartFile image,
+		@RequestParam("recipe-id") Integer recipeId
+	) {
+		if (recipeId == null) {
+			return "redirect:upload?error=id";
+		}
+
+		if (image == null
+			|| image.isEmpty()
+			|| image.getContentType() == null
+			|| !image.getContentType().contentEquals("image/jpeg")
+		) {
+			return "redirect:upload?error=image";
+		}
+
+		try {
+			this.service.addRecipeImage(recipeId, image.getBytes());
+		} catch (Exception e) {
+			return "redirect:upload?error=unknown";
+		}
+		return "redirect:/upload?success";
+	}
+
+	@GetMapping(
+		value = "/img/recipe/{id}",
+		produces = MediaType.IMAGE_JPEG_VALUE
+	)
+	@ResponseBody
+	public byte[] getRecipeImage(@PathVariable("id") Integer recipeId) {
+		if (recipeId == null) {
+			throw new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Image could not be found."
+			);
+		}
+
+		byte[] image = this.service.findRecipeImage(recipeId);
+
+		if (image == null) {
+			throw new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Image could not be found."
+			);
+		}
+
+		return image;
 	}
 }

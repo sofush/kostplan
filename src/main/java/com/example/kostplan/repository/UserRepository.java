@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -50,6 +51,16 @@ public class UserRepository {
 				instructions TEXT,
 				time TEXT,
 				PRIMARY KEY (id)
+			);
+			""");
+
+		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS RecipeImage(
+				id INTEGER AUTO_INCREMENT,
+				recipe INTEGER NOT NULL,
+				bytes LONGBLOB,
+				PRIMARY KEY (id),
+				FOREIGN KEY (recipe) REFERENCES Recipe(id)
 			);
 			""");
 
@@ -303,5 +314,47 @@ public class UserRepository {
 			return null;
 
 		return days.getFirst();
+	}
+
+	public byte[] findRecipeImage(int recipeId)
+		throws DataAccessException
+	{
+		String sql = """
+            SELECT bytes
+            FROM RecipeImage
+            WHERE recipe = ?;
+            """;
+
+		List<byte[]> bytesList = this.jdbc.query(
+			sql,
+			(rs, rowNum) -> {
+				try {
+					return rs.getBlob("bytes").getBinaryStream().readAllBytes();
+				} catch (IOException e) {
+					return null;
+				}
+			},
+			recipeId
+		);
+
+		if (bytesList.isEmpty())
+			return null;
+
+		return bytesList.getFirst();
+	}
+
+	public void addRecipeImage(int recipeId, byte[] imageBytes)
+		throws DataAccessException
+	{
+		String sql = """
+            INSERT INTO RecipeImage(recipe, bytes)
+            VALUES (?, ?);
+            """;
+
+		this.jdbc.update(
+			sql,
+			recipeId,
+			imageBytes
+		);
 	}
 }

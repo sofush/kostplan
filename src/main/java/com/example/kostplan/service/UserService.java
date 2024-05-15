@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -180,5 +181,18 @@ public class UserService {
 				return day;
 			})
 			.toList();
+	}
+
+
+	public byte[] findRecipeImage(int recipeId)
+		throws DataAccessException
+	{
+		return this.repository.findRecipeImage(recipeId);
+	}
+
+	public void addRecipeImage(int recipeId, byte[] imageBytes)
+		throws DataAccessException
+	{
+		this.repository.addRecipeImage(recipeId, imageBytes);
 	}
 }

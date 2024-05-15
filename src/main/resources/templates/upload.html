@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Upload et billede - Minkostplan</title>
+	<link rel="stylesheet" href="/css/base.css"/>
+	<link rel="stylesheet" href="/css/input.css"/>
+</head>
+<body>
+	<div th:if="${param.error}">
+		<div th:if="${param.error[0]} == 'id'" class="section notification" onclick="this.remove()">
+			<img src="/svg/error.svg" alt="error"/>
+			Det angivne ID er ugyldigt.
+		</div>
+		<div th:if="${param.error[0]} == 'image'" class="section notification" onclick="this.remove()">
+			<img src="/svg/error.svg" alt="error"/>
+			Det uploadede billede skal være et gyldigt JPEG.
+		</div>
+		<div th:if="${param.error[0]} == 'unknown'" class="section notification" onclick="this.remove()">
+			<img src="/svg/error.svg" alt="error"/>
+			En ukendt fejl opstod.
+		</div>
+	</div>
+	<div>
+		<form method="post" enctype="multipart/form-data" th:action="@{/upload}" style="width: 400px">
+			<p>
+				<label for="recipe">ID-nummer på opskrift</label>
+				<input type="number" id="recipe" th:name="recipe-id" placeholder="ID-nummer"/>
+				<input type="file" th:name="file"/>
+			</p>
+			<p>
+				<input type="submit" value="Upload"/>
+			</p>
+		</form>
+	</div>
+</body>
+</html>
