@@ -1,8 +1,5 @@
 .table-container {
-	width: 90%;
-	min-height: 90%;
-	margin: 5%;
-	margin-top: 2%
+	margin: 10px;
 }
 table {
 	width: 100%;

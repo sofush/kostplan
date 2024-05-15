@@ -150,7 +150,7 @@ public class RecipeController {
 			day.getLunch() == null ? null : day.getLunch().getId(),
 			day.getDinner() == null ? null : day.getDinner().getId()
 		);
-		return "redirect:/week";
+		return "redirect:/week?success";
 	}
 
 	@GetMapping("/recipe/{weekday}/{meal}")
