@@ -32,7 +32,6 @@ class User {
 	- height: int
 	{method} + ... constructor/getter/setter
 	+ List<String> getAuthorities()
-	+ double calculateBMR()
 }
 class Day {
 	- date: LocalDate
