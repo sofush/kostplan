@@ -77,6 +77,9 @@ class RecipeController {
 	+ String pickRecipe(String dayOfWeek, String meal, Model model)
 	+ String assignRecipeToDay(String dayOfWeek, String meal, Integer recipeId, Principal principal)
 	+ String showRecipe(String dayOfWeek, String meal, Principal principal, Model model)
+	+ String uploadRecipeImage()
+	+ String uploadRecipeImagePost(MultipartFile file, Integer recipeId)
+	+ byte[] getRecipeImage(Integer recipeId)
 }
 class UserService {
 	- repository: UserRepository
@@ -90,6 +93,8 @@ class UserService {
 	+ List<Day> findDaysOfWeek(String username, int weekIndex)
 	+ Recipe findRecipeById(int id)
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
+	+ byte[] findImageForRecipe(int recipeId)
+	+ void addRecipeImage(int recipeId, byte[] imageBytes)
 }
 class UserRepository {
 	- jdbc: JdbcTemplate
@@ -102,6 +107,8 @@ class UserRepository {
 	+ Recipe findRecipeById(int id)
 	+ List<Ingredient> findIngredientsForRecipe(int id)
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
+	+ byte[] findRecipeImage(int recipeId)
+	+ void addRecipeImage(int recipeId, byte[] imageBytes)
 }
 class HealthUtil {
 	- HealthUtil()

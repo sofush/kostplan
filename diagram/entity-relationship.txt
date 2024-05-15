@@ -29,6 +29,11 @@ entity Recipe {
 	instructions : TEXT
 	time : TEXT
 }
+entity RecipeImage {
+	*id : INTEGER
+	recipe : INTEGER <<FK>>
+	bytes : LONGBLOB
+}
 entity Ingredient {
 	*id : INTEGER
 	recipe : INTEGER <<FK>>
@@ -39,6 +44,7 @@ entity Ingredient {
 }
 User ||..o{ Day
 Day ||..o{ Recipe
+Recipe ||.l.|| RecipeImage
 Recipe ||..|{ Ingredient
 @enduml
 
