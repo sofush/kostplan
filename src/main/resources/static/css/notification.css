@@ -6,6 +6,8 @@
 	/* slide the notification into frame */
 	/* the notification retains its position before and after the animation, specified by the "both" value */
 	animation: slide-in 0.5s both;
+	/* notifications can be clicked, so change the pointer to reflect that */
+	cursor: pointer;
 }
 .notification > img {
 	height: 1em;

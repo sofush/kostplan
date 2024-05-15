@@ -8,51 +8,51 @@
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
 <body class="dotpattern" style="overflow: auto">
-	<div th:if="${error} == 'repeat-password'" class="section notification">
+	<div th:if="${error} == 'repeat-password'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Password og gentaget password stemmer ikke overens.
 	</div>
-	<div th:if="${error} == 'date'" class="section notification">
+	<div th:if="${error} == 'date'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i dato input feltet skal være en gyldig dato.
 	</div>
-	<div th:if="${error} == 'height'" class="section notification">
+	<div th:if="${error} == 'height'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i højde input feltet skal være et heltal.
 	</div>
-	<div th:if="${error} == 'weight'" class="section notification">
+	<div th:if="${error} == 'weight'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i vægt input feltet skal være et heltal.
 	</div>
-	<div th:if="${error} == 'username'" class="section notification">
+	<div th:if="${error} == 'username'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Brugernavn skal være mellem 3-20 tegn langt.
 	</div>
-	<div th:if="${error} == 'password'" class="section notification">
+	<div th:if="${error} == 'password'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Password skal være minimum 3 tegn langt.
 	</div>
-	<div th:if="${error} == 'dob'" class="section notification">
+	<div th:if="${error} == 'dob'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i dato input feltet skal være i datiden.
 	</div>
-	<div th:if="${error} == 'unknown'" class="section notification">
+	<div th:if="${error} == 'unknown'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		En ukendt fejl opstod.
 	</div>
-	<div th:if="${error} == 'email'" class="section notification">
+	<div th:if="${error} == 'email'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		E-mail addresse input feltet skal udfyldes.
 	</div>
-	<div th:if="${error} == 'phone'" class="section notification">
+	<div th:if="${error} == 'phone'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Telefonnummer input feltet skal udfyldes.
 	</div>
-	<div th:if="${error} == 'weight-goal'" class="section notification">
+	<div th:if="${error} == 'weight-goal'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i vægtmål input feltet er ugyldigt.
 	</div>
-	<div th:if="${error} == 'activity-level'" class="section notification">
+	<div th:if="${error} == 'activity-level'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i aktivitetsniveau input feltet er ugyldigt.
 	</div>

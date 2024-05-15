@@ -8,15 +8,15 @@
 </head>
 <body>
 	<div th:if="${param.error != null}">
-		<div th:if="${param.error[0]} == 'day-of-week'" class="section notification">
+		<div th:if="${param.error[0]} == 'day-of-week'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Ugedag er ugyldig.
 		</div>
-		<div th:if="${param.error[0]} == 'database'" class="section notification">
+		<div th:if="${param.error[0]} == 'database'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Database fejl.
 		</div>
-		<div th:if="${param.error[0]} == 'invalid-recipe'" class="section notification">
+		<div th:if="${param.error[0]} == 'invalid-recipe'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Det angivne opskrift ID nummer er ugyldigt.
 		</div>

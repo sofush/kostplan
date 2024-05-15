@@ -8,15 +8,15 @@
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
 <body class="dotpattern">
-	<div th:if="${param.logout}" class="section notification">
+	<div th:if="${param.logout}" class="section notification" onclick="this.remove()">
 		<img src="/svg/check.svg" alt="checkmark"/>
 		Du er nu logget ud.
 	</div>
-	<div th:if="${param.registered}" class="section notification">
+	<div th:if="${param.registered}" class="section notification" onclick="this.remove()">
 		<img src="/svg/check.svg" alt="checkmark"/>
 		Din konto er blevet registreret.
 	</div>
-	<div th:if="${param.error}" class="section notification">
+	<div th:if="${param.error}" class="section notification"  onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Ugyldigt brugernavn eller kodeord.
 	</div>

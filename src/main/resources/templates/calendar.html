@@ -10,24 +10,24 @@
 </head>
 <body class="dotpattern">
 	<div th:if="${param.error}">
-		<div th:if="${param.error[0]} == 'database'" class="section notification">
+		<div th:if="${param.error[0]} == 'database'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Database fejl.
 		</div>
-		<div th:if="${param.error[0]} == 'day-of-week'" class="section notification">
+		<div th:if="${param.error[0]} == 'day-of-week'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Ugedag er ugyldig.
 		</div>
-		<div th:if="${param.error[0]} == 'no-meal-assigned'" class="section notification">
+		<div th:if="${param.error[0]} == 'no-meal-assigned'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Et måltid er ikke blevet tildelt den angivne dag.
 		</div>
-		<div th:if="${param.error[0]} == 'invalid-meal'" class="section notification">
+		<div th:if="${param.error[0]} == 'invalid-meal'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
 			Det angivne måltid er ugyldigt.
 		</div>
 	</div>
-	<div th:if="${param.success}" class="section notification">
+	<div th:if="${param.success}" class="section notification" onclick="this.remove()">
 		<img src="/svg/check.svg" alt="checkmark"/>
 		Den valgte opskrift er tilføjet til din kalender.
 	</div>
