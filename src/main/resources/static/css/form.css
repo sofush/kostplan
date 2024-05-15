@@ -1,0 +1,18 @@
+body {
+	margin: 0;
+}
+.center {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.hcenter {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.form-container {
+	padding: 20px;
+	position: relative;
+}

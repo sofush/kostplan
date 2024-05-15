@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Log ind - Minkostplan</title>
-    <link rel="stylesheet" href="/css/center.css"/>
+    <link rel="stylesheet" href="/css/form.css"/>
 	<link rel="stylesheet" href="/css/base.css"/>
 	<link rel="stylesheet" href="/css/input.css"/>
 	<link rel="stylesheet" href="/css/notification.css"/>
@@ -21,25 +21,27 @@
 		Ugyldigt brugernavn eller kodeord.
 	</div>
 	<div th:replace="~{fragments :: branding}"></div>
-	<div class="center section">
-		<h2 style="text-align: center">Log ind</h2>
-		<form th:action="@{/login}" method="post">
-			<p>
-				<label for="username">Brugernavn</label>
-				<input type="text" id="username" name="username" placeholder="Brugernavn"/>
-			</p>
-			<p>
-				<label for="password">Kodeord</label>
-				<input type="password" id="password" name="password" placeholder="Kodeord"/>
-			</p>
-			<p>
-				<input type="submit" value="Log ind"/>
-			</p>
-			<p>
-				<label>... eller </label>
-				<a th:href="@{/register}">registrer en ny konto</a>
-			</p>
-		</form>
+	<div class="form-container">
+		<div class="center section" style="width: 300px">
+			<h2 style="text-align: center">Log ind</h2>
+			<form th:action="@{/login}" method="post">
+				<p>
+					<label for="username">Brugernavn</label>
+					<input type="text" id="username" name="username" placeholder="Brugernavn"/>
+				</p>
+				<p>
+					<label for="password">Kodeord</label>
+					<input type="password" id="password" name="password" placeholder="Kodeord"/>
+				</p>
+				<p>
+					<input type="submit" value="Log ind"/>
+				</p>
+				<p>
+					<label>... eller </label>
+					<a th:href="@{/register}">registrer en ny konto</a>
+				</p>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

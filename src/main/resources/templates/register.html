@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Registrer en konto - Minkostplan</title>
-    <link rel="stylesheet" href="/css/center.css"/>
+    <link rel="stylesheet" href="/css/form.css"/>
 	<link rel="stylesheet" href="/css/base.css"/>
 	<link rel="stylesheet" href="/css/input.css"/>
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
-<body class="dotpattern">
+<body class="dotpattern" style="overflow: auto">
 	<div th:if="${error} == 'repeat-password'" class="section notification">
 		<img src="/svg/error.svg" alt="error"/>
 		Password og gentaget password stemmer ikke overens.
@@ -57,75 +57,77 @@
 		Værdien angivet i aktivitetsniveau input feltet er ugyldigt.
 	</div>
 	<div th:replace="~{fragments :: branding}"></div>
-	<div class="center section">
-		<h2 style="text-align: center">Registrer en konto</h2>
-		<form th:action="@{/register}" method="post">
-			<p>
-				<label for="username">Brugernavn</label>
-				<input type="text" id="username" th:name="username" placeholder="Brugernavn" th:value="*{username}"/>
-			</p>
-			<p>
-				<label for="password">Kodeord</label>
-				<input type="password" id="password" th:name="password" placeholder="Kodeord" th:value="*{password}"/>
-			</p>
-			<p>
-				<label for="repeat-password">Gentaget kodeord</label>
-				<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Kodeord (gentaget)" th:value="*{repeatPassword}"/>
-			</p>
-			<p>
-				<label for="email-address">E-mail adresse</label>
-				<input type="text" id="email-address" th:name="email-address" placeholder="E-mail adresse" th:value="*{emailAddress}"/>
-			</p>
-			<p>
-				<label for="phone-number">Telefonnummer</label>
-				<input type="text" id="phone-number" th:name="phone-number" placeholder="Telefonnummer" th:value="*{phoneNumber}"/>
-			</p>
-			<p>
-				<label for="dob">Fødselsdato</label>
-				<input type="date" id="dob" th:name="dob" th:value="*{dob}"/>
-			</p>
-			<p>
-				<label for="height">Højde (cm)</label>
-				<input type="number" id="height" th:name="height" th:value="*{height}"/>
-			</p>
-			<p>
-				<label for="weight">Weight (kg)</label>
-				<input type="number" id="weight" th:name="weight" th:value="*{weight}"/>
-			</p>
-			<p>
-				<label for="gender">Køn</label>
-				<select id="gender" th:name="gender">
-					<option th:value="'male'" th:text="'Mand'" th:selected="${gender == 'male'}"></option>
-					<option th:value="'female'" th:text="'Kvinde'" th:selected="${gender == 'female'}"></option>
-				</select>
-			</p>
-			<p>
-				<label for="activity">Aktivitetsniveau</label>
-				<select id="activity" th:name="activity-level">
-					<option th:value="'inactive'" th:text="'Ingen eller meget lidt aktiv'" th:selected="${activityLevel == 'inactive'}"></option>
-					<option th:value="'low'" th:text="'1-2 gange aktivitet om ugen'" th:selected="${activityLevel == 'low'}"></option>
-					<option th:value="'moderate'" th:text="'3-5 gange aktivitet om ugen'" th:selected="${activityLevel == 'moderate'}"></option>
-					<option th:value="'high'" th:text="'6-7 gange aktivitet om ugen'" th:selected="${activityLevel == 'high'}"></option>
-					<option th:value="'very high'" th:text="'1-2 gange aktivitet om dagen'" th:selected="${activityLevel == 'very high'}"></option>
-				</select>
-			</p>
-			<p>
-				<label for="goal">Vægtmål</label>
-				<select id="goal" th:name="weight-goal">
-					<option th:value="'loss'" th:text="'Vægttab'" th:selected="${weightGoal == 'loss'}"></option>
-					<option th:value="'equilibrium'" th:text="'Ligevægt'" th:selected="${weightGoal == 'equilibrium'}"></option>
-					<option th:value="'gain'" th:text="'Vægtøgning'" th:selected="${weightGoal == 'gain'}"></option>
-					<option th:value="'muscle'" th:text="'Opbyg muskel'" th:selected="${weightGoal == 'muscle'}"></option>
-				</select>
-			</p>
-			<p>
-				<input type="submit" value="Registrer"/>
-			</p>
-			<p>
-				<label>... eller </label>
-				<a th:href="@{/login}">gå tilbage til log ind</a>
-			</p>
-		</form>
+	<div class="form-container">
+		<div class="hcenter section" style="width: 350px">
+			<h2 style="text-align: center">Registrer en konto</h2>
+			<form th:action="@{/register}" method="post">
+				<p>
+					<label for="username">Brugernavn</label>
+					<input type="text" id="username" th:name="username" placeholder="Brugernavn" th:value="*{username}"/>
+				</p>
+				<p>
+					<label for="password">Kodeord</label>
+					<input type="password" id="password" th:name="password" placeholder="Kodeord" th:value="*{password}"/>
+				</p>
+				<p>
+					<label for="repeat-password">Gentaget kodeord</label>
+					<input type="password" id="repeat-password" th:name="repeat-password" placeholder="Kodeord (gentaget)" th:value="*{repeatPassword}"/>
+				</p>
+				<p>
+					<label for="email-address">E-mail adresse</label>
+					<input type="text" id="email-address" th:name="email-address" placeholder="E-mail adresse" th:value="*{emailAddress}"/>
+				</p>
+				<p>
+					<label for="phone-number">Telefonnummer</label>
+					<input type="text" id="phone-number" th:name="phone-number" placeholder="Telefonnummer" th:value="*{phoneNumber}"/>
+				</p>
+				<p>
+					<label for="dob">Fødselsdato</label>
+					<input type="date" id="dob" th:name="dob" th:value="*{dob}"/>
+				</p>
+				<p>
+					<label for="height">Højde (cm)</label>
+					<input type="number" id="height" th:name="height" th:value="*{height}"/>
+				</p>
+				<p>
+					<label for="weight">Weight (kg)</label>
+					<input type="number" id="weight" th:name="weight" th:value="*{weight}"/>
+				</p>
+				<p>
+					<label for="gender">Køn</label>
+					<select id="gender" th:name="gender">
+						<option th:value="'male'" th:text="'Mand'" th:selected="${gender == 'male'}"></option>
+						<option th:value="'female'" th:text="'Kvinde'" th:selected="${gender == 'female'}"></option>
+					</select>
+				</p>
+				<p>
+					<label for="activity">Aktivitetsniveau</label>
+					<select id="activity" th:name="activity-level">
+						<option th:value="'inactive'" th:text="'Ingen eller meget lidt aktiv'" th:selected="${activityLevel == 'inactive'}"></option>
+						<option th:value="'low'" th:text="'1-2 gange aktivitet om ugen'" th:selected="${activityLevel == 'low'}"></option>
+						<option th:value="'moderate'" th:text="'3-5 gange aktivitet om ugen'" th:selected="${activityLevel == 'moderate'}"></option>
+						<option th:value="'high'" th:text="'6-7 gange aktivitet om ugen'" th:selected="${activityLevel == 'high'}"></option>
+						<option th:value="'very high'" th:text="'1-2 gange aktivitet om dagen'" th:selected="${activityLevel == 'very high'}"></option>
+					</select>
+				</p>
+				<p>
+					<label for="goal">Vægtmål</label>
+					<select id="goal" th:name="weight-goal">
+						<option th:value="'loss'" th:text="'Vægttab'" th:selected="${weightGoal == 'loss'}"></option>
+						<option th:value="'equilibrium'" th:text="'Ligevægt'" th:selected="${weightGoal == 'equilibrium'}"></option>
+						<option th:value="'gain'" th:text="'Vægtøgning'" th:selected="${weightGoal == 'gain'}"></option>
+						<option th:value="'muscle'" th:text="'Opbyg muskel'" th:selected="${weightGoal == 'muscle'}"></option>
+					</select>
+				</p>
+				<p>
+					<input type="submit" value="Registrer"/>
+				</p>
+				<p>
+					<label>... eller </label>
+					<a th:href="@{/login}">gå tilbage til log ind</a>
+				</p>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
