@@ -49,21 +49,21 @@
 			</tr>
 			<tr>
 				<td th:each="day : ${days}">
-					<div th:with="weekday = ${day.date.getDayOfWeek()}, recipe = ${day.breakfast}, day = ${day}, meal = 'breakfast'">
+					<div th:with="dayOfWeek = ${day.date.getDayOfWeek()}, recipe = ${day.breakfast}, day = ${day}, meal = 'breakfast'">
 						<div th:replace="~{fragments :: recipe-card}"></div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td th:each="day : ${days}">
-					<div th:with="weekday = ${day.date.getDayOfWeek()}, recipe = ${day.lunch}, day = ${day}, meal = 'lunch'">
+					<div th:with="dayOfWeek = ${day.date.getDayOfWeek()}, recipe = ${day.lunch}, day = ${day}, meal = 'lunch'">
 						<div th:replace="~{fragments :: recipe-card}"></div>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td th:each="day : ${days}">
-					<div th:with="weekday = ${day.date.getDayOfWeek()}, recipe = ${day.dinner}, day = ${day}, meal = 'dinner'">
+					<div th:with="dayOfWeek = ${day.date.getDayOfWeek()}, recipe = ${day.dinner}, day = ${day}, meal = 'dinner'">
 						<div th:replace="~{fragments :: recipe-card}"></div>
 					</div>
 				</td>

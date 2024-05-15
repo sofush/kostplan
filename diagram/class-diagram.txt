@@ -75,9 +75,9 @@ class RecipeController {
 	- service: UserService
 	+ RecipeController(UserService service)
 	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
-	+ String pickRecipe(String weekday, String meal, Model model)
-	+ String assignRecipeToDay(String weekday, String meal, Integer recipeId, Principal principal)
-	+ String showRecipe(String weekday, String meal, Principal principal, Model model)
+	+ String pickRecipe(String dayOfWeek, String meal, Model model)
+	+ String assignRecipeToDay(String dayOfWeek, String meal, Integer recipeId, Principal principal)
+	+ String showRecipe(String dayOfWeek, String meal, Principal principal, Model model)
 }
 class UserService {
 	- repository: UserRepository

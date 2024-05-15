@@ -21,10 +21,10 @@
 			Det angivne opskrift ID nummer er ugyldigt.
 		</div>
 	</div>
-	<h1 th:text="'Tildel en opskrift til ' + ${translatedWeekday} + 's ' + ${translatedMeal}"></h1>
+	<h1 th:text="'Tildel en opskrift til ' + ${translatedDayOfWeek} + 's ' + ${translatedMeal}"></h1>
 	<ul>
 		<li th:each="recipe : ${recipes}">
-			<a th:text="${recipe.title}" th:href="@{|/assign/${weekday}/${meal}/${recipe.id}|}"></a>
+			<a th:text="${recipe.title}" th:href="@{|/assign/${dayOfWeek}/${meal}/${recipe.id}|}"></a>
 		</li>
 	</ul>
 </body>

@@ -15,14 +15,14 @@
 	</label>
 	<div th:fragment="recipe-card">
 		<a th:if="${recipe == null}"
-		   th:href="@{|/pick/${weekday.toString().toLowerCase()}/${meal}|}"
+		   th:href="@{|/pick/${dayOfWeek.toString().toLowerCase()}/${meal}|}"
 		   class="link">
 			<div class="add-recipe-button">
 				<label>+</label>
 			</div>
 		</a>
 		<a th:if="${recipe != null}"
-		   th:href="@{|/recipe/${weekday.toString().toLowerCase()}/${meal}|}"
+		   th:href="@{|/recipe/${dayOfWeek.toString().toLowerCase()}/${meal}|}"
 		   class="link">
 			<div class="recipe-card">
 				<h2 th:text="${recipe.title}" class="title highlight"></h2>

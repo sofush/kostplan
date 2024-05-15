@@ -46,9 +46,9 @@ public class RecipeController {
 		return "calendar";
 	}
 
-	@GetMapping("/pick/{weekday}/{meal}")
+	@GetMapping("/pick/{dayOfWeek}/{meal}")
 	public String pickRecipe(
-		@PathVariable("weekday") String weekday,
+		@PathVariable("dayOfWeek") String dayOfWeek,
 		@PathVariable("meal") String meal,
 		Model model
 	) {
@@ -72,31 +72,31 @@ public class RecipeController {
 			}
 		}
 
-		String translatedWeekday;
+		String translatedDayOfWeek;
 
-		switch (weekday.toLowerCase()) {
-			case "monday" -> translatedWeekday = "mandag";
-			case "tuesday" -> translatedWeekday = "tirsdag";
-			case "wednesday" -> translatedWeekday = "onsdag";
-			case "thursday" -> translatedWeekday = "torsdag";
-			case "friday" -> translatedWeekday = "fredag";
-			case "saturday" -> translatedWeekday = "lørdag";
-			case "sunday" -> translatedWeekday = "søndag";
+		switch (dayOfWeek.toLowerCase()) {
+			case "monday" -> translatedDayOfWeek = "mandag";
+			case "tuesday" -> translatedDayOfWeek = "tirsdag";
+			case "wednesday" -> translatedDayOfWeek = "onsdag";
+			case "thursday" -> translatedDayOfWeek = "torsdag";
+			case "friday" -> translatedDayOfWeek = "fredag";
+			case "saturday" -> translatedDayOfWeek = "lørdag";
+			case "sunday" -> translatedDayOfWeek = "søndag";
 			default -> {
 				return "redirect:/week?error=day-of-week";
 			}
 		}
 
-		model.addAttribute("weekday", weekday);
+		model.addAttribute("dayOfWeek", dayOfWeek);
 		model.addAttribute("meal", meal);
 		model.addAttribute("translatedMeal", translatedMeal);
-		model.addAttribute("translatedWeekday", translatedWeekday);
+		model.addAttribute("translatedDayOfWeek", translatedDayOfWeek);
 		return "pick-a-recipe";
 	}
 
-	@GetMapping("/assign/{weekday}/{meal}/{id}")
+	@GetMapping("/assign/{dayOfWeek}/{meal}/{id}")
 	public String assignRecipeToDay(
-		@PathVariable("weekday") String weekday,
+		@PathVariable("dayOfWeek") String dayOfWeek,
 		@PathVariable("meal") String meal,
 		@PathVariable("id") Integer recipeId,
 		Principal principal
@@ -104,11 +104,11 @@ public class RecipeController {
 		int weekIndex = DateUtil.calculateCurrentWeekIndex();
 		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
 			.stream()
-			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(weekday))
+			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(dayOfWeek))
 			.findFirst();
 
 		if (date.isEmpty()) {
-			return "redirect:/pick/" + weekday + "/" + meal + "?error=day-of-week";
+			return "redirect:/pick/" + dayOfWeek + "/" + meal + "?error=day-of-week";
 		}
 
 		Day day;
@@ -130,11 +130,11 @@ public class RecipeController {
 				day = this.service.findDay(principal.getName(), date.get());
 			}
 		} catch (DataAccessException e) {
-			return "redirect:/pick/" + weekday + "/" + meal + "?error=database";
+			return "redirect:/pick/" + dayOfWeek + "/" + meal + "?error=database";
 		}
 
 		if (recipe == null) {
-			return "redirect:/pick/" + weekday + "/" + meal + "?error=invalid-recipe";
+			return "redirect:/pick/" + dayOfWeek + "/" + meal + "?error=invalid-recipe";
 		}
 
 		switch (meal) {
@@ -153,9 +153,9 @@ public class RecipeController {
 		return "redirect:/week?success";
 	}
 
-	@GetMapping("/recipe/{weekday}/{meal}")
+	@GetMapping("/recipe/{dayOfWeek}/{meal}")
 	public String showRecipe(
-		@PathVariable("weekday") String weekday,
+		@PathVariable("dayOfWeek") String dayOfWeek,
 		@PathVariable("meal") String meal,
 		Principal principal,
 		Model model
@@ -163,7 +163,7 @@ public class RecipeController {
 		int weekIndex = DateUtil.calculateCurrentWeekIndex();
 		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
 			.stream()
-			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(weekday))
+			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(dayOfWeek))
 			.findFirst();
 
 		if (date.isEmpty()) {
