@@ -110,7 +110,7 @@ public class UserRepository {
 				rs.getString("phone_number"),
 				Role.values()[rs.getInt("role")],
 				WeightGoal.values()[rs.getInt("weight_goal")],
-				ActivityLevel.values()[rs.getInt("weight_goal")],
+				ActivityLevel.values()[rs.getInt("activity_level")],
 				rs.getBoolean("male"),
 				rs.getInt("weight"),
 				rs.getDate("dob").toLocalDate(),
