@@ -47,7 +47,7 @@ Aktivitetsniveau "1" -r-- "1" Bruger
 Rolle -down[hidden]- Vægtmål
 Vægtmål -down[hidden]- Aktivitetsniveau
 Bruger "1" -r-- "0..m" Dag
-Dag "0..1" --- "0..3" Opskrift
+Dag "0..m" --- "0..3" Opskrift
 Opskrift "1" -l-- "1..m" Ingrediens
 
 @enduml
