@@ -9,9 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -198,5 +199,81 @@ public class UserService {
 		throws DataAccessException
 	{
 		this.repository.addRecipeImage(recipeId, imageBytes);
+	}
+
+	/**
+	 * Calculates a calorie goal based on a user's weight goal, a physical activity level and BMR (Basal Metabolic
+	 * Rate, using the revised Harris-Benedict equation).
+	 * @return A calorie goal.
+	 */
+	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	public double calculateCalorieGoal(String username)
+		throws DataAccessException
+	{
+		User user = this.findUserByUsername(username);
+
+		final double weightFactor = 10.0;
+		final double heightFactor = 6.25;
+		final double ageFactor = 5.0;
+		final double constantTerm = user.isMale() ? 5.0 : -161.0;
+
+		long ageInYears = ChronoUnit.YEARS.between(user.getDob(), LocalDate.now());
+		double bmr = (weightFactor * user.getWeight())
+			+ (heightFactor * user.getHeight())
+			- (ageFactor * ageInYears)
+			+ constantTerm;
+
+		long weightGoalTerm = 0;
+
+		if (user.getWeightGoal() != null) {
+			switch (user.getWeightGoal()) {
+				case EQUILIBRIUM -> {}
+				case GAIN -> weightGoalTerm = 500;
+				case LOSS -> weightGoalTerm = -500;
+				case MUSCLE -> weightGoalTerm = 300;
+			}
+		}
+
+		double activityLevelFactor = 1.2;
+
+		if (user.getActivityLevel() != null) {
+			switch (user.getActivityLevel()) {
+				case INACTIVE -> {}
+				case LOW -> activityLevelFactor = 1.5;
+				case MODERATE -> activityLevelFactor = 1.7;
+				case HIGH -> activityLevelFactor = 1.9;
+				case VERY_HIGH -> activityLevelFactor = 2.4;
+			}
+		}
+
+		return (bmr * activityLevelFactor) + weightGoalTerm;
+	}
+
+	/**
+	 * Scales a recipe up or down to meet a fixed calorie goal by modifying the recipe's ingredient list (specifically
+	 * the ingredient's quantity value). This takes into account a list of other meals a person has/will eat that day,
+	 * as to scale all meals proportionally.
+	 * @param calorieGoal The person's calorie goal.
+	 * @param recipe The recipe to scale up or down.
+	 * @param scheduledMeals The recipes of the meals the person will also eat that day.
+	 */
+	public void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
+		throws IllegalArgumentException
+	{
+		if (recipe == null || scheduledMeals == null) {
+			throw new IllegalArgumentException("Arguments must not be null.");
+		}
+
+		double totalCalories = recipe.sumCalories() + scheduledMeals.stream()
+			.filter(Objects::nonNull)
+			.map(Recipe::sumCalories)
+			.reduce(Double::sum)
+			.orElse(0.0);
+		double scaleFactor = calorieGoal / totalCalories;
+
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			double newQuantity = ingredient.getQuantity() * scaleFactor;
+			ingredient.setQuantity(newQuantity);
+		}
 	}
 }

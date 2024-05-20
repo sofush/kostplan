@@ -1,16 +1,16 @@
 package com.example.kostplan;
 
-import com.example.kostplan.entity.ActivityLevel;
-import com.example.kostplan.entity.Ingredient;
-import com.example.kostplan.entity.Recipe;
-import com.example.kostplan.entity.WeightGoal;
-import com.example.kostplan.util.HealthUtil;
+import com.example.kostplan.entity.*;
+import com.example.kostplan.repository.UserRepository;
+import com.example.kostplan.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -32,7 +32,7 @@ class RecipeTests {
 	}
 
 	@Test
-	public void testScaleRecipe() {
+	public void testScaleRecipe(@Autowired UserService userService) {
 		final int calorieGoal = 100;
 
 		Recipe recipeToModify = createRecipeTemplate();
@@ -60,7 +60,7 @@ class RecipeTests {
 		final double caloriesBefore = recipeToModify.sumCalories();
 		Assertions.assertThat(caloriesBefore).isBetween(99.0, 101.0);
 
-		HealthUtil.scaleRecipe(
+		userService.scaleRecipe(
 			calorieGoal,
 			recipeToModify,
 			List.of(recipeA, recipeB)
@@ -75,16 +75,29 @@ class RecipeTests {
 
 
 	@Test
-	public void testCalculateCalorieGoal() {
-		double calorieGoal = HealthUtil.calculateCalorieGoal(
+	public void testCalculateCalorieGoal(@Autowired PasswordEncoder passwordEncoder) {
+		User testUser = new User(
+			"test-testUser",
+			"",
+			"",
+			"",
+			Role.USER,
 			WeightGoal.LOSS,
 			ActivityLevel.MODERATE,
 			false,
 			84,
-			174,
-			LocalDate.now().minusYears(42)
+			LocalDate.now().minusYears(42),
+			174
 		);
 
+		UserRepository mockRepo = Mockito.mock(UserRepository.class);
+		UserService service = new UserService(mockRepo, passwordEncoder);
+
+		Mockito
+			.when(mockRepo.findUserByUsername(testUser.getUsername()))
+			.thenReturn(testUser);
+
+		double calorieGoal = service.calculateCalorieGoal(testUser.getUsername());
 		Assertions.assertThat(calorieGoal).isBetween(2146.0, 2147.0);
 	}
 }

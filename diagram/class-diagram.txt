@@ -95,6 +95,8 @@ class UserService {
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
 	+ byte[] findImageForRecipe(int recipeId)
 	+ void addRecipeImage(int recipeId, byte[] imageBytes)
+	+ double calculateCalorieGoal(WeightGoal weightGoal, ActivityLevel activityLevel, boolean male, int weight, int height, LocalDate dob)
+	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 }
 class UserRepository {
 	- jdbc: JdbcTemplate
@@ -109,11 +111,6 @@ class UserRepository {
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
 	+ byte[] findRecipeImage(int recipeId)
 	+ void addRecipeImage(int recipeId, byte[] imageBytes)
-}
-class HealthUtil {
-	- HealthUtil()
-	+ double calculateCalorieGoal(WeightGoal weightGoal, ActivityLevel activityLevel, boolean male, int weight, int height, LocalDate dob)
-	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 }
 class DateUtil {
 	- WEEK_ORIGIN: LocalDate
@@ -131,7 +128,6 @@ RecipeController o-- UserService
 
 ' Util
 RecipeController ..> DateUtil
-RecipeController ..> HealthUtil
 UserService .r.> DateUtil
 
 ' Entities

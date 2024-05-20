@@ -2,10 +2,8 @@ package com.example.kostplan.controller;
 
 import com.example.kostplan.entity.Day;
 import com.example.kostplan.entity.Recipe;
-import com.example.kostplan.entity.User;
 import com.example.kostplan.service.UserService;
 import com.example.kostplan.util.DateUtil;
-import com.example.kostplan.util.HealthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -16,12 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -208,16 +204,8 @@ public class RecipeController {
 			return "redirect:/week?error=no-meal-assigned";
 		}
 
-		User user = this.service.findUserByUsername(principal.getName());
-		double calorieGoal = HealthUtil.calculateCalorieGoal(
-			user.getWeightGoal(),
-			user.getActivityLevel(),
-			user.isMale(),
-			user.getWeight(),
-			user.getHeight(),
-			user.getDob()
-		);
-		HealthUtil.scaleRecipe(calorieGoal, recipe, otherRecipes);
+		double calorieGoal = this.service.calculateCalorieGoal(principal.getName());
+		this.service.scaleRecipe(calorieGoal, recipe, otherRecipes);
 
 		model.addAttribute("calorieGoal", calorieGoal);
 		model.addAttribute("recipe", recipe);
