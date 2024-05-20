@@ -128,7 +128,6 @@ RecipeController o-- UserService
 
 ' Util
 RecipeController ..> DateUtil
-UserService .r.> DateUtil
 
 ' Entities
 entities ..> User
