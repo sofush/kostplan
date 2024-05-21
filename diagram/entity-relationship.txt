@@ -42,9 +42,9 @@ entity Ingredient {
 	unit : TEXT
 	calories : DOUBLE
 }
-User ||..o{ Day
+User ||.r.o{ Day
 Day ||..o{ Recipe
-Recipe ||.l.|| RecipeImage
+Recipe ||.r.|| RecipeImage
 Recipe ||..|{ Ingredient
 @enduml
 
