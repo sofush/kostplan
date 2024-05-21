@@ -1,7 +1,7 @@
 .PHONY: clean all
 PLANTUML=plantuml
 
-all: domain-model.png system-sequence-diagram.png class-diagram.png entity-relationship.png
+all: domain-model.png system-sequence-diagram.png class-diagram.png entity-relationship.png package-diagram.png
 
 domain-model.png: domain-model.txt
 	$(PLANTUML) domain-model.txt
@@ -14,6 +14,9 @@ class-diagram.png: class-diagram.txt
 
 entity-relationship.png: entity-relationship.txt
 	$(PLANTUML) entity-relationship.txt
+
+package-diagram.png: package-diagram.txt
+	$(PLANTUML) package-diagram.txt
 
 clean:
 	rm *.png

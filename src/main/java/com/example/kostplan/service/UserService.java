@@ -1,7 +1,6 @@
 package com.example.kostplan.service;
 
 import com.example.kostplan.entity.*;
-import com.example.kostplan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,19 +16,19 @@ import java.util.stream.IntStream;
 
 @Service
 public class UserService {
-	private final UserRepository repository;
+	private final PersistentStorage storage;
 	private final PasswordEncoder encoder;
 
 	@Autowired
-	public UserService(UserRepository repository, PasswordEncoder encoder) {
-		this.repository = repository;
+	public UserService(PersistentStorage storage, PasswordEncoder encoder) {
+		this.storage = storage;
 		this.encoder = encoder;
 	}
 
 	public User findUserByUsername(String username)
 		throws DataAccessException
 	{
-		return this.repository.findUserByUsername(username);
+		return this.storage.findUserByUsername(username);
 	}
 
 	public void addUser(
@@ -91,7 +90,7 @@ public class UserService {
 			height
 		);
 
-		this.repository.addUser(user);
+		this.storage.addUser(user);
 	}
 
 	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
@@ -111,7 +110,7 @@ public class UserService {
 		if (dinnerId != null) dinner = this.findRecipeById(dinnerId);
 
 		Day day = new Day(date, username, breakfast, lunch, dinner);
-		this.repository.addDay(day);
+		this.storage.addDay(day);
 	}
 
 	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
@@ -130,7 +129,7 @@ public class UserService {
 		if (lunchId != null) lunch = this.findRecipeById(lunchId);
 		if (dinnerId != null) dinner = this.findRecipeById(dinnerId);
 
-		this.repository.updateDay(new Day(
+		this.storage.updateDay(new Day(
 			date,
 			username,
 			breakfast,
@@ -143,21 +142,21 @@ public class UserService {
 	public Day findDay(String username, LocalDate localDate)
 		throws DataAccessException
 	{
-		return this.repository.findDay(username, localDate);
+		return this.storage.findDay(username, localDate);
 	}
 
 	@PreAuthorize("isAuthenticated()")
 	public Recipe findRecipeById(Integer recipeId)
 		throws DataAccessException
 	{
-		return this.repository.findRecipeById(recipeId);
+		return this.storage.findRecipeById(recipeId);
 	}
 
 	@PreAuthorize("isAuthenticated()")
 	public List<Recipe> findRecipesForWeek(int weekIndex)
 		throws DataAccessException
 	{
-		return this.repository.findRecipesForWeek(weekIndex);
+		return this.storage.findRecipesForWeek(weekIndex);
 	}
 
 	/**
@@ -178,7 +177,7 @@ public class UserService {
 				Day day = new Day(date, username, null, null, null);
 
 				try {
-					Day dayResult = this.repository.findDay(username, date);
+					Day dayResult = this.storage.findDay(username, date);
 
 					if (dayResult != null)
 						day = dayResult;
@@ -196,14 +195,14 @@ public class UserService {
 	public byte[] findRecipeImage(int recipeId)
 		throws DataAccessException
 	{
-		return this.repository.findRecipeImage(recipeId);
+		return this.storage.findRecipeImage(recipeId);
 	}
 
 	@PreAuthorize("hasRole('ADMIN') || hasRole('CHEF')")
 	public void addRecipeImage(int recipeId, byte[] imageBytes)
 		throws DataAccessException
 	{
-		this.repository.addRecipeImage(recipeId, imageBytes);
+		this.storage.addRecipeImage(recipeId, imageBytes);
 	}
 
 	/**

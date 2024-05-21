@@ -1,0 +1,57 @@
+@startuml
+scale 1920*1080
+skinparam linetype ortho
+hide <<hidden>>
+
+package UI <<Node>> {
+
+}
+
+package "Use case" <<frame>> {
+	class UserService {}
+	interface PersistentStorage {}
+}
+
+package "DB controller" <<frame>> {
+	class MysqlRepository {}
+}
+
+package "UI controller" <<frame>> {
+	class UserController {}
+	class RecipeController {}
+	class DateUtil {}
+}
+
+package "Entity" <<frame>> {
+	class User {}
+	class Role {}
+	class WeightGoal {}
+	class ActivityLevel {}
+	class Day {}
+	class Recipe {}
+	class Ingredient {}
+}
+
+package "Database\n" <<database>> {
+
+}
+
+package "Fake" <<hidden>> {
+
+}
+
+"Database\n" --> "DB controller"
+"UI" --> "UI controller"
+"DB controller" --> "Use case"
+"UI controller" --> "Use case"
+"Use case" --> "Entity"
+"Fake" -down[hidden]-- "Use case"
+"Fake" -left[hidden]-- "DB controller"
+"Fake" -right[hidden]-- "UI controller"
+
+' Structure
+DateUtil -r[hidden]- UserController
+DateUtil -r[hidden]- RecipeController
+
+@enduml
+

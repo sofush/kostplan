@@ -1,6 +1,7 @@
 package com.example.kostplan.repository;
 
 import com.example.kostplan.entity.*;
+import com.example.kostplan.service.PersistentStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,11 +12,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class UserRepository {
+public class MysqlRepository implements PersistentStorage {
 	private final JdbcTemplate jdbc;
 
 	@Autowired
-	public UserRepository(JdbcTemplate jdbc)
+	public MysqlRepository(JdbcTemplate jdbc)
 		throws DataAccessException
 	{
 		this.jdbc = jdbc;
@@ -92,6 +93,7 @@ public class UserRepository {
 			""");
 	}
 
+	@Override
 	public User findUserByUsername(String username)
 		throws DataAccessException
 	{
@@ -125,6 +127,7 @@ public class UserRepository {
 		return users.getFirst();
 	}
 
+	@Override
 	public void addUser(User user)
 		throws DataAccessException
 	{
@@ -149,6 +152,7 @@ public class UserRepository {
 		);
 	}
 
+	@Override
 	public Recipe findRecipeById(int id)
 		throws DataAccessException
 	{
@@ -182,6 +186,7 @@ public class UserRepository {
 		return recipe;
 	}
 
+	@Override
 	public List<Recipe> findRecipesForWeek(int weekIndex)
 		throws DataAccessException
 	{
@@ -213,28 +218,7 @@ public class UserRepository {
 		return recipes;
 	}
 
-	private List<Ingredient> findIngredientsForRecipe(int recipeId)
-		throws DataAccessException
-	{
-		String ingredientQuery = """
-            SELECT id, recipe, name, quantity, unit, calories
-            FROM Ingredient
-            WHERE recipe = ?;
-            """;
-
-		return this.jdbc.query(
-			ingredientQuery,
-			(rs, rowNum) -> new Ingredient(
-				rs.getInt("id"),
-				rs.getString("name"),
-				rs.getDouble("quantity"),
-				rs.getString("unit"),
-				rs.getDouble("calories")
-			),
-			recipeId
-		);
-	}
-
+	@Override
 	public void addDay(Day day)
 		throws DataAccessException
 	{
@@ -261,6 +245,7 @@ public class UserRepository {
 		);
 	}
 
+	@Override
 	public void updateDay(Day day)
 		throws DataAccessException
 	{
@@ -288,6 +273,7 @@ public class UserRepository {
 		);
 	}
 
+	@Override
 	public Day findDay(String username, LocalDate date)
 		throws DataAccessException
 	{
@@ -316,6 +302,7 @@ public class UserRepository {
 		return days.getFirst();
 	}
 
+	@Override
 	public byte[] findRecipeImage(int recipeId)
 		throws DataAccessException
 	{
@@ -343,6 +330,7 @@ public class UserRepository {
 		return bytesList.getFirst();
 	}
 
+	@Override
 	public void addRecipeImage(int recipeId, byte[] imageBytes)
 		throws DataAccessException
 	{
@@ -355,6 +343,28 @@ public class UserRepository {
 			sql,
 			recipeId,
 			imageBytes
+		);
+	}
+
+	private List<Ingredient> findIngredientsForRecipe(int recipeId)
+		throws DataAccessException
+	{
+		String ingredientQuery = """
+            SELECT id, recipe, name, quantity, unit, calories
+            FROM Ingredient
+            WHERE recipe = ?;
+            """;
+
+		return this.jdbc.query(
+			ingredientQuery,
+			(rs, rowNum) -> new Ingredient(
+				rs.getInt("id"),
+				rs.getString("name"),
+				rs.getDouble("quantity"),
+				rs.getString("unit"),
+				rs.getDouble("calories")
+			),
+			recipeId
 		);
 	}
 }

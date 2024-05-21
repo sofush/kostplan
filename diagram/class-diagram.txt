@@ -82,9 +82,9 @@ class RecipeController {
 	+ byte[] getRecipeImage(Integer recipeId)
 }
 class UserService {
-	- repository: UserRepository
+	- storage: PersistentStorage
 	- encoder: PasswordEncoder
-	+ UserService(UserRepository repository, PasswordEncoder encoder)
+	+ UserService(PersistentStorage storage, PasswordEncoder encoder)
 	+ void addUser(String username, String password, String emailAddress, String phoneNumber, String weightGoal, String activityLevel, boolean male, int weight, LocalDate dob, int height)
 	+ User findUserByUsername(String username)
 	+ void addDay(String username, LocalDate date, Integer breakfastId, Integer lunchId, Integer dinnerId)
@@ -98,9 +98,9 @@ class UserService {
 	+ double calculateCalorieGoal(WeightGoal weightGoal, ActivityLevel activityLevel, boolean male, int weight, int height, LocalDate dob)
 	+ void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 }
-class UserRepository {
+class MysqlRepository {
 	- jdbc: JdbcTemplate
-	+ UserRepository(JdbcTemplate jdbc)
+	+ MysqlRepository(JdbcTemplate jdbc)
 	+ void addUser(User user)
 	+ User findUserByUsername(String username)
 	+ void addDay(Day day)
@@ -108,6 +108,17 @@ class UserRepository {
 	+ Day findDay(String username, LocalDate date)
 	+ Recipe findRecipeById(int id)
 	+ List<Ingredient> findIngredientsForRecipe(int id)
+	+ List<Recipe> findRecipesForWeek(int weekIndex)
+	+ byte[] findRecipeImage(int recipeId)
+	+ void addRecipeImage(int recipeId, byte[] imageBytes)
+}
+interface PersistentStorage {
+	+ void addUser(User user)
+	+ User findUserByUsername(String username)
+	+ void addDay(Day day)
+	+ void updateDay(Day day)
+	+ Day findDay(String username, LocalDate date)
+	+ Recipe findRecipeById(int id)
 	+ List<Recipe> findRecipesForWeek(int weekIndex)
 	+ byte[] findRecipeImage(int recipeId)
 	+ void addRecipeImage(int recipeId, byte[] imageBytes)
@@ -123,8 +134,9 @@ circle " " as entities
 
 ' Controller, Service, Repository
 UserController o-- UserService
-UserService o-- UserRepository
+UserService o-- PersistentStorage
 RecipeController o-- UserService
+PersistentStorage <|- MysqlRepository
 
 ' Util
 RecipeController ..> DateUtil
@@ -144,7 +156,8 @@ Day " 1 " *-- " 0..3 " Recipe
 Recipe " 1 " *-- " 1..m " Ingredient
 RecipeController ..> entities
 UserService ..> entities
-UserRepository ..> entities
+MysqlRepository ..> entities
+PersistentStorage ..> entities
 
 ' Improved placement
 User -r[hidden]-- Recipe

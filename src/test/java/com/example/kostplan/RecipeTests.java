@@ -1,7 +1,7 @@
 package com.example.kostplan;
 
 import com.example.kostplan.entity.*;
-import com.example.kostplan.repository.UserRepository;
+import com.example.kostplan.repository.MysqlRepository;
 import com.example.kostplan.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -90,7 +90,7 @@ class RecipeTests {
 			174
 		);
 
-		UserRepository mockRepo = Mockito.mock(UserRepository.class);
+		MysqlRepository mockRepo = Mockito.mock(MysqlRepository.class);
 		UserService service = new UserService(mockRepo, passwordEncoder);
 
 		Mockito
