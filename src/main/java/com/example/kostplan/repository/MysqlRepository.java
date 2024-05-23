@@ -57,10 +57,9 @@ public class MysqlRepository implements PersistentStorage {
 
 		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS RecipeImage(
-				id INTEGER AUTO_INCREMENT,
-				recipe INTEGER NOT NULL,
+				recipe INTEGER,
 				bytes LONGBLOB,
-				PRIMARY KEY (id),
+				PRIMARY KEY (recipe),
 				FOREIGN KEY (recipe) REFERENCES Recipe(id)
 			);
 			""");

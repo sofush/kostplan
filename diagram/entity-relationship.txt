@@ -30,8 +30,7 @@ entity Recipe {
 	time : TEXT
 }
 entity RecipeImage {
-	*id : INTEGER
-	recipe : INTEGER <<FK>>
+	*recipe : INTEGER <<FK>>
 	bytes : LONGBLOB
 }
 entity Ingredient {
