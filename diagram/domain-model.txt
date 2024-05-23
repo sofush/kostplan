@@ -1,5 +1,6 @@
 @startuml
 scale 1920*1080
+skinparam linetype ortho
 class Rolle {}
 class Vægtmål {}
 class Aktivitetsniveau {}
@@ -44,8 +45,6 @@ class Ingrediens {
 Rolle " 1 " -r-- " 1  " Bruger
 Vægtmål " 1 " -r-- " 1  " Bruger
 Aktivitetsniveau "1" -r-- "1" Bruger
-Rolle -down[hidden]- Vægtmål
-Vægtmål -down[hidden]- Aktivitetsniveau
 Bruger "1" -r-- "0..m" Dag
 Dag "0..m" --- "0..3" Opskrift
 Opskrift "1" -l-- "1..m" Ingrediens
