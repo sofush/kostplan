@@ -49,6 +49,6 @@ User ||.r.o{ Day
 Day ||..o{ Recipe
 Recipe ||.r.|| RecipeImage
 Recipe ||..|{ Ingredient
-Ingredient ||.l.|| Unit
+Ingredient }|.l.|| Unit
 @enduml
 
