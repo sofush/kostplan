@@ -38,12 +38,17 @@ entity Ingredient {
 	recipe : INTEGER <<FK>>
 	name : TEXT
 	quantity : DOUBLE
-	unit : TEXT
+	unit : INTEGER <<FK>>
 	calories : DOUBLE
+}
+entity Unit {
+	*id : INTEGER
+	{field} unit : VARCHAR(100)
 }
 User ||.r.o{ Day
 Day ||..o{ Recipe
 Recipe ||.r.|| RecipeImage
 Recipe ||..|{ Ingredient
+Ingredient ||.l.|| Unit
 @enduml
 

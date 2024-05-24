@@ -65,15 +65,25 @@ public class MysqlRepository implements PersistentStorage {
 			""");
 
 		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS Unit(
+				id INTEGER AUTO_INCREMENT,
+				unit VARCHAR(100) NOT NULL,
+				PRIMARY KEY (id),
+				UNIQUE (unit)
+			);
+			""");
+
+		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS Ingredient(
 				id INTEGER AUTO_INCREMENT,
 				recipe INTEGER,
+				unit INTEGER,
 				name TEXT,
 				quantity DOUBLE,
-				unit TEXT,
 				calories DOUBLE,
 				PRIMARY KEY (id),
-				FOREIGN KEY (recipe) REFERENCES Recipe(id)
+				FOREIGN KEY (recipe) REFERENCES Recipe(id),
+				FOREIGN KEY (unit) REFERENCES Unit(id)
 			);
 			""");
 
@@ -349,18 +359,19 @@ public class MysqlRepository implements PersistentStorage {
 		throws DataAccessException
 	{
 		String ingredientQuery = """
-            SELECT id, recipe, name, quantity, unit, calories
+            SELECT Ingredient.id, Ingredient.unit, Unit.unit, recipe, name, quantity, calories
             FROM Ingredient
+            INNER JOIN Unit ON Unit.id = Ingredient.unit
             WHERE recipe = ?;
             """;
 
 		return this.jdbc.query(
 			ingredientQuery,
 			(rs, rowNum) -> new Ingredient(
-				rs.getInt("id"),
+				rs.getInt("Ingredient.id"),
 				rs.getString("name"),
 				rs.getDouble("quantity"),
-				rs.getString("unit"),
+				rs.getString("Unit.unit"),
 				rs.getDouble("calories")
 			),
 			recipeId
