@@ -19,7 +19,7 @@ class RecipeTests {
 		return new Ingredient(-1, "name", quantity, "unit", calories);
 	}
 
-	private static Recipe createRecipeTemplate() {
+	private static Recipe createRecipe() {
 		return new Recipe(
 			-1,
 			-1,
@@ -35,9 +35,9 @@ class RecipeTests {
 	public void testScaleRecipe(@Autowired UserService userService) {
 		final int calorieGoal = 100;
 
-		Recipe recipeToModify = createRecipeTemplate();
-		Recipe recipeA = createRecipeTemplate();
-		Recipe recipeB = createRecipeTemplate();
+		Recipe recipeToModify = createRecipe();
+		Recipe recipeA = createRecipe();
+		Recipe recipeB = createRecipe();
 
 		// Modify the recipes' ingredient lists to each sum to 100, making
 		// the total 300 calories.
