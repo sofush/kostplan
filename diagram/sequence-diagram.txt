@@ -1,0 +1,19 @@
+@startuml
+--> UserController: registerUserPost(username, password, repeat_password, ...)
+
+alt succesfuld afvikling
+	UserController --> UserService: addUser(username, password, ...)
+	UserService --> PasswordEncoder: encode(password)
+	UserService <-- PasswordEncoder: krypteret password
+	UserService --> User: new(username, encodedPassword, ...)
+	UserService <-- User: User objekt
+	UserService --> PersistentStorage: addUser(user)
+	activate PersistentStorage
+	UserController <-- PersistentStorage: void
+	deactivate PersistentStorage
+	<-- UserController: omdiriger til /login?registered
+else ugyldig brugerinformation eller database fejl
+	<-- UserController: omdiriger til /register (viser fejlbeskeden)
+end
+@enduml
+
