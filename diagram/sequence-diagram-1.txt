@@ -1,0 +1,29 @@
+@startuml
+--> RecipeController: showRecipe(dayOfWeek, meal, principal, model)
+
+alt succesfuld afvikling
+	RecipeController --> DateUtil: calculateCurrentWeekIndex()
+	RecipeController <-- DateUtil: denne uges ugeindeks
+	RecipeController --> DateUtil: calculateDatesOfNthWeek(weekIndex)
+	RecipeController <-- DateUtil: liste af 7 datoer for denne uge
+	RecipeController --> Principal: getName()
+	RecipeController <-- Principal: brugernavn
+	RecipeController --> UserService: findDay(username, date)
+	UserService --> PersistentStorage: findDay(username, date)
+	activate PersistentStorage
+	RecipeController <-- PersistentStorage: Day objekt
+	deactivate PersistentStorage
+	RecipeController --> UserService: calculateCalorieGoal(username)
+	UserService --> PersistentStorage: findUserByUsername(username)
+	activate PersistentStorage
+	UserService <-- PersistentStorage: User objekt
+	deactivate PersistentStorage
+	RecipeController <-- UserService: brugerens kaloriemål
+	RecipeController --> UserService: scaleRecipe(calorieGoal, recipe, scheduledMeals)
+	RecipeController <-- UserService: void
+	<-- RecipeController: omdiriger til side der viser den skalerede opskrift
+else ugyldig input eller database fejl
+	<-- RecipeController: omdiriger til ugekalender (viser fejlbesked)
+end
+@enduml
+

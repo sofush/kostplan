@@ -1,0 +1,13 @@
+@startuml
+scale 1920*1080
+actor Bruger
+Bruger -> System: Besøger hjemmeside
+Bruger <-- System: Viser login formular
+Bruger -> System: Indtaster loginoplysninger (brugernavn, password)
+Bruger <-- System: Viser ugentlige kostplan
+Bruger -> System: Trykker på et måltid uden tildelt opskrift
+Bruger <-- System: Viser side med ugens opskrifter
+Bruger -> System: Trykker på en opskrift for at tildele den til det valgte måltid
+Bruger <-- System: Viser opdaterede ugentlige kostplan
+@enduml
+
