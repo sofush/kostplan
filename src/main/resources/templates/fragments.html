@@ -25,11 +25,11 @@
 		   th:href="@{|/recipe/${dayOfWeek.toString().toLowerCase()}/${meal}|}"
 		   class="link">
 			<div class="recipe-card">
-				<h2 th:text="${recipe.title}" class="title highlight"></h2>
 				<p>
 					<img th:src="@{|/img/recipe/${recipe.id}|}" alt="" style="width: 150px; height: auto; border-radius: 20%; border: 1px solid grey"/>
 				</p>
-				<label style="cursor: pointer" class="time" th:text="'Tidsforbrug: ' + ${recipe.time}"></label>
+				<h2 th:text="${recipe.title}" class="title highlight"></h2>
+				<label style="cursor: pointer" class="time" th:text="${recipe.time}"></label>
 			</div>
 		</a>
 	</div>
