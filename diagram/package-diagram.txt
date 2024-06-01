@@ -8,6 +8,7 @@ package UI <<Node>> {
 }
 
 package "Use case" <<frame>> {
+	class PaymentService {}
 	class UserService {}
 	interface PersistentStorage {}
 }
@@ -17,6 +18,7 @@ package "DB controller" <<frame>> {
 }
 
 package "UI controller" <<frame>> {
+	class PaymentController {}
 	class UserController {}
 	class RecipeController {}
 	class DateUtil {}

@@ -62,6 +62,11 @@ class Ingredient {
 	+ double sumCalories()
 	+ String toString()
 }
+class PaymentController {
+	- service: PaymentService
+	+ PaymentController(PaymentService service)
+	+ String subscribe(Principal principal)
+}
 class UserController {
 	- service: UserService
 	+ UserController(UserService service)
@@ -80,6 +85,14 @@ class RecipeController {
 	+ String uploadRecipeImage()
 	+ String uploadRecipeImagePost(MultipartFile file, Integer recipeId)
 	+ byte[] getRecipeImage(Integer recipeId)
+}
+class PaymentService {
+	- storage: PersistentStorage
+	- stripeApiKey: String
+	+ PaymentService(PersistentStorage storage)
+	+ boolean hasActiveSubscription(String username)
+	+ Session createPaymentSession(String username)
+	+ Customer retrieveCustomer(String username)
 }
 class UserService {
 	- storage: PersistentStorage
@@ -134,7 +147,9 @@ circle " " as entities
 
 ' Controller, Service, Repository
 UserController o-- UserService
+PaymentController o-- PaymentService
 UserService o-- PersistentStorage
+PaymentService o-- PersistentStorage
 RecipeController o-- UserService
 PersistentStorage <|- MysqlRepository
 
@@ -156,9 +171,11 @@ Day " 1 " *-- " 0..3 " Recipe
 Recipe " 1 " *-- " 1..m " Ingredient
 RecipeController ..> entities
 UserService ..> entities
+PaymentService ..> User
 MysqlRepository ..> entities
 PersistentStorage ..> entities
 
 ' Improved placement
 User -r[hidden]-- Recipe
+PaymentService -r[hidden]-- UserService
 @enduml
