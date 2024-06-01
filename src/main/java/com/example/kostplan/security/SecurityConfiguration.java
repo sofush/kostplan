@@ -1,5 +1,6 @@
 package com.example.kostplan.security;
 
+import com.example.kostplan.service.PaymentService;
 import com.example.kostplan.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 	@Bean
-	public UserDetailsService userDetailsService(UserService service) {
-		return new DatabaseUserDetailsService(service);
+	public UserDetailsService userDetailsService(UserService userService, PaymentService paymentService) {
+		return new DatabaseUserDetailsService(userService, paymentService);
 	}
 
 	@Bean

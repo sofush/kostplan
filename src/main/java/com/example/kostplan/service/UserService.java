@@ -93,7 +93,7 @@ public class UserService {
 		this.storage.addUser(user);
 	}
 
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public void addDay(
 		String username,
 		LocalDate date,
@@ -113,7 +113,7 @@ public class UserService {
 		this.storage.addDay(day);
 	}
 
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public void updateDay(
 		String username,
 		LocalDate date,
@@ -138,21 +138,21 @@ public class UserService {
 		));
 	}
 
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public Day findDay(String username, LocalDate localDate)
 		throws DataAccessException
 	{
 		return this.storage.findDay(username, localDate);
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("@subscription.isActive()")
 	public Recipe findRecipeById(Integer recipeId)
 		throws DataAccessException
 	{
 		return this.storage.findRecipeById(recipeId);
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("@subscription.isActive()")
 	public List<Recipe> findRecipesForWeek(int weekIndex)
 		throws DataAccessException
 	{
@@ -166,7 +166,7 @@ public class UserService {
 	 * @param weekIndex The week to filter for.
 	 * @return An ordered list of seven Day objects (monday through sunday).
 	 */
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public List<Day> findDaysOfWeek(String username, int weekIndex) {
 		final LocalDate WEEK_ORIGIN = LocalDate.of(2024, Month.MAY, 6);
 		LocalDate monday = WEEK_ORIGIN.plusWeeks(weekIndex);
@@ -191,7 +191,7 @@ public class UserService {
 	}
 
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("@subscription.isActive()")
 	public byte[] findRecipeImage(int recipeId)
 		throws DataAccessException
 	{
@@ -210,7 +210,7 @@ public class UserService {
 	 * Rate, using the revised Harris-Benedict equation).
 	 * @return A calorie goal.
 	 */
-	@PreAuthorize("#username == authentication.principal.username || hasRole('ADMIN')")
+	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public double calculateCalorieGoal(String username)
 		throws DataAccessException
 	{
@@ -261,6 +261,7 @@ public class UserService {
 	 * @param recipe The recipe to scale up or down.
 	 * @param scheduledMeals The recipes of the meals the person will also eat that day.
 	 */
+	@PreAuthorize("@subscription.isActive() || hasRole('ADMIN')")
 	public void scaleRecipe(double calorieGoal, Recipe recipe, List<Recipe> scheduledMeals)
 		throws IllegalArgumentException
 	{
