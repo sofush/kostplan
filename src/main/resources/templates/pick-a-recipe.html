@@ -6,8 +6,9 @@
 	<link rel="icon" href="/svg/leaf.svg">
 	<link rel="stylesheet" href="/css/base.css"/>
 	<link rel="stylesheet" href="/css/notification.css"/>
+	<link rel="stylesheet" href="/css/pick-a-recipe.css"/>
 </head>
-<body>
+<body class="dotpattern">
 	<div th:if="${param.error != null}">
 		<div th:if="${param.error[0]} == 'day-of-week'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
@@ -22,11 +23,18 @@
 			Det angivne opskrift ID nummer er ugyldigt.
 		</div>
 	</div>
+	<a href="/week">< gå tilbage til ugekalender</a>
 	<h1 th:text="'Tildel en opskrift til ' + ${translatedDayOfWeek} + 's ' + ${translatedMeal}"></h1>
-	<ul>
-		<li th:each="recipe : ${recipes}">
-			<a th:text="${recipe.title}" th:href="@{|/assign/${dayOfWeek}/${meal}/${recipe.id}|}"></a>
-		</li>
-	</ul>
+	<div class="container">
+		<div th:each="recipe : ${recipes}">
+			<a th:href="@{|/assign/${dayOfWeek}/${meal}/${recipe.id}|}" style="text-decoration: none">
+				<div class="item">
+					<img class="image" th:src="@{|/img/recipe/${recipe.id}|}"/>
+					<h2 th:text="${recipe.title}" style="text-align: center; color: black"></h2>
+					<h3 th:text="${recipe.time}" style="text-align: center; color: grey"></h3>
+				</div>
+			</a>
+		</div>
+	</div>
 </body>
 </html>
