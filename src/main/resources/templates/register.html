@@ -37,9 +37,9 @@
 		<img src="/svg/error.svg" alt="error"/>
 		Værdien angivet i dato input feltet skal være i datiden.
 	</div>
-	<div th:if="${error} == 'unknown'" class="section notification" onclick="this.remove()">
+	<div th:if="${error} == 'generic'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
-		En ukendt fejl opstod.
+		Et af inputfelterne har en ugyldig værdi.
 	</div>
 	<div th:if="${error} == 'email'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>

@@ -127,22 +127,24 @@ public class UserController {
 			model.addAttribute("error", "date");
 			return "register";
 		} catch (IllegalArgumentException e) {
-			if (e.getMessage().toLowerCase().contains("username")) {
+			String msg = e.getMessage().toLowerCase();
+
+			if (msg.contains("username")) {
 				model.addAttribute("error", "username");
-			} else if (e.getMessage().toLowerCase().contains("password")) {
+			} else if (msg.contains("password")) {
 				model.addAttribute("error", "password");
-			} else if (e.getMessage().toLowerCase().contains("birth")) {
+			} else if (msg.contains("birth")) {
 				model.addAttribute("error", "dob");
-			} else if (e.getMessage().toLowerCase().contains("email")) {
+			} else if (msg.contains("email")) {
 				model.addAttribute("error", "email");
-			} else if (e.getMessage().toLowerCase().contains("phone")) {
+			} else if (msg.contains("phone")) {
 				model.addAttribute("error", "phone");
-			} else if (e.getMessage().toLowerCase().contains("activity")) {
+			} else if (msg.contains("activity")) {
 				model.addAttribute("error", "activity-level");
-			} else if (e.getMessage().toLowerCase().contains("weight goal")) {
+			} else if (msg.contains("weight goal")) {
 				model.addAttribute("error", "weight-goal");
 			} else {
-				model.addAttribute("error", "unknown");
+				model.addAttribute("error", "generic");
 			}
 
 			return "register";
