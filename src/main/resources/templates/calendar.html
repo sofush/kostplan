@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/css/calendar.css"/>
 	<link rel="stylesheet" href="/css/notification.css"/>
 </head>
-<body class="dotpattern">
+<body style="background-color: #f7fff7">
 	<div th:if="${param.error}">
 		<div th:if="${param.error[0]} == 'database'" class="section notification" onclick="this.remove()">
 			<img src="/svg/error.svg" alt="error"/>
@@ -36,7 +36,7 @@
 		<img src="/svg/check.svg" alt="checkmark"/>
 		Opskriften for måltidet er blevet ryddet.
 	</div>
-	<div class="section table-container" style="background-color: #f7fff7">
+	<div>
 		<h1 style="text-align: center">
 			<img src="/svg/leaf.svg" style="height: 36px; width: 36px">
 			Din ugekalender
