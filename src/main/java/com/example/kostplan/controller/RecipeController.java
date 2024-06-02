@@ -153,6 +153,50 @@ public class RecipeController {
 		return "redirect:/week?success";
 	}
 
+	@GetMapping("/unassign/{dayOfWeek}/{meal}")
+	public String unassignRecipe(
+		@PathVariable("dayOfWeek") String dayOfWeek,
+		@PathVariable("meal") String meal,
+		Principal principal
+	) {
+		int weekIndex = DateUtil.calculateCurrentWeekIndex();
+		Optional<LocalDate> date = DateUtil.calculateDatesOfNthWeek(weekIndex)
+			.stream()
+			.filter((d) -> d.getDayOfWeek().toString().toLowerCase().contentEquals(dayOfWeek))
+			.findFirst();
+
+		if (date.isEmpty()) {
+			return "redirect:/week?error=day-of-week";
+		}
+
+		Day day;
+
+		try {
+			day = this.service.findDay(principal.getName(), date.get());
+		} catch (DataAccessException e) {
+			return "redirect:/week?error=database";
+		}
+
+		if (day == null) {
+			return "redirect:/week";
+		}
+
+		switch (meal) {
+			case "breakfast" -> day.setBreakfast(null);
+			case "lunch" -> day.setLunch(null);
+			case "dinner" -> day.setDinner(null);
+		}
+
+		this.service.updateDay(
+			day.getUsername(),
+			day.getDate(),
+			day.getBreakfast() == null ? null : day.getBreakfast().getId(),
+			day.getLunch() == null ? null : day.getLunch().getId(),
+			day.getDinner() == null ? null : day.getDinner().getId()
+		);
+		return "redirect:/week?unassigned";
+	}
+
 	@GetMapping("/recipe/{dayOfWeek}/{meal}")
 	public String showRecipe(
 		@PathVariable("dayOfWeek") String dayOfWeek,

@@ -66,6 +66,22 @@ td {
 .recipe-card:hover {
 	animation: 0.3s background-anim both;
 }
+.delete {
+	visibility: hidden;
+	position: absolute;
+	top: -245px;
+	width: 50px;
+	height: 50px;
+	background-color: #f2e1f0;
+	border-radius: 20%;
+	border: 1px grey solid;
+}
+.delete:hover {
+	background-color: #ecd3e9;
+}
+.recipe-card:hover > form .delete {
+	visibility: visible;
+}
 @keyframes background-anim {
 	0% {
 		background-color: #95cd75;

@@ -32,6 +32,10 @@
 		<img src="/svg/check.svg" alt="checkmark"/>
 		Den valgte opskrift er tilføjet til din kalender.
 	</div>
+	<div th:if="${param.unassigned}" class="section notification" onclick="this.remove()">
+		<img src="/svg/check.svg" alt="checkmark"/>
+		Opskriften for måltidet er blevet ryddet.
+	</div>
 	<div class="section table-container" style="background-color: #f7fff7">
 		<h1 style="text-align: center">
 			<img src="/svg/leaf.svg" style="height: 36px; width: 36px">

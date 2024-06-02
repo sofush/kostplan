@@ -81,6 +81,7 @@ class RecipeController {
 	+ String displayWeek(Integer weekIndex, Principal principal, Model model)
 	+ String pickRecipe(String dayOfWeek, String meal, Model model)
 	+ String assignRecipeToDay(String dayOfWeek, String meal, Integer recipeId, Principal principal)
+	+ String unassignRecipe(String dayOfWeek, String meal, Principal principal)
 	+ String showRecipe(String dayOfWeek, String meal, Principal principal, Model model)
 	+ String uploadRecipeImage()
 	+ String uploadRecipeImagePost(MultipartFile file, Integer recipeId)
