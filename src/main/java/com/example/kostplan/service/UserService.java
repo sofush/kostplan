@@ -176,22 +176,19 @@ public class UserService {
 		return IntStream.range(0, 7)
 			.mapToObj(monday::plusDays)
 			.map((date) -> {
-				Day day = new Day(date, username, null, null, null);
-
 				try {
 					Day dayResult = this.storage.findDay(username, date);
 
 					if (dayResult != null)
-						day = dayResult;
+						return dayResult;
 				} catch (Exception e) {
 					// Let the program return an empty Day instance below.
 				}
 
-				return day;
+				return new Day(date, username, null, null, null);
 			})
 			.toList();
 	}
-
 
 	@PreAuthorize("@subscription.isActive()")
 	public byte[] findRecipeImage(int recipeId)
