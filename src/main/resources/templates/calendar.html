@@ -37,6 +37,7 @@
 		Opskriften for måltidet er blevet ryddet.
 	</div>
 	<div>
+		<div th:replace="~{fragments :: user}"></div>
 		<h1 style="text-align: center">
 			<img src="/svg/leaf.svg" style="height: 36px; width: 36px">
 			Din ugekalender
@@ -75,5 +76,17 @@
 			</tr>
 		</table>
 	</div>
+	<script type="text/javascript">
+	var menu = document.getElementById("dropdown-menu");
+	var profile = document.getElementById("profile");
+
+	document.addEventListener("click", e => {
+		if (profile.contains(e.target)) {
+			menu.classList.toggle("hidden");
+		} else if (!menu.contains(e.target)) {
+			menu.classList.add("hidden");
+		}
+	});
+	</script>
 </body>
 </html>

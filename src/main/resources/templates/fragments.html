@@ -13,6 +13,28 @@
 			<label>kostplan til hverdagen</label>
 		</p>
 	</label>
+	<div th:fragment="user" style="display: inline-block; position: absolute; margin: 10px">
+		<div class="section" id="profile" style="cursor: pointer; display: flex; align-items: center">
+			<img src="/svg/user.svg" alt="profile picture" height="30" width="30" style="margin-right: 10px"/>
+			<label style="cursor: pointer; font-size: 25px; text-align: center; margin-right: 10px" th:text="${username}"></label>
+			<img src="/svg/caret-down.svg" alt="caret down" height="30" width="30"/>
+		</div>
+		<div id="dropdown-menu" class="hidden section" style="margin-top: 5px">
+			<a href="/edit" class="menu-item">
+				<div class="menu-item-inner">
+					<img src="/svg/pen-to-square.svg" alt="caret down">
+					Rediger profil
+				</div>
+			</a>
+			<hr style="border-top: 1px dashed #bbbbbb"/>
+			<a href="/logout" class="menu-item">
+				<div class="menu-item-inner">
+					<img src="/svg/door-open.svg" alt="door">
+					Log ud
+				</div>
+			</a>
+		</div>
+	</div>
 	<div th:fragment="recipe-card">
 		<a th:if="${recipe == null}"
 		   th:href="@{|/pick/${dayOfWeek.toString().toLowerCase()}/${meal}|}"

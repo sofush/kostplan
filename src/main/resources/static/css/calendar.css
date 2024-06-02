@@ -101,3 +101,23 @@ td {
 	overflow-wrap: break-word;
 	font-size: 15px;
 }
+.hidden {
+	visibility: hidden;
+}
+.menu-item {
+	height: 100px;
+	text-decoration: none;
+	color: black;
+}
+.menu-item:hover {
+	text-decoration: underline;
+}
+.menu-item-inner {
+	display: flex;
+	align-items: center;
+}
+.menu-item-inner > img {
+	height: 20px;
+	width: 20px;
+	margin-right: 12px;
+}

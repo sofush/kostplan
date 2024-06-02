@@ -43,6 +43,7 @@ public class RecipeController {
 		model.addAttribute("fromDate", daysOfWeek.get(0).getDate());
 		model.addAttribute("toDate", daysOfWeek.get(6).getDate());
 		model.addAttribute("days", daysOfWeek);
+		model.addAttribute("username", principal.getName());
 		return "calendar";
 	}
 
