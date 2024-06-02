@@ -23,8 +23,11 @@
 			Det angivne opskrift ID nummer er ugyldigt.
 		</div>
 	</div>
-	<a href="/week">< gå tilbage til ugekalender</a>
-	<h1 th:text="'Tildel en opskrift til ' + ${translatedDayOfWeek} + 's ' + ${translatedMeal}"></h1>
+	<div class="section" style="background-color: #fbfffb">
+		<a href="/week">< gå tilbage til ugekalender</a>
+		<h1 th:text="'Tildel en opskrift til ' + ${translatedDayOfWeek} + 's ' + ${translatedMeal}"></h1>
+	</div>
+	<br>
 	<div class="container">
 		<div th:each="recipe : ${recipes}">
 			<a th:href="@{|/assign/${dayOfWeek}/${meal}/${recipe.id}|}" style="text-decoration: none">
