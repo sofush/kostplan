@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -93,6 +94,7 @@ public class UserService {
 		this.storage.addUser(user);
 	}
 
+	@Transactional
 	@PreAuthorize("(@subscription.isActive() && #username == authentication.principal.username) || hasRole('ADMIN')")
 	public void addDay(
 		String username,
