@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Fejl - Minkostplan</title>
+	<link rel="icon" href="/svg/leaf.svg">
+	<link rel="stylesheet" href="/css/form.css"/>
+	<link rel="stylesheet" href="/css/base.css"/>
+	<link rel="stylesheet" href="/css/input.css"/>
+	<link rel="stylesheet" href="/css/notification.css"/>
+</head>
+<body class="dotpattern">
+	<div th:replace="~{fragments :: branding}"></div>
+	<div class="section notification" onclick="this.remove()">
+		<img src="/svg/error.svg" alt="error"/>
+		En fejl opstod.
+	</div>
+	<div class="center section" style="width: 400px">
+		<h2 th:text="${title}" style="text-align: center; color: red"></h2>
+		<h3>Fejlbesked</h3>
+		<label th:text="${content}"></label>
+		<p>
+			<hr style="border-top: 1px dashed #bbbbbb"/>
+		</p>
+		<div>
+			<a href="/edit">Rediger profil...</a>
+		</div>
+		<div>
+			<a href="/logout">Log ud</a>
+		</div>
+	</div>
+</body>
+</html>
+
