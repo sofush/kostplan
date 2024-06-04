@@ -3,9 +3,15 @@ package com.example.kostplan.security;
 import com.example.kostplan.service.PaymentService;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component("subscription")
 public class SubscriptionComponent {
@@ -17,7 +23,8 @@ public class SubscriptionComponent {
 	}
 
 	public boolean isActive() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		SecurityContext ctx = SecurityContextHolder.getContext();
+		Authentication auth = ctx.getAuthentication();
 
 		if (auth == null)
 			return false;
@@ -29,7 +36,20 @@ public class SubscriptionComponent {
 			return true;
 
 		try {
-			return this.paymentService.hasActiveSubscription(auth.getName());
+			boolean isSubscribed = this.paymentService.hasActiveSubscription(auth.getName());
+
+			if (isSubscribed) {
+				ArrayList<GrantedAuthority> authorities = new ArrayList<>(auth.getAuthorities());
+				authorities.add(new SimpleGrantedAuthority("ROLE_SUBSCRIBER"));
+
+				ctx.setAuthentication(new UsernamePasswordAuthenticationToken(
+					auth.getPrincipal(),
+					auth.getCredentials(),
+					authorities
+				));
+			}
+
+			return isSubscribed;
 		} catch (StripeException e) {
 			return false;
 		}
