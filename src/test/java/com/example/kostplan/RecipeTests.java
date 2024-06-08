@@ -73,7 +73,6 @@ class RecipeTests {
 		Assertions.assertThat(caloriesAfter).isBetween(32.0, 34.0);
 	}
 
-
 	@Test
 	public void testCalculateCalorieGoal(@Autowired PasswordEncoder passwordEncoder) {
 		User testUser = new User(
