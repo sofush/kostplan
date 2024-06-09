@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.nio.file.AccessDeniedException;
 
@@ -30,6 +31,14 @@ public class GlobalExceptionHandler {
 		logger.error("Unhandled access denied error", e);
 		model.addAttribute("title", "Adgang nægtet");
 		model.addAttribute("content", "Du har ikke adgang til denne side.");
+		return "error";
+	}
+
+	@ExceptionHandler({NoResourceFoundException.class})
+	public String handleNoResourceFoundException(NoResourceFoundException e, Model model) {
+		logger.error("Could not find the requested resource", e);
+		model.addAttribute("title", "Ressource fejl");
+		model.addAttribute("content", "Den anmodede ressource findes ikke.");
 		return "error";
 	}
 
