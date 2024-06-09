@@ -26,31 +26,13 @@ public class MysqlRepository implements PersistentStorage {
 		}
 
 		this.jdbc.execute("""
-			CREATE TABLE IF NOT EXISTS User(
-				username VARCHAR(20),
-				password TEXT NOT NULL,
-				email_address TEXT NOT NULL,
-				phone_number TEXT NOT NULL,
-				role INTEGER NOT NULL,
-				weight_goal INTEGER NOT NULL,
-				activity_level INTEGER NOT NULL,
-				name TEXT,
-				male BOOLEAN NOT NULL,
-				weight INTEGER NOT NULL,
-				dob DATE NOT NULL,
-				height INTEGER NOT NULL,
-				PRIMARY KEY (username)
-			);
-			""");
-
-		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS Recipe(
 				id INTEGER AUTO_INCREMENT,
-				week INTEGER,
-				title TEXT,
-				description TEXT,
-				instructions TEXT,
-				time TEXT,
+				week INTEGER NOT NULL,
+				title TEXT NOT NULL,
+				description TEXT NOT NULL,
+				instructions TEXT NOT NULL,
+				time TEXT NOT NULL,
 				PRIMARY KEY (id)
 			);
 			""");
@@ -58,7 +40,7 @@ public class MysqlRepository implements PersistentStorage {
 		this.jdbc.execute("""
 			CREATE TABLE IF NOT EXISTS RecipeImage(
 				recipe INTEGER,
-				bytes LONGBLOB,
+				bytes LONGBLOB NOT NULL,
 				PRIMARY KEY (recipe),
 				FOREIGN KEY (recipe) REFERENCES Recipe(id)
 			);
@@ -77,13 +59,30 @@ public class MysqlRepository implements PersistentStorage {
 			CREATE TABLE IF NOT EXISTS Ingredient(
 				id INTEGER AUTO_INCREMENT,
 				recipe INTEGER,
-				unit INTEGER,
-				name TEXT,
-				quantity DOUBLE,
-				calories DOUBLE,
+				unit INTEGER NOT NULL,
+				name TEXT NOT NULL,
+				quantity DOUBLE NOT NULL,
+				calories DOUBLE NOT NULL,
 				PRIMARY KEY (id),
 				FOREIGN KEY (recipe) REFERENCES Recipe(id),
 				FOREIGN KEY (unit) REFERENCES Unit(id)
+			);
+			""");
+
+		this.jdbc.execute("""
+			CREATE TABLE IF NOT EXISTS User(
+				username VARCHAR(20),
+				password TEXT NOT NULL,
+				email_address TEXT NOT NULL,
+				phone_number TEXT NOT NULL,
+				weight_goal INTEGER NOT NULL,
+				activity_level INTEGER NOT NULL,
+				role INTEGER NOT NULL,
+				male BOOLEAN NOT NULL,
+				weight INTEGER NOT NULL,
+				dob DATE NOT NULL,
+				height INTEGER NOT NULL,
+				PRIMARY KEY (username)
 			);
 			""");
 
