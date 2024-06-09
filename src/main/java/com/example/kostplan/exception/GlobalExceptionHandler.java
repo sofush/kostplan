@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	private final Logger logger;
@@ -30,7 +29,7 @@ public class GlobalExceptionHandler {
 	public String handleAccessDeniedException(AccessDeniedException e, Model model) {
 		logger.error("Unhandled access denied error", e);
 		model.addAttribute("title", "Adgang nægtet");
-		model.addAttribute("content", "Du har ikke adgang til denne side.");
+		model.addAttribute("content", "Du har ikke adgang til denne side. Prøv at logge ud og ind igen.");
 		return "error";
 	}
 

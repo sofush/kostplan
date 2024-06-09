@@ -147,14 +147,14 @@ public class UserService {
 		return this.storage.findDay(username, localDate);
 	}
 
-	@PreAuthorize("@subscription.isActive()")
+	@PreAuthorize("@subscription.isActive() || hasRole('CHEF') || hasRole('ADMIN')")
 	public Recipe findRecipeById(Integer recipeId)
 		throws DataAccessException
 	{
 		return this.storage.findRecipeById(recipeId);
 	}
 
-	@PreAuthorize("@subscription.isActive()")
+	@PreAuthorize("@subscription.isActive() || hasRole('CHEF') || hasRole('ADMIN')")
 	public List<Recipe> findRecipesForWeek(int weekIndex)
 		throws DataAccessException
 	{
@@ -190,14 +190,14 @@ public class UserService {
 			.toList();
 	}
 
-	@PreAuthorize("@subscription.isActive()")
+	@PreAuthorize("@subscription.isActive() || hasRole('CHEF') || hasRole('ADMIN')")
 	public byte[] findRecipeImage(int recipeId)
 		throws DataAccessException
 	{
 		return this.storage.findRecipeImage(recipeId);
 	}
 
-	@PreAuthorize("hasRole('ADMIN') || hasRole('CHEF')")
+	@PreAuthorize("hasRole('CHEF') || hasRole('ADMIN')")
 	public void addRecipeImage(int recipeId, byte[] imageBytes)
 		throws DataAccessException
 	{
