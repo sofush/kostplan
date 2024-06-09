@@ -29,6 +29,10 @@
 		<img src="/svg/error.svg" alt="error"/>
 		Brugernavn skal være mellem 3-20 tegn langt.
 	</div>
+	<div th:if="${error} == 'user-exists'" class="section notification" onclick="this.remove()">
+		<img src="/svg/error.svg" alt="error"/>
+		En bruger med det angivne brugernavn er allerede oprettet.
+	</div>
 	<div th:if="${error} == 'password'" class="section notification" onclick="this.remove()">
 		<img src="/svg/error.svg" alt="error"/>
 		Password skal være minimum 3 tegn langt.

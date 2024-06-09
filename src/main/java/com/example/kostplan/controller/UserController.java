@@ -4,6 +4,7 @@ import com.example.kostplan.entity.ActivityLevel;
 import com.example.kostplan.entity.WeightGoal;
 import com.example.kostplan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -147,6 +148,9 @@ public class UserController {
 				model.addAttribute("error", "generic");
 			}
 
+			return "register";
+		} catch (DuplicateKeyException e) {
+			model.addAttribute("error", "user-exists");
 			return "register";
 		} catch (Exception e) {
 			model.addAttribute("error", "unknown");
