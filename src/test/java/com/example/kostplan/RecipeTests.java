@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +33,7 @@ class RecipeTests {
 	}
 
 	@Test
+	@WithMockUser(roles = "SUBSCRIBER")
 	public void testScaleRecipe(@Autowired UserService userService) {
 		final int calorieGoal = 100;
 
@@ -74,6 +76,7 @@ class RecipeTests {
 	}
 
 	@Test
+	@WithMockUser(roles = "SUBSCRIBER")
 	public void testCalculateCalorieGoal(@Autowired PasswordEncoder passwordEncoder) {
 		User testUser = new User(
 			"test-testUser",
