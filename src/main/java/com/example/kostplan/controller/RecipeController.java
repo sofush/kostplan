@@ -215,7 +215,13 @@ public class RecipeController {
 			return "redirect:/week?error=day-of-week";
 		}
 
-		Day day = this.service.findDay(principal.getName(), date.get());
+		Day day;
+
+		try {
+			day = this.service.findDay(principal.getName(), date.get());
+		} catch (DataAccessException e) {
+			return "redirect:/week?error=database";
+		}
 
 		if (day == null) {
 			return "redirect:/week?error=no-meal-assigned";
